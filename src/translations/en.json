@@ -1,10 +1,11 @@
 {
   "onboarding": {
-    "message": "Welcome to immerza app site"
+    "message": "Welcome to obytes app site"
   },
   "settings": {
     "about": "About",
     "app_name": "App Name",
+    "arabic": "Arabic",
     "english": "English",
     "generale": "General",
     "github": "Github",
@@ -28,5 +29,5 @@
     "version": "Version",
     "website": "Website"
   },
-  "welcome": "Welcome to immerza app site"
+  "welcome": "Welcome to obytes app site"
 }

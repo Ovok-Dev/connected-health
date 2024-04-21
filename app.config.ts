@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import type { ConfigContext, ExpoConfig } from '@expo/config';
 
 import { ClientEnv, Env } from './env';
@@ -7,7 +8,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: Env.NAME,
   description: `${Env.NAME} Mobile App`,
   owner: Env.EXPO_ACCOUNT_OWNER,
-  slug: 'immerza',
+  scheme: Env.SCHEME,
+  slug: 'obytesapp',
   version: Env.VERSION.toString(),
   orientation: 'portrait',
   icon: './assets/icon.png',
@@ -15,40 +17,39 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   splash: {
     image: './assets/splash.png',
     resizeMode: 'cover',
-    backgroundColor: '#F75469',
+    backgroundColor: '#2E3C4B',
   },
   updates: {
     fallbackToCacheTimeout: 0,
   },
   assetBundlePatterns: ['**/*'],
   ios: {
-    infoPlist: {
-      NSHealthShareUsageDescription:
-        'We need to access your health data to track your steps.',
-      NSHealthUpdateUsageDescription:
-        '<< We need to access to your health records to update meditation info >>',
-    },
-    entitlements: {
-      'com.apple.developer.healthkit': true,
-      'com.apple.developer.healthkit.background-delivery': true,
-    },
     supportsTablet: true,
     bundleIdentifier: Env.BUNDLE_ID,
   },
-
+  experiments: {
+    typedRoutes: true,
+  },
   android: {
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#2E3C4B',
     },
     package: Env.PACKAGE,
   },
   web: {
     favicon: './assets/favicon.png',
+    bundler: 'metro',
   },
   plugins: [
-    ['@bacons/link-assets', ['./assets/fonts/Inter.ttf']],
+    [
+      'expo-font',
+      {
+        fonts: ['./assets/fonts/Inter.ttf'],
+      },
+    ],
     'expo-localization',
+    'expo-router',
     [
       'expo-build-properties',
       {
@@ -60,7 +61,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'app-icon-badge',
       {
-        enabled: true,
+        enabled: Env.APP_ENV !== 'production',
         badges: [
           {
             text: Env.APP_ENV,
