@@ -82,9 +82,7 @@ client.interceptors.response.use(
         }
         return Promise.reject(error);
       } catch (refreshError) {
-        // Handle the refresh error, possibly logging the user out if refresh fails
         console.error('Error refreshing token:', refreshError);
-        // You can also throw an error or take other appropriate action
         signOut();
         throw refreshError;
       }
