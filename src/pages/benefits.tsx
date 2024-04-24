@@ -8,7 +8,6 @@ export default function Benefits() {
         colors={['#4f506f', '#756233']}
         start={{ x: 0, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}
-        // 111.61
         className="flex-1"
       >
         <Image
