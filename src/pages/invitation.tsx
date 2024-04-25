@@ -16,7 +16,7 @@ export default function Invitation() {
         <View className="mx-3 flex-1 items-center justify-start">
           <View className="mb-2">
             <Text className="text-center font-jost text-[32px] font-bold leading-normal text-white">
-              Have an Invite ?
+              Have an invite ?
             </Text>
           </View>
           <View className="mb-4">
@@ -39,7 +39,7 @@ export default function Invitation() {
               </Pressable>
             </View>
             <View>
-              <Pressable className="rounded-xl border-[1px] border-[grey] bg-[#686b99] px-12 py-4">
+              <Pressable className="rounded-xl border border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.14)] px-12 py-4">
                 <Text className="text-[16px] font-medium text-[white]">
                   Scan and Start Your Care Journey
                 </Text>
