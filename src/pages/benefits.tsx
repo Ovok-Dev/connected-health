@@ -1,8 +1,8 @@
 import { Image, Text, View } from 'react-native';
 
+import BackgroundCircles from '@/ovok-ui/background-circles';
 import ButtonWhite from '@/ovok-ui/button-white';
 import ButtonWithIcon from '@/ovok-ui/button-with-icon';
-import BackgroundCircles from '@/ovok-ui/double-linear-gradient';
 
 export default function Benefits() {
   return (

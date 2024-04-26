@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 
+import BackgroundCircles from '@/ovok-ui/background-circles';
 import ButtonWhite from '@/ovok-ui/button-white';
-import BackgroundCircles from '@/ovok-ui/double-linear-gradient';
 import { Input } from '@/ui';
 
 export default function GetStarted() {

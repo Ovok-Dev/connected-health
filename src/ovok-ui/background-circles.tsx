@@ -7,14 +7,20 @@ export default function BackgroundCircles({ children }: PropsWithChildren) {
     <View className="flex-1">
       <LinearGradient
         colors={['rgba(82, 83, 146, 1)', 'rgba(238, 185, 51, 1)']}
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 1, y: 0.5 }}
+        start={{ x: -0.4, y: 1 }}
+        end={{ x: 1.4, y: 1.2 }}
+        locations={[0.1791, 1.691]}
         className="flex-1"
       >
         <LinearGradient
-          colors={['rgba(82, 84, 144, 1)', 'rgba(82, 84, 144, 0)']}
+          colors={[
+            'rgba(82, 84, 144, 1)',
+            'rgba(82, 84, 144, 0)',
+            'rgba(93, 136, 144, 0.75)',
+          ]}
           start={{ x: 1, y: 0 }}
-          end={{ x: 0, y: 1 }}
+          end={{ x: 0, y: 3.4823 }}
+          locations={[-0.0175, -0.0174, 1]}
           className="flex-1"
         >
           <ImageBackground

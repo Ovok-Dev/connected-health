@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Image, Linking, Text, View } from 'react-native';
 
+import BackgroundCircles from '@/ovok-ui/background-circles';
 import ButtonWhite from '@/ovok-ui/button-white';
-import BackgroundCircles from '@/ovok-ui/double-linear-gradient';
 import { Checkbox } from '@/ui';
 
 export default function DataConsent() {
