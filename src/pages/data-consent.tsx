@@ -30,7 +30,7 @@ export default function DataConsent() {
           <Text className="mb-3 text-center text-[28px] font-bold leading-loose text-[white]">
             Your Data, Your Control
           </Text>
-          <Text className="mb-3 text-center leading-loose text-[white]">
+          <Text className="mb-3 text-center leading-[1.8] text-[white]">
             We prioritize your privacy. Only collect what's needed to serve you
             better. Rest assured, your health data is encrypted and secure.
           </Text>
