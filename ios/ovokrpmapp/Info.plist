@@ -28,7 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>ovok_rpm_app</string>
-          <string>com.ovok.app</string>
+          <string>com.ovok.app.development</string>
         </array>
       </dict>
       <dict>
@@ -52,10 +52,13 @@
     <key>NSUserActivityTypes</key>
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
+      <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
     </array>
     <key>UIAppFonts</key>
     <array>
       <string>Inter.ttf</string>
+      <string>Jost-Regular.ttf</string>
+      <string>Jost-Bold.ttf</string>
     </array>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>

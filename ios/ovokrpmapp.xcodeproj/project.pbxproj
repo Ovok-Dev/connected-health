@@ -16,6 +16,8 @@
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		C58EA7DD33A1447C8045D690 /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C733F51282E24ED681CEF603 /* Inter.ttf */; };
+		1EC8CB613C464EA6AE4BA796 /* Jost-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA52589BC7D1475894303749 /* Jost-Regular.ttf */; };
+		2F2922A3F579425FA2737426 /* Jost-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C102B8B7E3BA4B88AC0A5738 /* Jost-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		E6A9462B951345C096AB5746 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "ovokrpmapp/noop-file.swift"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-ovokrpmapp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		CA52589BC7D1475894303749 /* Jost-Regular.ttf */ = {isa = PBXFileReference; name = "Jost-Regular.ttf"; path = "../assets/fonts/Jost-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C102B8B7E3BA4B88AC0A5738 /* Jost-Bold.ttf */ = {isa = PBXFileReference; name = "Jost-Bold.ttf"; path = "../assets/fonts/Jost-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				C733F51282E24ED681CEF603 /* Inter.ttf */,
+				CA52589BC7D1475894303749 /* Jost-Regular.ttf */,
+				C102B8B7E3BA4B88AC0A5738 /* Jost-Bold.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -213,6 +219,8 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 				C58EA7DD33A1447C8045D690 /* Inter.ttf in Resources */,
+				1EC8CB613C464EA6AE4BA796 /* Jost-Regular.ttf in Resources */,
+				2F2922A3F579425FA2737426 /* Jost-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,8 +373,8 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ovok.app;
-				PRODUCT_NAME = ovokrpmapp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ovok.app.development";
+				PRODUCT_NAME = "ovokrpmapp";
 				SWIFT_OBJC_BRIDGING_HEADER = "ovokrpmapp/ovokrpmapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -393,8 +401,8 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ovok.app;
-				PRODUCT_NAME = ovokrpmapp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ovok.app.development";
+				PRODUCT_NAME = "ovokrpmapp";
 				SWIFT_OBJC_BRIDGING_HEADER = "ovokrpmapp/ovokrpmapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
