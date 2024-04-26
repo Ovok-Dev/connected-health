@@ -33,7 +33,7 @@ require('dotenv').config({
 
 // TODO: Replace these values with your own
 
-const BUNDLE_ID = 'com.ovok_rpm_app'; // ios bundle id
+const BUNDLE_ID = 'com.ovok.app'; // ios bundle id
 const PACKAGE = 'com.ovok_rpm_app'; // android package name
 const NAME = 'ovok_rpm_app'; // app name
 const EXPO_ACCOUNT_OWNER = 'expo-owner'; // expo account owner
