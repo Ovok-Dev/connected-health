@@ -22,7 +22,7 @@ export default function DataConsent() {
   return (
     <BackgroundCircles>
       <Image
-        source={require('../../assets/images/image-lock.png')}
+        source={require('../../../assets/images/image-lock.png')}
         className="absolute left-[67px] top-[104px]"
       />
       <View className="mx-9 mt-[350px]">
@@ -72,7 +72,9 @@ export default function DataConsent() {
           </View>
         </View>
         <View>
-          <ButtonWhite disabled={continueDisabled}>Continue</ButtonWhite>
+          <ButtonWhite disabled={continueDisabled} href="/get-started">
+            Continue
+          </ButtonWhite>
         </View>
       </View>
     </BackgroundCircles>

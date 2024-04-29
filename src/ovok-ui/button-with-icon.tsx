@@ -30,7 +30,7 @@ export default function ButtonWithIcon({ children, iconName }: Props) {
           <Image source={icon} />
         </View>
         <View>
-          <Text className="text-[white]">{children}</Text>
+          <Text className="tracking-[0.3px] text-[white]">{children}</Text>
         </View>
       </Pressable>
     </View>

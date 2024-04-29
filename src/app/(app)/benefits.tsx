@@ -8,7 +8,7 @@ export default function Benefits() {
   return (
     <BackgroundCircles>
       <Image
-        source={require('../../assets/images/image-two-stars.png')}
+        source={require('../../../assets/images/image-two-stars.png')}
         className="absolute left-[123px] top-[62.84px] rotate-[-87.41deg]"
       />
       <View className="mx-6 my-24">
@@ -30,7 +30,7 @@ export default function Benefits() {
         <ButtonWithIcon iconName="activities">
           Daily Health Activities
         </ButtonWithIcon>
-        <ButtonWhite>Continue</ButtonWhite>
+        <ButtonWhite href="/(app)/data-consent">Continue</ButtonWhite>
       </View>
     </BackgroundCircles>
   );

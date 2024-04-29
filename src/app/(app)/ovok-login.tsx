@@ -1,5 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { Linking, Pressable, Text, View } from 'react-native';
+import { Link } from 'expo-router';
+import { Pressable, Text, View } from 'react-native';
 
 import BackgroundCircles from '@/ovok-ui/background-circles';
 import { Input } from '@/ui';
@@ -31,31 +32,31 @@ export default function OvokLogin() {
             autoCorrect={false}
             autoCapitalize="none"
           />
-          <View className="h-[90px] overflow-hidden rounded-xl">
+          <Pressable className="mt-6 h-[60px] overflow-hidden rounded-xl">
             <LinearGradient
               colors={['rgb(82, 83, 146)', 'rgb(238, 185, 51)']}
               start={{ x: 0, y: 0.5 }}
               end={{ x: 1, y: 0.5 }}
-              className="h-12 flex-1 flex-row rounded-xl"
+              className="flex-1 flex-row items-center justify-center rounded-xl py-4"
             >
-              <Pressable className="flex-1 flex-row justify-center py-6">
-                <Text className="text-[28px] font-medium text-[white]">
-                  Login
-                </Text>
-              </Pressable>
+              <Text className="text-[18px] font-medium tracking-[0.3px] text-[white]">
+                Login
+              </Text>
             </LinearGradient>
+          </Pressable>
+          <View className="flex-1 justify-end">
+            <View className="mb-12">
+              <Text className="text-center leading-[1.8] text-[rgba(29,29,29,0.6)]">
+                Don't have an account?
+              </Text>
+              <Link
+                className="text-center font-medium leading-[1.8] text-[rgb(52,54,114)] underline"
+                href="/get-started"
+              >
+                Sign up
+              </Link>
+            </View>
           </View>
-        </View>
-        <View>
-          <Text className="text-[rbga(29,29,29,0.6)]">
-            Don't have an account?
-          </Text>
-          <Text
-            className="font-medium text-[rbga(29,29,29,0.6)] underline"
-            onPress={() => Linking.openURL('')}
-          >
-            Signup
-          </Text>
         </View>
       </View>
     </BackgroundCircles>
