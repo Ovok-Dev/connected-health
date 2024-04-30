@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { StatusBar, Text, View } from 'react-native';
 
 import BackgroundCircles from '@/ovok-ui/background-circles';
 import ButtonWhite from '@/ovok-ui/button-white';
@@ -7,7 +7,14 @@ import { Input } from '@/ui';
 export default function GetStarted() {
   return (
     <BackgroundCircles>
-      <View className="mx-9 mt-12">
+      <View
+        className="mx-9"
+        style={{
+          marginTop: StatusBar.currentHeight
+            ? 24 + StatusBar.currentHeight
+            : 24,
+        }}
+      >
         <View className="mb-9">
           <Text className="mb-3 font-jost text-[28px] font-bold leading-[1.8] text-[white]">
             Get Started!

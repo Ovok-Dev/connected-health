@@ -1,15 +1,25 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from 'expo-router';
 import React from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 
 export default function Invitation() {
+  const { height } = Dimensions.get('window');
+
   return (
-    <View className="flex-1">
-      <LinearGradient colors={['#5D8890', '#525490']} className="flex-1">
+    <LinearGradient colors={['#5D8890', '#525490']} className="flex-1">
+      <ScrollView className="flex-1">
         <Image
           source={require('../../../assets/images/invitation-image.png')}
-          className="h-[66%] w-full"
+          className="w-full"
+          style={{ height: height - 270 }}
         />
         <View className="mx-3 flex-1 items-center justify-start">
           <View className="mb-2">
@@ -49,7 +59,7 @@ export default function Invitation() {
             </View>
           </View>
         </View>
-      </LinearGradient>
-    </View>
+      </ScrollView>
+    </LinearGradient>
   );
 }

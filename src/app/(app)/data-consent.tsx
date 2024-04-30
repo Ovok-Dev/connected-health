@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Image, Linking, Text, View } from 'react-native';
+import { Dimensions, Image, Linking, Text, View } from 'react-native';
 
 import BackgroundCircles from '@/ovok-ui/background-circles';
 import ButtonWhite from '@/ovok-ui/button-white';
 import { Checkbox } from '@/ui';
 
 export default function DataConsent() {
+  const { height } = Dimensions.get('window');
+
   const [termsChecked, setTermsChecked] = useState(false);
   const [privacyChecked, setPrivacyChecked] = useState(false);
 
@@ -23,9 +25,11 @@ export default function DataConsent() {
     <BackgroundCircles>
       <Image
         source={require('../../../assets/images/image-lock.png')}
-        className="absolute left-[67px] top-[104px]"
+        className={`absolute left-[67px] ${
+          height < 650 ? 'top-[40px]' : 'top-[104px]'
+        }`}
       />
-      <View className="mx-9 mt-[350px]">
+      <View className={`mx-9 ${height < 650 ? 'mt-[250px]' : 'mt-[350px]'}`}>
         <View>
           <Text className="mb-3 text-center text-[28px] font-bold leading-loose text-[white]">
             Your Data, Your Control
@@ -35,7 +39,7 @@ export default function DataConsent() {
             better. Rest assured, your health data is encrypted and secure.
           </Text>
         </View>
-        <View className="mt-24">
+        <View className={height < 650 ? 'mt-9' : 'mt-24'}>
           <View className="mb-6 flex-row">
             <View className="mr-3">
               <Checkbox
