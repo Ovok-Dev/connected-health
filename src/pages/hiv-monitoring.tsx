@@ -15,7 +15,7 @@ export default function HIVMonitoring() {
       </View>
       <View className="mb-6">
         <Text className="text-center text-[24px] font-semibold leading-[1.8]">
-          Hi, Grace!
+          Hi, Grace
         </Text>
         <Text className="text-center text-[12px] leading-[1.8] text-[rgb(130,130,130)]">
           Saturday, 12 Aug

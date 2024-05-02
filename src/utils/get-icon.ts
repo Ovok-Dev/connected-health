@@ -28,6 +28,15 @@ export function getIcon(iconName: string) {
     case 'learn':
       icon = require('../../assets/images/icon-learn.png');
       break;
+    case 'bell':
+      icon = require('../../assets/images/icon-bell.png');
+      break;
+    case 'grace':
+      icon = require('../../assets/images/icon-grace.png');
+      break;
+    case 'loop':
+      icon = require('../../assets/images/icon-loop.png');
+      break;
   }
   return icon;
 }
