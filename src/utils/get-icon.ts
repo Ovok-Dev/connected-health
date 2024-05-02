@@ -19,6 +19,15 @@ export function getIcon(iconName: string) {
     case 'arrow-right':
       icon = require('../../assets/images/icon-arrow-right.png');
       break;
+    case 'medication':
+      icon = require('../../assets/images/icon-medication.png');
+      break;
+    case 'questionnaire':
+      icon = require('../../assets/images/icon-questionnaire.png');
+      break;
+    case 'learn':
+      icon = require('../../assets/images/icon-learn.png');
+      break;
   }
   return icon;
 }
