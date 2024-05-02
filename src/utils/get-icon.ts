@@ -19,6 +19,36 @@ export function getIcon(iconName: string) {
     case 'arrow-right':
       icon = require('../../assets/images/icon-arrow-right.png');
       break;
+    case 'medication':
+      icon = require('../../assets/images/icon-medication.png');
+      break;
+    case 'questionnaire':
+      icon = require('../../assets/images/icon-questionnaire.png');
+      break;
+    case 'learn':
+      icon = require('../../assets/images/icon-learn.png');
+      break;
+    case 'bell':
+      icon = require('../../assets/images/icon-bell.png');
+      break;
+    case 'grace':
+      icon = require('../../assets/images/icon-grace.png');
+      break;
+    case 'loop':
+      icon = require('../../assets/images/icon-loop.png');
+      break;
+    case 'heart':
+      icon = require('../../assets/images/icon-heart.png');
+      break;
+    case 'pressure':
+      icon = require('../../assets/images/icon-pressure.png');
+      break;
+    case 'temperature':
+      icon = require('../../assets/images/icon-temperature.png');
+      break;
+    case 'weight':
+      icon = require('../../assets/images/icon-weight.png');
+      break;
   }
   return icon;
 }
