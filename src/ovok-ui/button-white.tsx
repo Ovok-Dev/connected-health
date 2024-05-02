@@ -1,23 +1,30 @@
+import type { Href } from 'expo-router';
+import { router } from 'expo-router';
 import type { PropsWithChildren } from 'react';
-import type { PressableProps } from 'react-native';
 import { Pressable, Text } from 'react-native';
 
 interface Props extends PropsWithChildren {
   disabled?: boolean;
-  onPress?: PressableProps['onPress'];
+  href?: Href<string>;
 }
 
-export default function ButtonWhite({ children, disabled, onPress }: Props) {
+export default function ButtonWhite({
+  children,
+  disabled = false,
+  href,
+}: Props) {
   const backgroundColor: string = disabled
     ? 'bg-[rgba(255,255,255,0.5)]'
     : 'bg-[white]';
 
   return (
     <Pressable
-      className={`mt-9 flex-row justify-center rounded-xl ${backgroundColor} py-4`}
-      onPress={onPress}
+      className={`my-9 flex-row justify-center rounded-xl ${backgroundColor} py-4`}
+      onPress={() => href && !disabled && router.navigate(href)}
     >
-      <Text className="text-[18px] font-medium text-[#525490]">{children}</Text>
+      <Text className="text-[18px] font-medium tracking-[0.3px] text-[#525490]">
+        {children}
+      </Text>
     </Pressable>
   );
 }

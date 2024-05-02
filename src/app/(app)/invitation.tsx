@@ -1,17 +1,25 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router';
 import React from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 
 export default function Invitation() {
+  const { height } = Dimensions.get('window');
+
   return (
-    <View className="flex-1 items-center">
-      <LinearGradient
-        colors={['#5D8890', '#525490']}
-        className="width-full flex-1"
-      >
+    <LinearGradient colors={['#5D8890', '#525490']} className="flex-1">
+      <ScrollView className="flex-1">
         <Image
-          source={require('../../assets/images/invitation-image.png')}
-          className="h-[66%]"
+          source={require('../../../assets/images/invitation-image.png')}
+          className="w-full"
+          style={{ height: height - 270 }}
         />
         <View className="mx-3 flex-1 items-center justify-start">
           <View className="mb-2">
@@ -27,16 +35,20 @@ export default function Invitation() {
           </View>
           <View>
             <View className="mb-4 flex-row justify-between gap-4">
-              <Pressable className="flex-1 items-center rounded-xl bg-[white] px-12 py-4">
-                <Text className="text-[18px] font-medium text-[#525490]">
-                  Sign up
-                </Text>
-              </Pressable>
-              <Pressable className="flex-1 items-center rounded-xl bg-[white] px-12 py-4">
-                <Text className="text-[18px] font-medium text-[#525490]">
-                  Login
-                </Text>
-              </Pressable>
+              <Link href="/benefits" asChild>
+                <Pressable className="flex-1 items-center rounded-xl bg-[white] px-12 py-4">
+                  <Text className="text-[18px] font-medium tracking-[0.3px] text-[#525490]">
+                    Sign up
+                  </Text>
+                </Pressable>
+              </Link>
+              <Link href="/ovok-login" asChild>
+                <Pressable className="flex-1 items-center rounded-xl bg-[white] px-12 py-4">
+                  <Text className="text-[18px] font-medium tracking-[0.3px] text-[#525490]">
+                    Login
+                  </Text>
+                </Pressable>
+              </Link>
             </View>
             <View>
               <Pressable className="rounded-xl border border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.14)] px-12 py-4">
@@ -47,7 +59,7 @@ export default function Invitation() {
             </View>
           </View>
         </View>
-      </LinearGradient>
-    </View>
+      </ScrollView>
+    </LinearGradient>
   );
 }

@@ -1,27 +1,14 @@
 import type { PropsWithChildren } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 
+import { getIcon } from '@/utils/get-icon';
+
 interface Props extends PropsWithChildren {
   iconName: string;
 }
 
 export default function ButtonWithIcon({ children, iconName }: Props) {
-  let icon;
-
-  switch (iconName) {
-    case 'monitoring':
-      icon = require('../../assets/images/icon-monitoring.png');
-      break;
-    case 'care':
-      icon = require('../../assets/images/icon-care.png');
-      break;
-    case 'team':
-      icon = require('../../assets/images/icon-team.png');
-      break;
-    case 'activities':
-      icon = require('../../assets/images/icon-activities.png');
-      break;
-  }
+  const icon = getIcon(iconName);
 
   return (
     <View className="mb-6">
@@ -30,7 +17,7 @@ export default function ButtonWithIcon({ children, iconName }: Props) {
           <Image source={icon} />
         </View>
         <View>
-          <Text className="text-[white]">{children}</Text>
+          <Text className="tracking-[0.3px] text-[white]">{children}</Text>
         </View>
       </Pressable>
     </View>
