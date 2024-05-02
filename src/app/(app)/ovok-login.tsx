@@ -1,12 +1,55 @@
+import { Env } from '@env';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
+import { Controller, useForm } from 'react-hook-form';
 import { Dimensions, Pressable, StatusBar, Text, View } from 'react-native';
+import { z } from 'zod';
 
+import { AuthService } from '@/api/common/auth.service';
+import { signIn } from '@/core';
 import BackgroundCircles from '@/ovok-ui/background-circles';
 import { Input } from '@/ui';
 
 export default function OvokLogin() {
   const { height } = Dimensions.get('window');
+
+  const loginSchema = z.object({
+    email: z
+      .string({
+        required_error: 'Email is required',
+      })
+      .email(),
+    password: z
+      .string({
+        required_error: 'Password is required',
+      })
+      .min(8, 'Password must be at least 8 characters'),
+  });
+
+  const {
+    control,
+    handleSubmit,
+
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+  const onSubmit = (data: any) => {
+    const authservice = new AuthService();
+    authservice
+      .login({
+        ...data,
+        clientId: Env.CLIENT_ID,
+      })
+      .then((data) => {
+        signIn({ access: data.access_token, refresh: data.refresh_token });
+        router.navigate('settings');
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
   return (
     <BackgroundCircles>
@@ -31,21 +74,48 @@ export default function OvokLogin() {
                 Please enter your email and your password.
               </Text>
             </View>
-            <Input
-              className="mt-6 w-full rounded-xl border border-[rgb(82-84-144)] p-4"
-              placeholder="Enter your email"
-              keyboardType="email-address"
-              autoCorrect={false}
-              autoCapitalize="none"
+            <Controller
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <Input
+                  error={errors.email && (errors.email?.message as string)}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  className="mt-6 w-full rounded-xl border border-[rgb(82-84-144)] p-4"
+                  placeholder="Enter your email"
+                  keyboardType="email-address"
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                />
+              )}
+              name="email"
             />
-            <Input
-              className="mt-3 w-full rounded-xl border border-[rgb(82-84-144)] p-4"
-              placeholder="Enter your password"
-              keyboardType="visible-password"
-              autoCorrect={false}
-              autoCapitalize="none"
+
+            <Controller
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <Input
+                  error={
+                    errors.password && (errors.password?.message as string)
+                  }
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  className="mt-3 w-full rounded-xl border border-[rgb(82-84-144)] p-4"
+                  placeholder="Enter your password"
+                  keyboardType="visible-password"
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                />
+              )}
+              name="password"
             />
-            <Pressable className="my-6 h-[60px] overflow-hidden rounded-xl">
+
+            <Pressable
+              onPress={handleSubmit(onSubmit)}
+              className="my-6 h-[60px] overflow-hidden rounded-xl"
+            >
               <LinearGradient
                 colors={['rgb(82, 83, 146)', 'rgb(238, 185, 51)']}
                 start={{ x: 0, y: 0.5 }}
