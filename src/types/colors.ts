@@ -3,6 +3,10 @@ export enum COLORS {
   Blue = 'rgb(214,246,255)',
   Yellow = 'rgb(254,242,218)',
   Green = 'rgb(214,255,243)',
+  RedText = 'rgb(255,30,120)',
+  BlueText = 'rgb(0,157,199)',
+  YellowText = 'rgb(224,159,31)',
+  GreenText = 'rgb(0,138,94)',
   BadgeRed = 'rgb(248,57,32)',
   Input = 'rgb(238,246,252)',
 }
