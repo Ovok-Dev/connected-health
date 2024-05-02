@@ -81,6 +81,9 @@ const client = z.object({
   API_URL: z.string(),
   VAR_NUMBER: z.number(),
   VAR_BOOL: z.boolean(),
+  CLIENT_ID: z.string(),
+  PROJECT_ID: z.string(),
+  ORGANIZATION_ID: z.string(),
 });
 
 const buildTime = z.object({
@@ -100,6 +103,9 @@ const _clientEnv = {
   BUNDLE_ID: withEnvSuffix(BUNDLE_ID),
   PACKAGE: withEnvSuffix(PACKAGE),
   VERSION: packageJSON.version,
+  CLIENT_ID: process.env.CLIENT_ID,
+  PROJECT_ID: process.env.PROJECT_ID,
+  ORGANIZATION_ID: process.env.ORGANIZATION_ID,
 
   // ADD YOUR ENV VARS HERE TOO
   API_URL: process.env.API_URL,

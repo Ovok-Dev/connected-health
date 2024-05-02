@@ -1,4 +1,5 @@
 module.exports = {
-  singleQuote: true,
   endOfLine: 'auto',
+  trailingComma: "es5",
+  singleQuote: true,
 };
