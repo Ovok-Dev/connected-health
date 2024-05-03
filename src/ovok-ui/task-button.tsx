@@ -1,54 +1,43 @@
 import { Image, Text, View } from 'react-native';
 
-import { COLORS } from '@/types/colors';
+import { Color } from '@/types/colors';
+import type { Task } from '@/types/task.types';
 import { getIcon } from '@/utils/get-icon';
+import { getTaskColor } from '@/utils/get-task-color';
 
 interface Props {
-  taskType: string;
+  taskType: Task;
   badgeNumber: number;
 }
 
-interface TaskValues {
-  backgroundColor: string;
-  title: string;
-}
-
-function getTaskValues(taskType: string): TaskValues {
-  let backgroundColor: string = '';
+function getTaskTitle(taskType: Task): string {
   let title: string = '';
   switch (taskType) {
     case 'medication':
-      backgroundColor = COLORS.Green;
       title = 'Medication';
       break;
     case 'questionnaire':
-      backgroundColor = COLORS.Red;
       title = 'Questionnaire';
       break;
     case 'caretask':
-      backgroundColor = COLORS.Blue;
       title = 'Caretask';
       break;
     case 'consultation':
-      backgroundColor = COLORS.Yellow;
       title = 'Consultation';
       break;
     case 'vitals':
-      backgroundColor = COLORS.VitalsGreen;
       title = 'Vitals';
       break;
     case 'learn':
-      backgroundColor = COLORS.Purple;
       title = 'Learn';
       break;
-    default:
-      console.log('Incorrect task type.');
   }
-  return { backgroundColor, title };
+  return title;
 }
 
 export default function TaskButton({ taskType, badgeNumber }: Props) {
-  const { backgroundColor, title } = getTaskValues(taskType);
+  const title: string = getTaskTitle(taskType);
+  const backgroundColor: Color = getTaskColor(taskType);
 
   return (
     <View className="items-center">
@@ -59,7 +48,7 @@ export default function TaskButton({ taskType, badgeNumber }: Props) {
         {badgeNumber > 0 && (
           <View
             className="absolute bottom-[36px] left-[36px] h-[16px] w-[16px] items-center justify-center rounded-full"
-            style={{ backgroundColor: COLORS.BadgeRed }}
+            style={{ backgroundColor: Color.BadgeRed }}
           >
             <Text className="text-[12px] text-[white]">{badgeNumber}</Text>
           </View>

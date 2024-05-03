@@ -64,6 +64,12 @@ export function getIcon(iconName: string) {
     case 'vitals':
       icon = require('../../assets/images/icon-vitals.png');
       break;
+    case 'therapy':
+      icon = require('../../assets/images/icon-therapy.png');
+      break;
+    case 'document':
+      icon = require('../../assets/images/icon-document.png');
+      break;
   }
   return icon;
 }

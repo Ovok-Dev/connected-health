@@ -1,6 +1,6 @@
 import { Image, Text, View } from 'react-native';
 
-import { COLORS } from '@/types/colors';
+import { Color } from '@/types/colors';
 import { getIcon } from '@/utils/get-icon';
 
 interface Props {
@@ -26,12 +26,12 @@ export default function ValuesOverview({
       <View className="flex-1 flex-row gap-3">
         <View
           className="flex-column flex-1 rounded-lg p-3"
-          style={{ backgroundColor: COLORS.Blue }}
+          style={{ backgroundColor: Color.Blue }}
         >
           <Image source={heartIcon} width={16} height={16} />
           <Text
             className="text-[12px] font-medium leading-[1.8]"
-            style={{ color: COLORS.BlueText }}
+            style={{ color: Color.BlueText }}
           >
             Heart Rate
           </Text>
@@ -44,12 +44,12 @@ export default function ValuesOverview({
         </View>
         <View
           className="flex-column flex-1 rounded-lg p-3"
-          style={{ backgroundColor: COLORS.Red }}
+          style={{ backgroundColor: Color.Red }}
         >
           <Image source={pressureIcon} width={16} height={16} />
           <Text
             className="text-[12px] font-medium leading-[1.8]"
-            style={{ color: COLORS.RedText }}
+            style={{ color: Color.RedText }}
           >
             Blood Pressure
           </Text>
@@ -64,12 +64,12 @@ export default function ValuesOverview({
       <View className="flex-1 flex-row gap-3">
         <View
           className="flex-column flex-1 rounded-lg p-3"
-          style={{ backgroundColor: COLORS.Yellow }}
+          style={{ backgroundColor: Color.Yellow }}
         >
           <Image source={temperatureIcon} width={16} height={16} />
           <Text
             className="text-[12px] font-medium leading-[1.8]"
-            style={{ color: COLORS.YellowText }}
+            style={{ color: Color.YellowText }}
           >
             Temperature
           </Text>
@@ -82,12 +82,12 @@ export default function ValuesOverview({
         </View>
         <View
           className="flex-column flex-1 rounded-lg p-3"
-          style={{ backgroundColor: COLORS.Green }}
+          style={{ backgroundColor: Color.Green }}
         >
           <Image source={weightIcon} width={16} height={16} />
           <Text
             className="text-[12px] font-medium leading-[1.8]"
-            style={{ color: COLORS.GreenText }}
+            style={{ color: Color.GreenText }}
           >
             Weight
           </Text>

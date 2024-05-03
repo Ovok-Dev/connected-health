@@ -1,4 +1,4 @@
-export enum COLORS {
+export enum Color {
   Red = 'rgb(255,235,243)',
   Blue = 'rgb(214,246,255)',
   Yellow = 'rgb(254,242,218)',

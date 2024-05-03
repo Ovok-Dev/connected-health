@@ -128,6 +128,9 @@ dependencies:
   react-native-screens:
     specifier: ~3.29.0
     version: 3.29.0(react-native@0.73.6)(react@18.2.0)
+  react-native-shadow-2:
+    specifier: ^7.0.8
+    version: 7.0.8(react-native-svg@14.1.0)(react-native@0.73.6)
   react-native-svg:
     specifier: 14.1.0
     version: 14.1.0(react-native@0.73.6)(react@18.2.0)
@@ -5403,6 +5406,10 @@ packages:
     dependencies:
       color-convert: 2.0.1
       color-string: 1.9.1
+    dev: false
+
+  /colord@2.9.2:
+    resolution: {integrity: sha512-Uqbg+J445nc1TKn4FoDPS6ZZqAvEDnwrH42yo8B40JSOgSLxMZ/gt3h4nmCtPLQeXhjJJkqBx7SCY35WnIixaQ==}
     dev: false
 
   /colorette@1.4.0:
@@ -11498,6 +11505,17 @@ packages:
       react-freeze: 1.0.3(react@18.2.0)
       react-native: 0.73.6(@babel/core@7.23.7)(@babel/preset-env@7.23.8)(react@18.2.0)
       warn-once: 0.1.1
+    dev: false
+
+  /react-native-shadow-2@7.0.8(react-native-svg@14.1.0)(react-native@0.73.6):
+    resolution: {integrity: sha512-6QlmbJvHCmDGa85jwtfrVxhro1oGm/ezTlciom0A+i0UFAzxlvmRiMHyKXg1hEB2PQkKPoG6ZpANju4mpqPqGA==}
+    peerDependencies:
+      react-native: '*'
+      react-native-svg: '>=12.1.0'
+    dependencies:
+      colord: 2.9.2
+      react-native: 0.73.6(@babel/core@7.23.7)(@babel/preset-env@7.23.8)(react@18.2.0)
+      react-native-svg: 14.1.0(react-native@0.73.6)(react@18.2.0)
     dev: false
 
   /react-native-svg@14.1.0(react-native@0.73.6)(react@18.2.0):
