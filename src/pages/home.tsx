@@ -4,11 +4,15 @@ import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
 import DashboardHeader from '@/ovok-ui/dashboard-header';
 import SearchInput from '@/ovok-ui/search-input';
+import SwitchButtons from '@/ovok-ui/swittch-buttons';
 import TodaysTasks from '@/ovok-ui/todays-tasks';
 import ValuesOverview from '@/ovok-ui/values-overview';
 
 export default function DashboardHIVMonitoring() {
   const [displayHIVMonitoring /* setDisplayHIVMonitoring */] = useState(false);
+  const [selectedButton, setSelectedButton] = useState<'care-plans' | 'trials'>(
+    'care-plans'
+  );
 
   return (
     <BackgroundWhite>
@@ -29,6 +33,10 @@ export default function DashboardHIVMonitoring() {
         />
       )}
       <TodaysTasks />
+      <SwitchButtons
+        selectedButton={selectedButton}
+        setSelectedButton={setSelectedButton}
+      />
     </BackgroundWhite>
   );
 }
