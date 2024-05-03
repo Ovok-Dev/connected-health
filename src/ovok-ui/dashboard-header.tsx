@@ -2,10 +2,10 @@ import { Image, Text, View } from 'react-native';
 
 import { getIcon } from '@/utils/get-icon';
 
-export default function DashboardHeader() {
-  const iconBell = getIcon('bell');
-  const iconGrace = getIcon('grace');
+const iconBell = getIcon('bell');
+const iconGrace = getIcon('grace');
 
+export default function DashboardHeader() {
   return (
     <View className="flex-1 flex-row justify-between">
       <View className="flex-column justify-center">

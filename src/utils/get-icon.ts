@@ -49,6 +49,21 @@ export function getIcon(iconName: string) {
     case 'weight':
       icon = require('../../assets/images/icon-weight.png');
       break;
+    case 'tasks-left':
+      icon = require('../../assets/images/icon-tasks-left.png');
+      break;
+    case 'tasks-right':
+      icon = require('../../assets/images/icon-tasks-right.png');
+      break;
+    case 'caretask':
+      icon = require('../../assets/images/icon-caretask.png');
+      break;
+    case 'consultation':
+      icon = require('../../assets/images/icon-consultation.png');
+      break;
+    case 'vitals':
+      icon = require('../../assets/images/icon-vitals.png');
+      break;
   }
   return icon;
 }

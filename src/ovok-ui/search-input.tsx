@@ -2,9 +2,9 @@ import { Image, TextInput, View } from 'react-native';
 
 import { getIcon } from '@/utils/get-icon';
 
-export default function SearchInput() {
-  const loopIcon = getIcon('loop');
+const loopIcon = getIcon('loop');
 
+export default function SearchInput() {
   return (
     <View className="mt-3 h-[50px] flex-1 flex-row items-center rounded-lg bg-[rgb(238,246,252)]">
       <View className="ml-2 w-[40px] items-center justify-center">

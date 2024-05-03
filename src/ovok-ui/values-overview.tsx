@@ -10,17 +10,17 @@ interface Props {
   weight: string;
 }
 
+const heartIcon = getIcon('heart');
+const pressureIcon = getIcon('pressure');
+const temperatureIcon = getIcon('temperature');
+const weightIcon = getIcon('weight');
+
 export default function ValuesOverview({
   heartRate,
   bloodPressure,
   temperature,
   weight,
 }: Props) {
-  const heartIcon = getIcon('heart');
-  const pressureIcon = getIcon('pressure');
-  const temperatureIcon = getIcon('temperature');
-  const weightIcon = getIcon('weight');
-
   return (
     <View className="mt-4 w-full gap-4">
       <View className="flex-1 flex-row gap-3">
