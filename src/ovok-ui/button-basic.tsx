@@ -35,7 +35,9 @@ export default function ButtonBasic({
     iconLeft = null;
   }
 
-  const iconRight = iconNameRight && getIcon(iconNameRight);
+  const iconRight = iconNameRight
+    ? getIcon(iconNameRight)
+    : getIcon('three-dots');
 
   return (
     <Pressable
@@ -70,14 +72,15 @@ export default function ButtonBasic({
         )}
       </View>
       <View className="ml-3 w-[44px] items-center justify-center justify-self-end">
-        {iconNameRight && <Image source={iconRight} width={38} height={35} />}
-        {badgeNumber && (
+        {badgeNumber ? (
           <View
             className="h-[22px] w-[22px] items-center justify-center rounded-full"
             style={{ backgroundColor: Color.BadgeRed }}
           >
             <Text className="text-[white]">{badgeNumber}</Text>
           </View>
+        ) : (
+          <Image source={iconRight} width={38} height={35} />
         )}
       </View>
     </Pressable>

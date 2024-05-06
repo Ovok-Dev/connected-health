@@ -70,6 +70,12 @@ export function getIcon(iconName: string) {
     case 'document':
       icon = require('../../assets/images/icon-document.png');
       break;
+    case 'three-dots':
+      icon = require('../../assets/images/icon-three-dots.png');
+      break;
+    case 'empty-box':
+      icon = require('../../assets/images/icon-empty-box.png');
+      break;
   }
   return icon;
 }

@@ -4,12 +4,16 @@ import { View } from 'react-native';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
 import DashboardHeader from '@/ovok-ui/dashboard-header';
+import EmptyData from '@/ovok-ui/empty-data';
 import SearchInput from '@/ovok-ui/search-input';
 import SwitchButtons from '@/ovok-ui/swittch-buttons';
 import TodaysTasks from '@/ovok-ui/todays-tasks';
 import ValuesOverview from '@/ovok-ui/values-overview';
 
 const renderTasks = (tasks: any) => {
+  if (tasks.length === 0) {
+    return <EmptyData />;
+  }
   return tasks.map((task: any) => {
     return (
       <ButtonBasic
