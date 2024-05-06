@@ -39,7 +39,7 @@ export default function ButtonBasic({
 
   return (
     <Pressable
-      className="my-1 flex-row items-center rounded-lg border"
+      className="my-1 flex-row items-center rounded-lg border bg-[white]"
       style={{
         height: subtitle ? 62 : 60,
         borderColor: borderInvisible ? 'rgb(246,246,246)' : 'rgb(215,221,234)',
