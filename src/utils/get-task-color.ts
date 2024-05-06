@@ -28,6 +28,12 @@ export function getTaskColor(taskType: Task): Color {
     case 'vitals':
       taskColor = Color.VitalsGreen;
       break;
+    case 'exercise':
+      taskColor = Color.Red;
+      break;
+    case 'measurement':
+      taskColor = Color.Blue;
+      break;
   }
   return taskColor;
 }

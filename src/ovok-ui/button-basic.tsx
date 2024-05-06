@@ -10,9 +10,7 @@ interface Props {
   subtitle?: string;
   taskType?: Task;
   iconNameLeft?: string;
-  bgColorLeft?: string;
   iconNameRight?: string;
-  bgColorRight?: string;
   badgeNumber?: number;
   borderInvisible?: boolean;
 }

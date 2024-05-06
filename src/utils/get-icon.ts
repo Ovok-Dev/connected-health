@@ -76,6 +76,18 @@ export function getIcon(iconName: string) {
     case 'empty-box':
       icon = require('../../assets/images/icon-empty-box.png');
       break;
+    case 'exercise':
+      icon = require('../../assets/images/icon-exercise.png');
+      break;
+    case 'measurement':
+      icon = require('../../assets/images/icon-measurement.png');
+      break;
+    case 'done':
+      icon = require('../../assets/images/icon-done.png');
+      break;
+    case 'not-done':
+      icon = require('../../assets/images/icon-not-done.png');
+      break;
   }
   return icon;
 }

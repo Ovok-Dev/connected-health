@@ -6,4 +6,6 @@ export type Task =
   | 'vitals'
   | 'learn'
   | 'therapy'
-  | 'document';
+  | 'document'
+  | 'exercise'
+  | 'measurement';
