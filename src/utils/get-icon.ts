@@ -88,6 +88,15 @@ export function getIcon(iconName: string) {
     case 'not-done':
       icon = require('../../assets/images/icon-not-done.png');
       break;
+    case 'diagram':
+      icon = require('../../assets/images/icon-diagram.png');
+      break;
+    case 'calendar':
+      icon = require('../../assets/images/icon-calendar.png');
+      break;
+    case 'arrow-down':
+      icon = require('../../assets/images/icon-arrow-down.png');
+      break;
   }
   return icon;
 }
