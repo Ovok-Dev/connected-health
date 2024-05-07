@@ -4,6 +4,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
+import Charts from '@/ovok-ui/charts';
 import type { SelectOption } from '@/ovok-ui/render-select';
 import { renderSelectButton, renderSelectItem } from '@/ovok-ui/render-select';
 import WeeklyCalendar from '@/ovok-ui/weekly-calendar';
@@ -22,12 +23,12 @@ const vitalsOptions: SelectOption[] = [
 
 const timeOptions: SelectOption[] = [
   {
-    title: 'This Month',
-    value: 'this-month',
+    title: 'Last Week',
+    value: 'last-week',
   },
   {
-    title: 'Last Two Months very very long',
-    value: 'last-two-months',
+    title: 'Last Three Days',
+    value: 'last-three-days',
   },
 ];
 
@@ -80,7 +81,7 @@ export default function VitalsCheck() {
               onSelect={(value) => setSelectedVitals(value)}
               renderButton={renderSelectButton}
               renderItem={renderSelectItem}
-              defaultValue={vitalsOptions[0]}
+              defaultValue={selectedVitals}
             />
           </View>
           <View className="radius-lg h-[50px] flex-1 flex-row items-center bg-[white]">
@@ -95,10 +96,29 @@ export default function VitalsCheck() {
               onSelect={(value) => setSelectedTimeSpan(value)}
               renderButton={renderSelectButton}
               renderItem={renderSelectItem}
-              defaultValue={timeOptions[0]}
+              defaultValue={selectedTimeSpan}
             />
           </View>
         </View>
+        <Charts
+          selectedVitalsValue={selectedVitals.value}
+          selectedTimeSpanValue={selectedTimeSpan.value}
+        />
+        <ButtonBasic
+          title="Collect Vitals From Phone"
+          iconNameLeft="phone"
+          iconNameRight="arrow-right"
+        />
+        <ButtonBasic
+          title="Add From Connected Device"
+          iconNameLeft="watch"
+          iconNameRight="arrow-right"
+        />
+        <ButtonBasic
+          title="Add Manually"
+          iconNameLeft="text"
+          iconNameRight="arrow-right"
+        />
       </BackgroundWhite>
     </View>
   );

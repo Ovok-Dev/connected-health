@@ -97,6 +97,24 @@ export function getIcon(iconName: string) {
     case 'arrow-down':
       icon = require('../../assets/images/icon-arrow-down.png');
       break;
+    case 'phone':
+      icon = require('../../assets/images/icon-phone.png');
+      break;
+    case 'watch':
+      icon = require('../../assets/images/icon-watch.png');
+      break;
+    case 'text':
+      icon = require('../../assets/images/icon-text.png');
+      break;
+    case 'black-box':
+      icon = require('../../assets/images/icon-black-box.png');
+      break;
+    case 'care-kit-cardio':
+      icon = require('../../assets/images/icon-care-kit-cardio.png');
+      break;
+    case 'apple-watch':
+      icon = require('../../assets/images/icon-apple-watch.png');
+      break;
   }
   return icon;
 }
