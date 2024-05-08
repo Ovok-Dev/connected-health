@@ -115,6 +115,18 @@ export function getIcon(iconName: string) {
     case 'apple-watch':
       icon = require('../../assets/images/icon-apple-watch.png');
       break;
+    case 'stethoscope':
+      icon = require('../../assets/images/image-stethoscope.png');
+      break;
+    case 'stethoscope-small':
+      icon = require('../../assets/images/image-stethoscope-small.png');
+      break;
+    case 'first-aid':
+      icon = require('../../assets/images/image-first-aid.png');
+      break;
+    case 'healthy-lifestyle':
+      icon = require('../../assets/images/image-healthy-lifestyle.png');
+      break;
   }
   return icon;
 }
