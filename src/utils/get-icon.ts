@@ -127,6 +127,18 @@ export function getIcon(iconName: string) {
     case 'healthy-lifestyle':
       icon = require('../../assets/images/image-healthy-lifestyle.png');
       break;
+    case 'study':
+      icon = require('../../assets/images/icon-study.png');
+      break;
+    case 'appointment':
+      icon = require('../../assets/images/icon-appointment.png');
+      break;
+    case 'medication-blue':
+      icon = require('../../assets/images/icon-medication-blue.png');
+      break;
+    case 'walk':
+      icon = require('../../assets/images/icon-walk.png');
+      break;
   }
   return icon;
 }
