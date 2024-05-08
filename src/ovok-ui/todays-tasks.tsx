@@ -35,7 +35,7 @@ export default function TodaysTasks() {
           }
           width={20}
           height={8}
-          className="self-start justify-self-end"
+          className="self-start"
         />
       </View>
       <View>

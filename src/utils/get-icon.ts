@@ -139,6 +139,15 @@ export function getIcon(iconName: string) {
     case 'walk':
       icon = require('../../assets/images/icon-walk.png');
       break;
+    case 'pills':
+      icon = require('../../assets/images/image-pills.png');
+      break;
+    case 'injection':
+      icon = require('../../assets/images/image-injection.png');
+      break;
+    case 'checkmark':
+      icon = require('../../assets/images/icon-checkmark.png');
+      break;
   }
   return icon;
 }

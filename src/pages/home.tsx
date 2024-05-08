@@ -26,7 +26,7 @@ const renderTasks = (tasks: any) => {
   });
 };
 
-export default function DashboardHIVMonitoring() {
+export default function Home() {
   const [displayHIVMonitoring /* setDisplayHIVMonitoring */] = useState(false);
   const [selectedButton, setSelectedButton] = useState<'care-plans' | 'trials'>(
     'care-plans'

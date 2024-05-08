@@ -96,7 +96,7 @@ export default function ButtonBasic({
           </Text>
         )}
       </View>
-      <View className="ml-3 items-center justify-center justify-self-end">
+      <View className="mx-3 items-center justify-center">
         {renderRightSide()}
       </View>
     </Pressable>

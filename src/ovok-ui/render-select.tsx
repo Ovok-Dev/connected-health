@@ -17,7 +17,7 @@ export function renderSelectButton(selectedOption: SelectOption) {
         source={getIcon('arrow-down')}
         width={16}
         height={16}
-        className="mx-2 justify-self-end"
+        className="mx-2"
       />
     </View>
   );
