@@ -37,6 +37,33 @@ export default function ButtonBasic({
     ? getIcon(iconNameRight)
     : getIcon('three-dots');
 
+  const renderRightSide = () => {
+    if (iconNameRight === 'selected') {
+      return (
+        <View className="mr-3 h-[25px] w-[60px] items-center justify-center rounded-[3px] bg-[rgb(100,204,39)]">
+          <Text className="text-[12px] text-[white]">Selected</Text>
+        </View>
+      );
+    } else if (iconNameRight === 'select') {
+      return (
+        <View className="mr-3 h-[25px] w-[47px] items-center justify-center rounded-[3px] bg-[rgba(57,99,156,0.1)]">
+          <Text className="text-[12px] text-[rgb(57,99,156)]">Select</Text>
+        </View>
+      );
+    } else if (badgeNumber) {
+      return (
+        <View
+          className="h-[22px] w-[22px] items-center justify-center rounded-full"
+          style={{ backgroundColor: Color.BadgeRed }}
+        >
+          <Text className="text-[white]">{badgeNumber}</Text>
+        </View>
+      );
+    } else {
+      return <Image source={iconRight} width={38} height={35} />;
+    }
+  };
+
   return (
     <Pressable
       className="my-1 flex-row items-center rounded-lg border bg-[white]"
@@ -69,17 +96,8 @@ export default function ButtonBasic({
           </Text>
         )}
       </View>
-      <View className="ml-3 w-[44px] items-center justify-center justify-self-end">
-        {badgeNumber ? (
-          <View
-            className="h-[22px] w-[22px] items-center justify-center rounded-full"
-            style={{ backgroundColor: Color.BadgeRed }}
-          >
-            <Text className="text-[white]">{badgeNumber}</Text>
-          </View>
-        ) : (
-          <Image source={iconRight} width={38} height={35} />
-        )}
+      <View className="ml-3 items-center justify-center justify-self-end">
+        {renderRightSide()}
       </View>
     </Pressable>
   );
