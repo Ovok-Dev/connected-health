@@ -4,6 +4,7 @@ import type { DateData } from 'react-native-calendars';
 import { Calendar } from 'react-native-calendars';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
+import ButtonColorful from '@/ovok-ui/button-colorful';
 import { getIcon } from '@/utils/get-icon';
 
 export default function AddManually() {
@@ -54,6 +55,7 @@ export default function AddManually() {
           </View>
         </View>
       </View>
+      <ButtonColorful>Save</ButtonColorful>
     </BackgroundWhite>
   );
 }

@@ -1,14 +1,14 @@
 import { Env } from '@env';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Link, router } from 'expo-router';
 import { Controller, useForm } from 'react-hook-form';
-import { Dimensions, Pressable, StatusBar, Text, View } from 'react-native';
+import { Dimensions, StatusBar, Text, View } from 'react-native';
 import { z } from 'zod';
 
 import { AuthService } from '@/api/common/auth.service';
 import { signIn } from '@/core';
 import BackgroundCircles from '@/ovok-ui/background-circles';
+import ButtonColorful from '@/ovok-ui/button-colorful';
 import { Input } from '@/ui';
 
 export default function OvokLogin() {
@@ -111,22 +111,9 @@ export default function OvokLogin() {
               )}
               name="password"
             />
-
-            <Pressable
-              onPress={handleSubmit(onSubmit)}
-              className="my-6 h-[60px] overflow-hidden rounded-xl"
-            >
-              <LinearGradient
-                colors={['rgb(82, 83, 146)', 'rgb(238, 185, 51)']}
-                start={{ x: 0, y: 0.5 }}
-                end={{ x: 1, y: 0.5 }}
-                className="flex-1 flex-row items-center justify-center rounded-xl py-4"
-              >
-                <Text className="text-[18px] font-medium tracking-[0.3px] text-[white]">
-                  Login
-                </Text>
-              </LinearGradient>
-            </Pressable>
+            <ButtonColorful handleSubmit={handleSubmit} onSubmit={onSubmit}>
+              Login
+            </ButtonColorful>
             <View className="flex-1 justify-end">
               <View className="mb-12">
                 <Text className="text-center leading-[1.8] text-[rgba(29,29,29,0.6)]">
