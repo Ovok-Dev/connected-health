@@ -148,6 +148,12 @@ export function getIcon(iconName: string) {
     case 'checkmark':
       icon = require('../../assets/images/icon-checkmark.png');
       break;
+    case 'john-doe':
+      icon = require('../../assets/images/image-john-doe.png');
+      break;
+    case 'leah-cole':
+      icon = require('../../assets/images/image-leah-cole.png');
+      break;
   }
   return icon;
 }
