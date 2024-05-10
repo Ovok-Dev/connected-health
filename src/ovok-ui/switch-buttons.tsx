@@ -3,13 +3,17 @@ import type { Dispatch, SetStateAction } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 interface Props {
-  selectedButton: 'care-plans' | 'trials';
-  setSelectedButton: Dispatch<SetStateAction<'care-plans' | 'trials'>>;
+  selectedButton: string;
+  setSelectedButton: Dispatch<SetStateAction<string>>;
+  textFirstButton: string;
+  textSecondButton: string;
 }
 
 export default function SwitchButtons({
   selectedButton,
   setSelectedButton,
+  textFirstButton,
+  textSecondButton,
 }: Props) {
   return (
     <View className="mt-6 w-full flex-row justify-center">
@@ -40,7 +44,7 @@ export default function SwitchButtons({
               color: selectedButton === 'care-plans' ? 'white' : 'black',
             }}
           >
-            Care Plans
+            {textFirstButton}
           </Text>
         </LinearGradient>
       </Pressable>
@@ -69,7 +73,7 @@ export default function SwitchButtons({
             className="text-[14px]"
             style={{ color: selectedButton === 'trials' ? 'white' : 'black' }}
           >
-            Care Plans
+            {textSecondButton}
           </Text>
         </LinearGradient>
       </Pressable>

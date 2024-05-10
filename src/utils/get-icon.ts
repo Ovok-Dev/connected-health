@@ -154,6 +154,9 @@ export function getIcon(iconName: string) {
     case 'leah-cole':
       icon = require('../../assets/images/image-leah-cole.png');
       break;
+    case 'three-dots-vertical':
+      icon = require('../../assets/images/icon-three-dots-vertical.png');
+      break;
   }
   return icon;
 }

@@ -6,7 +6,7 @@ import ButtonBasic from '@/ovok-ui/button-basic';
 import DashboardHeader from '@/ovok-ui/dashboard-header';
 import EmptyData from '@/ovok-ui/empty-data';
 import SearchInput from '@/ovok-ui/search-input';
-import SwitchButtons from '@/ovok-ui/swittch-buttons';
+import SwitchButtons from '@/ovok-ui/switch-buttons';
 import TodaysTasks from '@/ovok-ui/todays-tasks';
 import ValuesOverview from '@/ovok-ui/values-overview';
 
@@ -28,9 +28,7 @@ const renderTasks = (tasks: any) => {
 
 export default function Home() {
   const [displayHIVMonitoring /* setDisplayHIVMonitoring */] = useState(false);
-  const [selectedButton, setSelectedButton] = useState<'care-plans' | 'trials'>(
-    'care-plans'
-  );
+  const [selectedButton, setSelectedButton] = useState<string>('care-plans');
   // carePlans and trials should later use the CarePlan interface
   const [carePlans /* setCarePlans */] = useState([
     {
@@ -91,6 +89,8 @@ export default function Home() {
       <SwitchButtons
         selectedButton={selectedButton}
         setSelectedButton={setSelectedButton}
+        textFirstButton="Care Plans"
+        textSecondButton="Trials"
       />
       <View className="my-3 flex-1">
         {selectedButton === 'care-plans'
