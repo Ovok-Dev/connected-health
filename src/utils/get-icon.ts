@@ -157,6 +157,9 @@ export function getIcon(iconName: string) {
     case 'three-dots-vertical':
       icon = require('../../assets/images/icon-three-dots-vertical.png');
       break;
+    case 'questionnaire-big':
+      icon = require('../../assets/images/image-questionnaire-big.png');
+      break;
   }
   return icon;
 }
