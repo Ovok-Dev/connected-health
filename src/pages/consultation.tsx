@@ -7,8 +7,8 @@ import SwitchButtons from '@/ovok-ui/switch-buttons';
 import WeeklyCalendar from '@/ovok-ui/weekly-calendar';
 
 export default function Consultation() {
-  const [selectedButton, setSelectedButton] = useState<string>('present');
-  const [presentAppointments /*setPresentAppointments*/] = useState([
+  const [selectedButton, setSelectedButton] = useState<string>('upcoming');
+  const [upcomingAppointments /*setUpcomingAppointments*/] = useState([
     {
       imageName: 'john-doe',
       time: '12:00 PM',
@@ -57,10 +57,11 @@ export default function Consultation() {
 
   const renderAppointments = () => {
     const appointments =
-      selectedButton === 'present' ? presentAppointments : pastAppointments;
+      selectedButton === 'upcoming' ? upcomingAppointments : pastAppointments;
     return appointments.map((appointmentData) => {
       return (
         <Appointment
+          key={appointmentData.time + appointmentData.practitioner}
           imageName={appointmentData.imageName}
           time={appointmentData.time}
           practitioner={appointmentData.practitioner}
@@ -75,12 +76,14 @@ export default function Consultation() {
       <WeeklyCalendar />
       <BackgroundWhite coversFullPage={false}>
         <SwitchButtons
-          textFirstButton="Upcoming Appointments"
-          textSecondButton="Past Appointments"
           selectedButton={selectedButton}
           setSelectedButton={setSelectedButton}
+          firstButton="upcoming"
+          secondButton="past"
+          textFirstButton="Upcoming Appointments"
+          textSecondButton="Past Appointments"
         />
-        {renderAppointments()}
+        <View className="mt-6">{renderAppointments()}</View>
       </BackgroundWhite>
     </View>
   );

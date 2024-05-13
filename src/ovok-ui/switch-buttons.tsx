@@ -5,6 +5,8 @@ import { Pressable, Text, View } from 'react-native';
 interface Props {
   selectedButton: string;
   setSelectedButton: Dispatch<SetStateAction<string>>;
+  firstButton: string;
+  secondButton: string;
   textFirstButton: string;
   textSecondButton: string;
 }
@@ -12,6 +14,8 @@ interface Props {
 export default function SwitchButtons({
   selectedButton,
   setSelectedButton,
+  firstButton,
+  secondButton,
   textFirstButton,
   textSecondButton,
 }: Props) {
@@ -19,10 +23,10 @@ export default function SwitchButtons({
     <View className="mt-6 w-full flex-row justify-center">
       <Pressable
         className="h-[60px] flex-1 overflow-hidden"
-        onPress={() => setSelectedButton('care-plans')}
+        onPress={() => setSelectedButton(firstButton)}
         style={{
           borderColor: 'rgb(215,221,234)',
-          borderWidth: selectedButton === 'care-plans' ? 0 : 1,
+          borderWidth: selectedButton === firstButton ? 0 : 1,
           borderRightWidth: 0,
           borderTopLeftRadius: 6,
           borderBottomLeftRadius: 6,
@@ -30,7 +34,7 @@ export default function SwitchButtons({
       >
         <LinearGradient
           colors={
-            selectedButton === 'care-plans'
+            selectedButton === firstButton
               ? ['rgb(232,181,55)', 'rgb(82,83,46)']
               : ['white', 'white']
           }
@@ -41,7 +45,7 @@ export default function SwitchButtons({
           <Text
             className="text-[14px]"
             style={{
-              color: selectedButton === 'care-plans' ? 'white' : 'black',
+              color: selectedButton === firstButton ? 'white' : 'black',
             }}
           >
             {textFirstButton}
@@ -50,10 +54,10 @@ export default function SwitchButtons({
       </Pressable>
       <Pressable
         className="h-[60px] flex-1 overflow-hidden"
-        onPress={() => setSelectedButton('trials')}
+        onPress={() => setSelectedButton(secondButton)}
         style={{
           borderColor: 'rgb(215,221,234)',
-          borderWidth: selectedButton === 'trials' ? 0 : 1,
+          borderWidth: selectedButton === secondButton ? 0 : 1,
           borderLeftWidth: 0,
           borderTopRightRadius: 6,
           borderBottomRightRadius: 6,
@@ -61,7 +65,7 @@ export default function SwitchButtons({
       >
         <LinearGradient
           colors={
-            selectedButton === 'trials'
+            selectedButton === secondButton
               ? ['rgb(232,181,55)', 'rgb(82,83,46)']
               : ['white', 'white']
           }
@@ -71,7 +75,9 @@ export default function SwitchButtons({
         >
           <Text
             className="text-[14px]"
-            style={{ color: selectedButton === 'trials' ? 'white' : 'black' }}
+            style={{
+              color: selectedButton === secondButton ? 'white' : 'black',
+            }}
           >
             {textSecondButton}
           </Text>

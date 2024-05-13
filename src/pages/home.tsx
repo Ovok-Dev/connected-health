@@ -89,6 +89,8 @@ export default function Home() {
       <SwitchButtons
         selectedButton={selectedButton}
         setSelectedButton={setSelectedButton}
+        firstButton="care-plans"
+        secondButton="trials"
         textFirstButton="Care Plans"
         textSecondButton="Trials"
       />
