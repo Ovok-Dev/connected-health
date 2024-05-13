@@ -122,9 +122,6 @@ dependencies:
   react-native-mmkv:
     specifier: 2.6.3
     version: 2.6.3(react-native@0.73.6)(react@18.2.0)
-  react-native-numeric-input:
-    specifier: ^1.9.1
-    version: 1.9.1(react-native-vector-icons@9.2.0)(react-native@0.73.6)
   react-native-reanimated:
     specifier: ~3.6.2
     version: 3.6.2(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.24.1)(@babel/plugin-transform-shorthand-properties@7.24.1)(@babel/plugin-transform-template-literals@7.24.1)(react-native@0.73.6)(react@18.2.0)
@@ -5504,14 +5501,6 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
-
-  /cliui@7.0.4:
-    resolution: {integrity: sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==}
-    dependencies:
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-      wrap-ansi: 7.0.0
-    dev: false
 
   /cliui@8.0.1:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
@@ -11736,26 +11725,6 @@ packages:
       react-native: 0.73.6(@babel/core@7.23.7)(@babel/preset-env@7.24.5)(react@18.2.0)
     dev: false
 
-  /react-native-numeric-input@1.9.1(react-native-vector-icons@9.2.0)(react-native@0.73.6):
-    resolution: {integrity: sha512-uJiMjundXHiBcBLHgSqbfSjLdBM+4OBgLJLSsYG5/+XST5XWufsU8eZaEsn1miOkhjj2B7WgshjNX2Qm+4n3kw==}
-    peerDependencies:
-      react-native-vector-icons: ^9.*
-    dependencies:
-      prop-types: 15.8.1
-      react-native-pixel-perfect: 1.0.2(react-native@0.73.6)
-      react-native-vector-icons: 9.2.0
-    transitivePeerDependencies:
-      - react-native
-    dev: false
-
-  /react-native-pixel-perfect@1.0.2(react-native@0.73.6):
-    resolution: {integrity: sha512-0IvYCNkxuQbQC9q4tI+C3i6o38nbx916p7gBRBWuPxDhKBCuTkVV3VukcfW6vtjRlwQm6kwQcF9OtI+yUBt+YA==}
-    peerDependencies:
-      react-native: '*'
-    dependencies:
-      react-native: 0.73.6(@babel/core@7.23.7)(@babel/preset-env@7.24.5)(react@18.2.0)
-    dev: false
-
   /react-native-reanimated@3.6.2(@babel/core@7.23.7)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.24.1)(@babel/plugin-transform-shorthand-properties@7.24.1)(@babel/plugin-transform-template-literals@7.24.1)(react-native@0.73.6)(react@18.2.0):
     resolution: {integrity: sha512-IIMREMOrxhtK35drfpzh2UhxNqAOHnuvGgtMofj7yHcMj16tmWZR2zFvMUf6z2MfmXv+aVgFQ6TRZ6yKYf7LNA==}
     peerDependencies:
@@ -11843,14 +11812,6 @@ packages:
 
   /react-native-swipe-gestures@1.0.5:
     resolution: {integrity: sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw==}
-    dev: false
-
-  /react-native-vector-icons@9.2.0:
-    resolution: {integrity: sha512-wKYLaFuQST/chH3AJRjmOLoLy3JEs1JR6zMNgTaemFpNoXs0ztRnTxcxFD9xhX7cJe1/zoN5BpQYe7kL0m5yyA==}
-    hasBin: true
-    dependencies:
-      prop-types: 15.8.1
-      yargs: 16.2.0
     dev: false
 
   /react-native-web@0.19.10(react-dom@18.2.0)(react@18.2.0):
@@ -14096,6 +14057,7 @@ packages:
   /yargs-parser@20.2.9:
     resolution: {integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==}
     engines: {node: '>=10'}
+    dev: true
 
   /yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
@@ -14116,19 +14078,6 @@ packages:
       which-module: 2.0.1
       y18n: 4.0.3
       yargs-parser: 18.1.3
-
-  /yargs@16.2.0:
-    resolution: {integrity: sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==}
-    engines: {node: '>=10'}
-    dependencies:
-      cliui: 7.0.4
-      escalade: 3.1.2
-      get-caller-file: 2.0.5
-      require-directory: 2.1.1
-      string-width: 4.2.3
-      y18n: 5.0.8
-      yargs-parser: 20.2.9
-    dev: false
 
   /yargs@17.7.2:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
