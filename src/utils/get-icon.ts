@@ -199,6 +199,30 @@ export function getIcon(iconName: string) {
     case 'lifestyle-grey':
       icon = require('../../assets/images/icon-lifestyle-grey.png');
       break;
+    case 'doc-image-records':
+      icon = require('../../assets/images/doc-image-records.png');
+      break;
+    case 'doc-image-request':
+      icon = require('../../assets/images/doc-image-request.png');
+      break;
+    case 'doc-image-authorization':
+      icon = require('../../assets/images/doc-image-authorization.png');
+      break;
+    case 'doc-image-certificate':
+      icon = require('../../assets/images/doc-image-certificate.png');
+      break;
+    case 'text-icon-pdf':
+      icon = require('../../assets/images/text-icon-pdf.png');
+      break;
+    case 'text-icon-jpg':
+      icon = require('../../assets/images/text-icon-jpg.png');
+      break;
+    case 'text-icon-txt':
+      icon = require('../../assets/images/text-icon-txt.png');
+      break;
+    case 'text-icon-png':
+      icon = require('../../assets/images/text-icon-png.png');
+      break;
   }
   return icon;
 }
