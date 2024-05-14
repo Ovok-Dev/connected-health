@@ -160,6 +160,45 @@ export function getIcon(iconName: string) {
     case 'questionnaire-big':
       icon = require('../../assets/images/image-questionnaire-big.png');
       break;
+    case 'record-big':
+      icon = require('../../assets/images/icon-record-big.png');
+      break;
+    case 'half-circles':
+      icon = require('../../assets/images/image-half-circles.png');
+      break;
+    case 'woman':
+      icon = require('../../assets/images/icon-woman.png');
+      break;
+    case 'flag':
+      icon = require('../../assets/images/icon-flag.png');
+      break;
+    case 'location':
+      icon = require('../../assets/images/icon-location.png');
+      break;
+    case 'briefcase':
+      icon = require('../../assets/images/icon-briefcase.png');
+      break;
+    case 'screen':
+      icon = require('../../assets/images/icon-screen.png');
+      break;
+    case 'image-grey':
+      icon = require('../../assets/images/icon-image-grey.png');
+      break;
+    case 'history-grey':
+      icon = require('../../assets/images/icon-history-grey.png');
+      break;
+    case 'documents-grey':
+      icon = require('../../assets/images/icon-documents-grey.png');
+      break;
+    case 'stats-grey':
+      icon = require('../../assets/images/icon-stats-grey.png');
+      break;
+    case 'permissions-grey':
+      icon = require('../../assets/images/icon-permissions-grey.png');
+      break;
+    case 'lifestyle-grey':
+      icon = require('../../assets/images/icon-lifestyle-grey.png');
+      break;
   }
   return icon;
 }
