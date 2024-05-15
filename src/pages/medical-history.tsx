@@ -1,17 +1,15 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
 import DiagnoseEntry from '@/ovok-ui/diagnose-entry';
+import RecordEntriesContainer from '@/ovok-ui/record-entries-container';
 import RecordEntry from '@/ovok-ui/record-entry';
 import Tabs from '@/ovok-ui/tab';
 
 export default function MedicalHistory() {
   const tabScreenGeneral = (
     <>
-      <View className="rounded-xl bg-white p-3">
-        <Text className="text-[14px] font-semibold text-[rgb(29,29,29)]">
-          Allergies
-        </Text>
+      <RecordEntriesContainer title="Allergies">
         <RecordEntry category="Drug" value="No known allergies" />
         <RecordEntry category="Food" value="Lactose, Nuts" />
         <RecordEntry
@@ -19,11 +17,8 @@ export default function MedicalHistory() {
           value="No known allergies"
           hasBorderBottom={false}
         />
-      </View>
-      <View className="mt-4 rounded-xl bg-white p-3">
-        <Text className="text-[14px] font-semibold text-[rgb(29,29,29)]">
-          Diagnoses
-        </Text>
+      </RecordEntriesContainer>
+      <RecordEntriesContainer title="Diagnoses">
         <DiagnoseEntry
           code="60.42"
           codeColor="rgb(78,149,255)"
@@ -49,18 +44,15 @@ export default function MedicalHistory() {
         >
           Lorem ipsum dolor sit amet consectetur maecenas et.
         </DiagnoseEntry>
-      </View>
-      <View className="mt-4 rounded-xl bg-white p-3">
-        <Text className="text-[14px] font-semibold text-[rgb(29,29,29)]">
-          Medication
-        </Text>
+      </RecordEntriesContainer>
+      <RecordEntriesContainer title="Medication">
         <RecordEntry category="Medicine 1" value="10mg - once daily" />
         <RecordEntry
           category="Medicine 2"
           value="5mg - twice daily"
           hasBorderBottom={false}
         />
-      </View>
+      </RecordEntriesContainer>
     </>
   );
 

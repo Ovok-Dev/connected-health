@@ -30,7 +30,7 @@ export default function ElectronicRecords() {
           </View>
         </LinearGradient>
       </View>
-      <View className="rounded-xl bg-white">
+      <View className="mt-6 rounded-xl bg-white p-4">
         <View className="h-[97px] flex-row pl-6">
           <View className="items-center justify-center">
             <Image
@@ -83,7 +83,7 @@ export default function ElectronicRecords() {
           />
         </View>
       </View>
-      <View className="my-4 rounded-xl bg-white px-4">
+      <View className="mt-6 rounded-xl bg-white p-4">
         <RecordEntry category="Insurance" value="Public(NHIS)" />
         <RecordEntry category="Status" value="Active" active />
         <RecordEntry category="CCC" value="1234" />
@@ -93,7 +93,7 @@ export default function ElectronicRecords() {
           hasBorderBottom={false}
         />
       </View>
-      <View className="items-center justify-center">
+      <View className="mt-4 items-center justify-center">
         <View className="flex-row items-center justify-center">
           <ButtonRecord iconName="image-grey">Labs & Images</ButtonRecord>
           <ButtonRecord iconName="history-grey">Medical History</ButtonRecord>

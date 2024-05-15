@@ -226,6 +226,9 @@ export function getIcon(iconName: string) {
     case 'upload':
       icon = require('../../assets/images/icon-upload.png');
       break;
+    case 'checkmark-black':
+      icon = require('../../assets/images/icon-checkmark-black.png');
+      break;
   }
   return icon;
 }
