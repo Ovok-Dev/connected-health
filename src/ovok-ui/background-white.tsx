@@ -10,7 +10,7 @@ export default function BackgroundWhite({
   coversFullPage = true,
 }: Props) {
   return (
-    <View className="flex-1 bg-[rgb(246,246,246)]">
+    <View className="flex-1 bg-[rgb(246,246,246)] py-3">
       <ScrollView className="flex-1">
         <View
           className="mx-4 flex-1"

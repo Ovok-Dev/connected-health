@@ -229,6 +229,27 @@ export function getIcon(iconName: string) {
     case 'checkmark-black':
       icon = require('../../assets/images/icon-checkmark-black.png');
       break;
+    case 'goal':
+      icon = require('../../assets/images/icon-goal.png');
+      break;
+    case 'messages':
+      icon = require('../../assets/images/icon-messages.png');
+      break;
+    case 'ai':
+      icon = require('../../assets/images/icon-ai.png');
+      break;
+    case 'book':
+      icon = require('../../assets/images/icon-book.png');
+      break;
+    case 'checkmark-blue':
+      icon = require('../../assets/images/icon-checkmark-blue.png');
+      break;
+    case 'chat-pics':
+      icon = require('../../assets/images/image-chat-pics.png');
+      break;
+    case 'questionnaire-blue':
+      icon = require('../../assets/images/icon-questionnaire-blue.png');
+      break;
   }
   return icon;
 }

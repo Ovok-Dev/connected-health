@@ -75,7 +75,7 @@ export default function ButtonBasic({
       <View
         className={
           iconNameLeft === 'hiv-monitoring'
-            ? '[bg-blue] m-3 h-[44px] w-[44px] items-center justify-center rounded-full border border-[rgb(57,99,156)]'
+            ? 'bg-blue m-3 h-[44px] w-[44px] items-center justify-center rounded-full border border-[rgb(57,99,156)]'
             : 'mx-2 h-[50px] w-[44px] items-center justify-center rounded-md'
         }
         style={{
