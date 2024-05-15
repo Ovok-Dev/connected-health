@@ -223,6 +223,9 @@ export function getIcon(iconName: string) {
     case 'text-icon-png':
       icon = require('../../assets/images/text-icon-png.png');
       break;
+    case 'upload':
+      icon = require('../../assets/images/icon-upload.png');
+      break;
   }
   return icon;
 }
