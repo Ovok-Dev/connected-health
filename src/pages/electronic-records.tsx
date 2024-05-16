@@ -30,26 +30,26 @@ export default function ElectronicRecords() {
           </View>
         </LinearGradient>
       </View>
-      <View className="mt-6 rounded-xl bg-white p-4">
-        <View className="h-[97px] flex-row pl-6">
-          <View className="items-center justify-center">
+      <View className="mt-3 rounded-xl bg-white p-4">
+        <View className="h-[97px] flex-row items-center pl-6">
+          <View className="h-[62px] w-[62px] items-center justify-center overflow-hidden rounded-full bg-black">
             <Image
               source={getIcon('grace')}
-              height={62}
-              width={62}
-              className="rounded-full"
+              resizeMode="contain"
+              className="flex-1"
+              style={{ width: '100%' }}
             />
           </View>
           <View className="mx-3 ml-6 flex-1 justify-center gap-2">
             <Text className="text-[16px] font-semibold">Grace Agyei</Text>
             <Text className="text-[12px]">42 years old</Text>
           </View>
-          <View className="items-center justify-center">
+          <View className="h-[97px] w-[39px] items-center justify-center">
             <Image
               source={getIcon('half-circles')}
-              height={97}
-              width={39}
-              resizeMode="center"
+              resizeMode="contain"
+              className="flex-1"
+              style={{ width: '100%' }}
             />
           </View>
         </View>
