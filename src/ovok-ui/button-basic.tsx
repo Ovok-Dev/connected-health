@@ -13,6 +13,7 @@ interface Props {
   iconNameRight?: string;
   badgeNumber?: number;
   borderInvisible?: boolean;
+  bold?: boolean;
 }
 
 export default function ButtonBasic({
@@ -23,6 +24,7 @@ export default function ButtonBasic({
   iconNameRight,
   badgeNumber,
   borderInvisible = false,
+  bold = true,
 }: Props) {
   let iconLeft: any;
   if (iconNameLeft) {
@@ -80,7 +82,7 @@ export default function ButtonBasic({
 
   return (
     <Pressable
-      className="my-1 flex-row items-center rounded-lg border bg-[white]"
+      className="my-2 flex-row items-center rounded-lg border bg-[white]"
       style={{
         height: subtitle ? 62 : 60,
         borderColor: borderInvisible ? 'rgb(246,246,246)' : 'rgb(215,221,234)',
@@ -101,7 +103,10 @@ export default function ButtonBasic({
         )}
       </View>
       <View className="flex-column flex-1 justify-center">
-        <Text className="text-[14px] font-semibold leading-[1.8] text-[rgb(14,16,18)]">
+        <Text
+          className="text-[14px] leading-[1.8] text-[rgb(14,16,18)]"
+          style={{ fontWeight: bold ? '600' : '400' }}
+        >
           {title}
         </Text>
         {subtitle && (
