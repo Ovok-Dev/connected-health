@@ -277,6 +277,9 @@ export function getIcon(iconName: string) {
     case 'study-offers':
       icon = require('../../assets/images/icon-study-offers.png');
       break;
+    case 'three-dots-colorful':
+      icon = require('../../assets/images/icon-three-dots-colorful.png');
+      break;
   }
   return icon;
 }
