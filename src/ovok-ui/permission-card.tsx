@@ -111,7 +111,7 @@ export default function PermissionCard({
   return (
     <View>
       <View className="my-2 h-[96px] flex-row rounded-lg bg-[white]">
-        <View className="mr-3 items-center justify-center">
+        <View className="ml-2 mr-3 items-center justify-center">
           <Image source={getIcon(imageName)} width={60} height={80} />
         </View>
         <View className="flex-1 items-start justify-center gap-2">

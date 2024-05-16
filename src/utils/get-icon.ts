@@ -250,6 +250,12 @@ export function getIcon(iconName: string) {
     case 'questionnaire-blue':
       icon = require('../../assets/images/icon-questionnaire-blue.png');
       break;
+    case 'blood-box':
+      icon = require('../../assets/images/image-blood-box.png');
+      break;
+    case 'device':
+      icon = require('../../assets/images/image-device.png');
+      break;
   }
   return icon;
 }

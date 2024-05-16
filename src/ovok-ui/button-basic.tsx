@@ -41,13 +41,27 @@ export default function ButtonBasic({
     if (iconNameRight === 'selected') {
       return (
         <View className="mr-3 h-[25px] w-[60px] items-center justify-center rounded-[3px] bg-[rgb(100,204,39)]">
-          <Text className="text-[12px] text-[white]">Selected</Text>
+          <Text className="px-2 py-1 text-[12px] text-white">Selected</Text>
         </View>
       );
     } else if (iconNameRight === 'select') {
       return (
-        <View className="mr-3 h-[25px] w-[47px] items-center justify-center rounded-[3px] bg-[rgba(57,99,156,0.1)]">
-          <Text className="text-[12px] text-[rgb(57,99,156)]">Select</Text>
+        <View className="mr-3 h-[25px] items-center justify-center rounded-[3px] bg-[rgba(57,99,156,0.1)]">
+          <Text className="px-2 py-1 text-[12px] text-[rgb(57,99,156)]">
+            Select
+          </Text>
+        </View>
+      );
+    } else if (iconNameRight === 'disconnect') {
+      return (
+        <View className="mr-3 h-[25px] items-center justify-center rounded-[3px] bg-[rgb(248,57,32)]">
+          <Text className="px-2 py-1 text-[12px] text-white">Disconnect</Text>
+        </View>
+      );
+    } else if (iconNameRight === 'connect') {
+      return (
+        <View className="mr-3 h-[25px] items-center justify-center rounded-[3px] bg-[rgb(57,99,156)]">
+          <Text className="px-2 py-1 text-[12px] text-white">Connect</Text>
         </View>
       );
     } else if (badgeNumber) {
