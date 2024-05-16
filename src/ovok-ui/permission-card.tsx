@@ -1,8 +1,8 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useMemo, useState } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 import { RadioGroup } from 'react-native-radio-buttons-group';
 
-import type { Access } from '@/types/access.types';
 import { Color } from '@/types/colors';
 import { getIcon } from '@/utils/get-icon';
 
@@ -11,8 +11,46 @@ interface Props {
   time: string;
   practitioner: string;
   specialization: string;
-  initialAccessType: Access;
+  initialAccessType: string;
 }
+
+const accessTypes: { value: string; label: string }[] = [
+  {
+    value: '0',
+    label: 'Full Access',
+  },
+  {
+    value: '1',
+    label: 'General Access',
+  },
+  {
+    value: '2',
+    label: 'Read Only',
+  },
+  {
+    value: '3',
+    label: 'Limited Access',
+  },
+];
+
+const getAccessTypeIndex = (accessType: string) => {
+  let accessTypeIndex: string = '0';
+  switch (accessType) {
+    case 'full':
+      accessTypeIndex = '0';
+      break;
+    case 'general':
+      accessTypeIndex = '1';
+      break;
+    case 'read-only':
+      accessTypeIndex = '2';
+      break;
+    case 'limited':
+      accessTypeIndex = '3';
+      break;
+  }
+  return accessTypeIndex;
+};
 
 export default function PermissionCard({
   imageName,
@@ -21,28 +59,12 @@ export default function PermissionCard({
   specialization,
   initialAccessType,
 }: Props) {
-  const [accessType, setAccessType] = useState<Access>(initialAccessType);
+  const [accessType, setAccessType] = useState<string>(
+    getAccessTypeIndex(initialAccessType)
+  );
   const [accessMenuOpen, setAccessMenuOpen] = useState<boolean>(false);
 
   const radioButtons = useMemo(() => {
-    const accessTypes: { value: Access; label: string }[] = [
-      {
-        value: 'full',
-        label: 'Full Access',
-      },
-      {
-        value: 'general',
-        label: 'General Access',
-      },
-      {
-        value: 'limited',
-        label: 'Limited Access',
-      },
-      {
-        value: 'read-only',
-        label: 'Read Only',
-      },
-    ];
     return accessTypes.map(({ value, label }, index) => {
       return {
         id: index.toString(),
@@ -53,24 +75,26 @@ export default function PermissionCard({
   }, []);
 
   const renderAccessType = () => {
-    let bgColor: string, textColor: string, text: string;
+    let bgColor: string = '';
+    let textColor: string = '';
+    let text: string = '';
     switch (accessType) {
-      case 'full':
+      case '0':
         bgColor = 'rgba(114, 149, 69, 0.06)';
         textColor = 'rgb(114, 149, 69)';
         text = 'Full access';
         break;
-      case 'general':
+      case '1':
         bgColor = 'background: rgba(51, 139, 157, 0.06)';
         textColor = 'background: rgb(51, 139, 157)';
         text = 'General access';
         break;
-      case 'read-only':
+      case '2':
         bgColor = 'background: rgba(71, 69, 149, 0.06)';
         textColor = 'rgb(71, 69, 149)';
         text = 'Read only';
         break;
-      case 'limited':
+      case '3':
         bgColor = Color.Red;
         textColor = Color.RedText;
         text = 'Limited access';
@@ -87,24 +111,7 @@ export default function PermissionCard({
   };
 
   const handleAccessTypePress = (id: string) => {
-    let newAccessType: Access;
-    switch (id) {
-      case '0':
-        newAccessType = 'full';
-        break;
-      case '1':
-        newAccessType = 'general';
-        break;
-      case '2':
-        newAccessType = 'limited';
-        break;
-      case '3':
-        newAccessType = 'read-only';
-        break;
-      default:
-        newAccessType = accessType;
-    }
-    setAccessType(newAccessType);
+    setAccessType(id);
     setAccessMenuOpen(false);
   };
 
