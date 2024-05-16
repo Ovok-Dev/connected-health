@@ -280,6 +280,21 @@ export function getIcon(iconName: string) {
     case 'three-dots-colorful':
       icon = require('../../assets/images/icon-three-dots-colorful.png');
       break;
+    case 'mastercard':
+      icon = require('../../assets/images/icon-mastercard.png');
+      break;
+    case 'visa':
+      icon = require('../../assets/images/icon-visa.png');
+      break;
+    case 'mobile-money':
+      icon = require('../../assets/images/icon-mobile-money.png');
+      break;
+    case 'card':
+      icon = require('../../assets/images/icon-card.png');
+      break;
+    case 'paypal':
+      icon = require('../../assets/images/icon-paypal.png');
+      break;
   }
   return icon;
 }

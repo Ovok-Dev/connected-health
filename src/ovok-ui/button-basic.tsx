@@ -35,9 +35,7 @@ export default function ButtonBasic({
     iconLeft = null;
   }
 
-  const iconRight = iconNameRight
-    ? getIcon(iconNameRight)
-    : getIcon('three-dots');
+  const iconRight = iconNameRight && getIcon(iconNameRight);
 
   const renderRightSide = () => {
     if (iconNameRight === 'selected') {

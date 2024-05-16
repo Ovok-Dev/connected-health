@@ -21,6 +21,7 @@ const renderTasks = (tasks: any) => {
         title={task.title}
         subtitle={task.subtitle}
         taskType={task.type}
+        iconNameRight="three-dots"
       />
     );
   });
