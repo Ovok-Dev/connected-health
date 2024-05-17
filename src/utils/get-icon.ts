@@ -295,6 +295,18 @@ export function getIcon(iconName: string) {
     case 'paypal':
       icon = require('../../assets/images/icon-paypal.png');
       break;
+    case 'moon':
+      icon = require('../../assets/images/icon-moon.png');
+      break;
+    case 'font-size':
+      icon = require('../../assets/images/icon-font-size.png');
+      break;
+    case 'globe':
+      icon = require('../../assets/images/icon-globe.png');
+      break;
+    case 'switch-off':
+      icon = require('../../assets/images/icon-switch-off.png');
+      break;
   }
   return icon;
 }
