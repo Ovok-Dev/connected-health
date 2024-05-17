@@ -1,3 +1,5 @@
+import type { Href } from 'expo-router';
+import { router } from 'expo-router';
 import { Dimensions, Image, Pressable, Text } from 'react-native';
 
 import { getIcon } from '@/utils/get-icon';
@@ -5,6 +7,7 @@ import { getIcon } from '@/utils/get-icon';
 interface Props {
   title: string;
   subtitle: string;
+  href?: Href<string>;
   isNew?: boolean;
   completed?: boolean;
 }
@@ -12,6 +15,7 @@ interface Props {
 export default function ButtonQuestionnaires({
   title,
   subtitle,
+  href,
   isNew = false,
   completed = false,
 }: Props) {
@@ -25,6 +29,7 @@ export default function ButtonQuestionnaires({
         borderWidth: completed ? 1 : 0,
         borderColor: 'rgba(100,204,39,0.45)',
       }}
+      onPress={() => href && router.push(href)}
     >
       {isNew && (
         <Text className="rounded-sm bg-[rgb(248,191,39)] px-2 py-1 text-[white]">

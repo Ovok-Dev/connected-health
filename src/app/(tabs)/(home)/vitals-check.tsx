@@ -40,9 +40,6 @@ export default function VitalsCheck() {
     timeOptions[0]
   );
 
-  // should be deleted
-  console.log(selectedVitals, selectedTimeSpan);
-
   return (
     <View className="flex-1" style={{ marginTop: StatusBar.currentHeight }}>
       <WeeklyCalendar />
@@ -113,11 +110,13 @@ export default function VitalsCheck() {
           title="Add From Connected Device"
           iconNameLeft="watch"
           iconNameRight="arrow-right"
+          href="/(tabs)/(home)/add-from-connected-device"
         />
         <ButtonBasic
           title="Add Manually"
           iconNameLeft="text"
           iconNameRight="arrow-right"
+          href="/(tabs)/(home)/add-manually"
         />
       </BackgroundWhite>
     </View>

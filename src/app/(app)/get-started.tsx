@@ -1,12 +1,9 @@
-import { Env } from '@env';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
 import { Controller, useForm } from 'react-hook-form';
 import { StatusBar, Text, View } from 'react-native';
 import { z } from 'zod';
 
-import { AuthService } from '@/api/common/auth.service';
-import { signIn } from '@/core/auth';
 import BackgroundCircles from '@/ovok-ui/background-circles';
 import ButtonWhiteOnPress from '@/ovok-ui/button-white-with-onpress';
 import { Input } from '@/ui';
@@ -37,31 +34,31 @@ export default function GetStarted() {
 
   const {
     control,
-    handleSubmit,
+    // handleSubmit,
 
     formState: { errors },
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = (data: any) => {
-    const authservice = new AuthService();
-    authservice
-      .register({
-        ...data,
-        projectId: Env.PROJECT_ID,
-        resourceType: 'Patient',
-        clientId: Env.CLIENT_ID,
-        sendDefaultEmail: false,
-      })
-      .then((data) => {
-        signIn({ access: data.access_token, refresh: data.refresh_token });
-        router.navigate('settings');
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  };
+  // const onSubmit = (data: any) => {
+  //   const authservice = new AuthService();
+  //   authservice
+  //     .register({
+  //       ...data,
+  //       projectId: Env.PROJECT_ID,
+  //       resourceType: 'Patient',
+  //       clientId: Env.CLIENT_ID,
+  //       sendDefaultEmail: false,
+  //     })
+  //     .then((data) => {
+  //       signIn({ access: data.access_token, refresh: data.refresh_token });
+  //       router.push('/(app)/settings');
+  //     })
+  //     .catch((error) => {
+  //       alert(error.message);
+  //     });
+  // };
 
   return (
     <BackgroundCircles>
@@ -159,7 +156,11 @@ export default function GetStarted() {
           />
         </View>
 
-        <ButtonWhiteOnPress onPress={handleSubmit(onSubmit)}>
+        <ButtonWhiteOnPress
+          onPress={
+            /*handleSubmit(onSubmit)/>*/ () => router.push('/(tabs)/(home)/')
+          }
+        >
           Continue
         </ButtonWhiteOnPress>
       </View>

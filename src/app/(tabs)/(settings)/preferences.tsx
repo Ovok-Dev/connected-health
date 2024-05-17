@@ -15,12 +15,14 @@ export default function Preferences() {
         iconNameLeft="font-size"
         iconNameRight="arrow-right"
         bold={false}
+        href="/(tabs)/(settings)/font-size"
       />
       <ButtonBasic
         title="Language"
         iconNameLeft="globe"
         iconNameRight="arrow-right"
         bold={false}
+        href="/(tabs)/(settings)/language"
       />
     </BackgroundWhite>
   );

@@ -1,3 +1,5 @@
+import type { Href } from 'expo-router';
+import { router } from 'expo-router';
 import { Image, Pressable, Text, View } from 'react-native';
 
 import { Color } from '@/types/colors';
@@ -11,7 +13,9 @@ interface Props {
   taskType?: Task;
   iconNameLeft?: string;
   iconNameRight?: string;
+  numberRight?: number;
   badgeNumber?: number;
+  href?: Href<string>;
   borderInvisible?: boolean;
   bold?: boolean;
 }
@@ -22,7 +26,9 @@ export default function ButtonBasic({
   taskType,
   iconNameLeft,
   iconNameRight,
+  numberRight,
   badgeNumber,
+  href,
   borderInvisible = false,
   bold = true,
 }: Props) {
@@ -40,7 +46,7 @@ export default function ButtonBasic({
   const renderRightSide = () => {
     if (iconNameRight === 'selected') {
       return (
-        <View className="mr-3 h-[25px] w-[60px] items-center justify-center rounded-[3px] bg-[rgb(100,204,39)]">
+        <View className="mr-3 h-[25px] items-center justify-center rounded-[3px] bg-[rgb(100,204,39)]">
           <Text className="px-2 py-1 text-[12px] text-white">Selected</Text>
         </View>
       );
@@ -64,13 +70,28 @@ export default function ButtonBasic({
           <Text className="px-2 py-1 text-[12px] text-white">Connect</Text>
         </View>
       );
-    } else if (badgeNumber) {
+    } else if (numberRight || badgeNumber) {
+      let textColor = 'inherit';
+      let bgColor = 'inherit';
+      if (badgeNumber) {
+        textColor = 'white';
+        bgColor = Color.BadgeRed;
+      } else if (numberRight === 1) {
+        textColor = Color.YellowText;
+        bgColor = Color.Yellow;
+      } else if (numberRight === 2) {
+        textColor = Color.GreenText;
+        bgColor = Color.Green;
+      } else if (numberRight === 3) {
+        textColor = Color.BlueText;
+        bgColor = Color.Blue;
+      }
       return (
         <View
           className="h-[22px] w-[22px] items-center justify-center rounded-full"
-          style={{ backgroundColor: Color.BadgeRed }}
+          style={{ backgroundColor: bgColor }}
         >
-          <Text className="text-[white]">{badgeNumber}</Text>
+          <Text style={{ color: textColor }}>{numberRight || badgeNumber}</Text>
         </View>
       );
     } else {
@@ -85,6 +106,7 @@ export default function ButtonBasic({
         height: subtitle ? 62 : 60,
         borderColor: borderInvisible ? 'rgb(246,246,246)' : 'rgb(215,221,234)',
       }}
+      onPress={() => href && router.push(href)}
     >
       <View
         className={

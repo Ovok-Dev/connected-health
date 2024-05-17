@@ -76,7 +76,7 @@ export default function DataConsent() {
           </View>
         </View>
         <View>
-          <ButtonWhite disabled={continueDisabled} href="/get-started">
+          <ButtonWhite disabled={continueDisabled} href="/(app)/get-started">
             Continue
           </ButtonWhite>
         </View>

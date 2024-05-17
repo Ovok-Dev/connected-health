@@ -44,7 +44,7 @@ export default function OvokLogin() {
       })
       .then((data) => {
         signIn({ access: data.access_token, refresh: data.refresh_token });
-        router.navigate('settings');
+        router.push('/(app)/settings');
       })
       .catch((error) => {
         alert(error.message);

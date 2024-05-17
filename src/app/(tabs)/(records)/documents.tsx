@@ -1,4 +1,6 @@
-import { Text, View } from 'react-native';
+/* eslint-disable react/react-in-jsx-scope */
+import { router } from 'expo-router';
+import { Button, Text, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
 import DocImage from '@/ovok-ui/doc-image';
@@ -21,6 +23,13 @@ export default function Documents() {
   return (
     <BackgroundWhite>
       <View className="flex-1 items-center justify-center gap-3">
+        <View className="mb-3 flex-row justify-end">
+          <Button
+            title="Add document"
+            color={'green'}
+            onPress={() => router.push('/(tabs)/(records)/add-document')}
+          />
+        </View>
         <View className="flex-1 flex-row items-center justify-center gap-3">
           {renderDocumentsEntry('doc-image-records', 'text-icon-pdf')}
           {renderDocumentsEntry('doc-image-request', 'text-icon-jpg')}

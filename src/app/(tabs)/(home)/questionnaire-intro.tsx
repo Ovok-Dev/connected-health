@@ -18,7 +18,7 @@ export default function QuestionnaireIntro() {
         Experience Feedback Tool (HEFT) will take just a few minutes of your
         time and will help us tailor our approach to best suit your needs.
       </Text>
-      <ButtonColorful>Start</ButtonColorful>
+      <ButtonColorful href="/(tabs)/(home)/questionnaire">Start</ButtonColorful>
     </BackgroundWhite>
   );
 }

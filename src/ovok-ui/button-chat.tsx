@@ -1,3 +1,5 @@
+import type { Href } from 'expo-router';
+import { router } from 'expo-router';
 import { Dimensions, Image, Pressable, Text, View } from 'react-native';
 
 import { getIcon } from '@/utils/get-icon';
@@ -6,6 +8,7 @@ interface Props {
   iconName: string;
   personName: string;
   messageBeginning: string;
+  href?: Href<string>;
   isOnline?: boolean;
   numberNewMessages?: number;
 }
@@ -14,13 +17,17 @@ export default function ButtonChat({
   iconName,
   personName,
   messageBeginning,
+  href,
   isOnline = false,
   numberNewMessages = 0,
 }: Props) {
   const { width } = Dimensions.get('window');
 
   return (
-    <Pressable className="my-3 h-[64px] flex-row items-center rounded-lg bg-white">
+    <Pressable
+      className="my-3 h-[64px] flex-row items-center rounded-lg bg-white"
+      onPress={() => href && router.push(href)}
+    >
       <View className="mx-3 h-[44px] w-[44px] items-center justify-center overflow-hidden rounded-full">
         <Image
           source={getIcon(iconName)}

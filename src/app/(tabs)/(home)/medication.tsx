@@ -1,4 +1,6 @@
-import { StatusBar, Text, View } from 'react-native';
+/* eslint-disable react/react-in-jsx-scope */
+import { router } from 'expo-router';
+import { Button, StatusBar, Text, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonMedication from '@/ovok-ui/button-medication';
@@ -9,6 +11,13 @@ export default function Medication() {
     <View className="flex-1" style={{ marginTop: StatusBar.currentHeight }}>
       <WeeklyCalendar />
       <BackgroundWhite coversFullPage={false}>
+        <View className="flex-row justify-end">
+          <Button
+            onPress={() => router.push('/(tabs)/(home)/add-medication')}
+            title="Add Medication"
+            color="green"
+          />
+        </View>
         <Text className="my-3 text-[16px] font-semibold">
           Today's Medication
         </Text>

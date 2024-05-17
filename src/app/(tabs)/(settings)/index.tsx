@@ -28,7 +28,7 @@ export default function Profile() {
             className="flex-1"
           >
             <ImageBackground
-              source={require('../../assets/images/background-image-benefits.png')}
+              source={require('../../../../assets/images/background-image-benefits.png')}
               resizeMode="cover"
               className="flex-1"
             >
@@ -56,18 +56,21 @@ export default function Profile() {
         iconNameLeft="user"
         iconNameRight="arrow-right"
         bold={false}
+        href="/(tabs)/(settings)/personal-information"
       />
       <ButtonBasic
         title="Care Membership"
         iconNameLeft="crown"
         iconNameRight="arrow-right"
         bold={false}
+        href="/(tabs)/(settings)/membership"
       />
       <ButtonBasic
         title="Payment"
         iconNameLeft="moneys"
         iconNameRight="arrow-right"
         bold={false}
+        href="/(tabs)/(settings)/payments"
       />
       <ButtonBasic
         title="Study Offers"
@@ -80,6 +83,7 @@ export default function Profile() {
         iconNameLeft="preferences"
         iconNameRight="arrow-right"
         bold={false}
+        href="/(tabs)/(settings)/preferences"
       />
       <Pressable className="mt-2 h-[54px] items-center justify-center rounded-lg border border-[rgb(215,221,234)] bg-white">
         <View className="flex-row items-center justify-center gap-2">

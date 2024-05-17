@@ -7,6 +7,7 @@ export default function Learn() {
       <LearningCard
         title="Common Medical Conditions"
         imageName="stethoscope-small"
+        href="/(tabs)/(home)/learning-text"
       >
         Lorem ipsum dolor sit amet consectetur. Urna aenean auctor bibendum ut
         cursus. Fusce consectetur amet in nibh ante...

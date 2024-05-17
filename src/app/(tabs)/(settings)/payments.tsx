@@ -34,6 +34,7 @@ export default function Payments() {
         iconNameLeft="card"
         iconNameRight="arrow-right"
         bold={false}
+        href="/(tabs)/(settings)/add-credit-card"
       />
       <ButtonBasic
         title="Link PayPal"

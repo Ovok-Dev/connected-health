@@ -6,7 +6,8 @@ export default function Start() {
   const { height } = Dimensions.get('window');
 
   return (
-    <Link href="/invitation" asChild className=" w-full flex-1">
+    <Link href="/(app)/invitation" asChild className=" w-full flex-1">
+      {/* <Link href="/(tabs)/(home)/" replace asChild className=" w-full flex-1"> */}
       <Pressable className="flex-1">
         <LinearGradient
           colors={['rgb(93,136,144)', 'rgb(82,84,144)']}

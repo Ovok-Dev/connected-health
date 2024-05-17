@@ -1,4 +1,6 @@
-import { Image, Text, View } from 'react-native';
+import type { Href } from 'expo-router';
+import { router } from 'expo-router';
+import { Image, Pressable, Text, View } from 'react-native';
 
 import { Color } from '@/types/colors';
 import type { Task } from '@/types/task.types';
@@ -8,6 +10,7 @@ import { getTaskColor } from '@/utils/get-task-color';
 interface Props {
   taskType: Task;
   badgeNumber: number;
+  href?: Href<string>;
 }
 
 function getTaskTitle(taskType: Task): string {
@@ -35,12 +38,15 @@ function getTaskTitle(taskType: Task): string {
   return title;
 }
 
-export default function TaskButton({ taskType, badgeNumber }: Props) {
+export default function TaskButton({ taskType, badgeNumber, href }: Props) {
   const title: string = getTaskTitle(taskType);
   const backgroundColor: Color = getTaskColor(taskType);
 
   return (
-    <View className="items-center">
+    <Pressable
+      className="items-center"
+      onPress={() => href && router.push(href)}
+    >
       <View
         className="my-3 h-[48px] w-[48px] items-center justify-center rounded-lg"
         style={{ backgroundColor }}
@@ -58,6 +64,6 @@ export default function TaskButton({ taskType, badgeNumber }: Props) {
       <View className="mt-1">
         <Text className="text-center text-[14px] text-[black]">{title}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 }

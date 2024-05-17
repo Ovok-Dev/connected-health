@@ -7,6 +7,7 @@ export default function Questionnaires() {
       <ButtonQuestionnaires
         title="Hypertension Experience Feedback Tool (HEFT)"
         subtitle="5 Questions"
+        href="/(tabs)/(home)/questionnaire-intro"
         isNew
       />
       <ButtonQuestionnaires

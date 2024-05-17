@@ -95,14 +95,44 @@ export default function ElectronicRecords() {
       </View>
       <View className="mt-4 items-center justify-center">
         <View className="flex-row items-center justify-center">
-          <ButtonRecord iconName="image-grey">Labs & Images</ButtonRecord>
-          <ButtonRecord iconName="history-grey">Medical History</ButtonRecord>
-          <ButtonRecord iconName="documents-grey">Documents</ButtonRecord>
+          <ButtonRecord
+            iconName="image-grey"
+            href="/(tabs)/(records)/documents"
+          >
+            Labs & Images
+          </ButtonRecord>
+          <ButtonRecord
+            iconName="history-grey"
+            href="/(tabs)/(records)/medical-history"
+          >
+            Medical History
+          </ButtonRecord>
+          <ButtonRecord
+            iconName="documents-grey"
+            href="/(tabs)/(records)/documents"
+          >
+            Documents
+          </ButtonRecord>
         </View>
         <View className="flex-row items-center justify-center">
-          <ButtonRecord iconName="stats-grey">Social Insights</ButtonRecord>
-          <ButtonRecord iconName="permissions-grey">Permissions</ButtonRecord>
-          <ButtonRecord iconName="lifestyle-grey">Lifestyle</ButtonRecord>
+          <ButtonRecord
+            iconName="stats-grey"
+            href="/(tabs)/(records)/social-insights"
+          >
+            Social Insights
+          </ButtonRecord>
+          <ButtonRecord
+            iconName="permissions-grey"
+            href="/(tabs)/(records)/permissions"
+          >
+            Permissions
+          </ButtonRecord>
+          <ButtonRecord
+            iconName="lifestyle-grey"
+            href="/(tabs)/(records)/lifestyle"
+          >
+            Lifestyle
+          </ButtonRecord>
         </View>
       </View>
     </BackgroundWhite>

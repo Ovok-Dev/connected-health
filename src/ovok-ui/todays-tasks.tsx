@@ -17,8 +17,16 @@ export default function TodaysTasks() {
   const renderRightActions = () => {
     return (
       <View className="w-full flex-row gap-12">
-        <TaskButton taskType="vitals" badgeNumber={2} />
-        <TaskButton taskType="learn" badgeNumber={0} />
+        <TaskButton
+          taskType="vitals"
+          badgeNumber={2}
+          href="/(tabs)/(home)/vitals-check"
+        />
+        <TaskButton
+          taskType="learn"
+          badgeNumber={0}
+          href="/(tabs)/(home)/learn"
+        />
       </View>
     );
   };
@@ -45,10 +53,22 @@ export default function TodaysTasks() {
           onSwipeableClose={() => setTasksSideDisplayed('left')}
         >
           <View className="flex-1 flex-row justify-between">
-            <TaskButton taskType="medication" badgeNumber={1} />
-            <TaskButton taskType="questionnaire" badgeNumber={0} />
+            <TaskButton
+              taskType="medication"
+              badgeNumber={1}
+              href="/(tabs)/(home)/medication"
+            />
+            <TaskButton
+              taskType="questionnaire"
+              badgeNumber={0}
+              href="/(tabs)/(home)/questionnaires"
+            />
             <TaskButton taskType="caretask" badgeNumber={2} />
-            <TaskButton taskType="consultation" badgeNumber={1} />
+            <TaskButton
+              taskType="consultation"
+              badgeNumber={1}
+              href="/(tabs)/(home)/consultation"
+            />
           </View>
         </Swipeable>
       </View>

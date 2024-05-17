@@ -29,7 +29,7 @@ export default function PersonalInformation() {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [dateBirth, setDateBirth] = useState<string>('01/01/1980');
-  const [gender, setGender] = useState<string>('');
+  const [gender, setGender] = useState<string>('0');
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const [genderMenuOpen, setGenderMenuOpen] = useState<boolean>(false);
 
@@ -106,7 +106,7 @@ export default function PersonalInformation() {
           onPress={() => setGenderMenuOpen((prev) => !prev)}
         >
           <Text className="text-[14px] text-[rgb(51,51,51)]">
-            {genderLabel}
+            {genderLabel || 'none'}
           </Text>
           <Image source={getIcon('arrow-down')} width={24} height={24} />
         </Pressable>

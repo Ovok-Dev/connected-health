@@ -10,6 +10,7 @@ export default function Chats() {
         isOnline
         messageBeginning="Hey Grace, I have updated your diet plan..."
         numberNewMessages={1}
+        href="/(tabs)/(care)/chat"
       />
       <ButtonChat
         iconName="leah-cole"
