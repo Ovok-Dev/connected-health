@@ -307,6 +307,12 @@ export function getIcon(iconName: string) {
     case 'switch-off':
       icon = require('../../assets/images/icon-switch-off.png');
       break;
+    case 'radio-button-selected':
+      icon = require('../../assets/images/icon-radio-button-selected.png');
+      break;
+    case 'radio-button-unselected':
+      icon = require('../../assets/images/icon-radio-button-unselected.png');
+      break;
   }
   return icon;
 }
