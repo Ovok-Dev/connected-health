@@ -313,6 +313,21 @@ export function getIcon(iconName: string) {
     case 'radio-button-unselected':
       icon = require('../../assets/images/icon-radio-button-unselected.png');
       break;
+    case 'uk':
+      icon = require('../../assets/images/flag-icon-uk.png');
+      break;
+    case 'germany':
+      icon = require('../../assets/images/flag-icon-germany.png');
+      break;
+    case 'china':
+      icon = require('../../assets/images/flag-icon-china.png');
+      break;
+    case 'arabic':
+      icon = require('../../assets/images/flag-icon-arabic.png');
+      break;
+    case 'france':
+      icon = require('../../assets/images/flag-icon-france.png');
+      break;
   }
   return icon;
 }
