@@ -328,6 +328,21 @@ export function getIcon(iconName: string) {
     case 'france':
       icon = require('../../assets/images/flag-icon-france.png');
       break;
+    case 'tab-home':
+      icon = require('../../assets/images/tab-icon-home.png');
+      break;
+    case 'tab-note':
+      icon = require('../../assets/images/tab-icon-note.png');
+      break;
+    case 'tab-trials':
+      icon = require('../../assets/images/tab-icon-trials.png');
+      break;
+    case 'tab-care':
+      icon = require('../../assets/images/tab-icon-care.png');
+      break;
+    case 'tab-settings':
+      icon = require('../../assets/images/tab-icon-settings.png');
+      break;
   }
   return icon;
 }
