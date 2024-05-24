@@ -1,6 +1,10 @@
+// Learn more https://docs.expo.io/guides/customizing-metro
 const { getDefaultConfig } = require('expo/metro-config');
-const { withNativeWind } = require('nativewind/metro');
+const { mergeConfig } = require('metro-config');
 
-const config = getDefaultConfig(__dirname);
-
-module.exports = withNativeWind(config, { input: './global.css' });
+/** @type {import('expo/metro-config').MetroConfig} */
+module.exports = mergeConfig(getDefaultConfig(__dirname), {
+  transformer: {
+    unstable_allowRequireContext: true,
+  },
+});
