@@ -25,7 +25,7 @@ export default function TabLayout() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="start" />
+        <Stack.Screen name="index" />
       </Stack>
     </View>
   );
