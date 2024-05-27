@@ -1,3 +1,5 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Image } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -6,6 +8,12 @@ import Paragraph from '@/ovok-ui/paragraph';
 import { getIcon } from '@/utils/get-icon';
 
 export default function LearningText() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Learn' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <Image source={getIcon('stethoscope')} className="h-auto w-full" />

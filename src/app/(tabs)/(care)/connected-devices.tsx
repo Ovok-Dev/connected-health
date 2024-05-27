@@ -1,9 +1,17 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Text } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
 
 export default function ConnectedDevices() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Connected Devices' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <ButtonBasic

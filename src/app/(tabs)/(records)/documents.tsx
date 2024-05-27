@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Button, Text, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -19,6 +20,12 @@ export default function Documents() {
       </View>
     );
   };
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Documents' });
+  }, [navigation]);
 
   return (
     <BackgroundWhite>

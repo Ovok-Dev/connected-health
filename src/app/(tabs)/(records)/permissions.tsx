@@ -1,7 +1,16 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
+
 import BackgroundWhite from '@/ovok-ui/background-white';
 import PermissionCard from '@/ovok-ui/permission-card';
 
 export default function Permissions() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Permissions' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <PermissionCard

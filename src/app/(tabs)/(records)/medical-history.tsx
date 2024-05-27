@@ -1,3 +1,5 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -55,6 +57,12 @@ export default function MedicalHistory() {
       </RecordEntriesContainer>
     </>
   );
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Medical History' });
+  }, [navigation]);
 
   return (
     <BackgroundWhite>

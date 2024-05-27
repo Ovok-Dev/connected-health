@@ -1,7 +1,16 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
+
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
 
 export default function Language() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Language' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <ButtonBasic

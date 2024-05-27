@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Image, Text, TextInput, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -7,6 +8,12 @@ import { getIcon } from '@/utils/get-icon';
 
 export default function AddDocument() {
   const [title, setTitle] = useState<string>('');
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Add Document' });
+  }, [navigation]);
 
   return (
     <BackgroundWhite>

@@ -1,3 +1,5 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Image, Text } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -5,6 +7,12 @@ import ButtonColorful from '@/ovok-ui/button-colorful';
 import { getIcon } from '@/utils/get-icon';
 
 export default function QuestionnaireIntro() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Questionnaire' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <Image source={getIcon('questionnaire-big')} className="h-auto w-full" />

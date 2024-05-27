@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Button, StatusBar, Text, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -7,6 +8,12 @@ import ButtonMedication from '@/ovok-ui/button-medication';
 import WeeklyCalendar from '@/ovok-ui/weekly-calendar';
 
 export default function Medication() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Medication' });
+  }, [navigation]);
+
   return (
     <View className="flex-1" style={{ marginTop: StatusBar.currentHeight }}>
       <WeeklyCalendar />

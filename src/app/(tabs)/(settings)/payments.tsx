@@ -1,9 +1,17 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Text } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
 
 export default function Payments() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Payment' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <Text className="text-[16px] font-semibold text-[rgb(29,29,29)]">

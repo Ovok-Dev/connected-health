@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Image, Pressable, Text, TextInput, View } from 'react-native';
 import type { DateData } from 'react-native-calendars';
 import { Calendar } from 'react-native-calendars';
@@ -40,6 +41,12 @@ export default function AddMedication() {
     setStartDateCalendarOpen(false);
     setEndDateCalendarOpen(false);
   };
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Add Medication' });
+  }, [navigation]);
 
   return (
     <BackgroundWhite>

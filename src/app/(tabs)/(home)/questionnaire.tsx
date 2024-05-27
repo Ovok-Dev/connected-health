@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useNavigation } from 'expo-router';
+import { useEffect, useMemo, useState } from 'react';
 import { Dimensions, Text, TextInput, View } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 
@@ -65,6 +66,12 @@ export default function Questionnaire() {
   };
 
   const { width } = Dimensions.get('window');
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Questionnaire' });
+  }, [navigation]);
 
   return (
     <BackgroundWhite>

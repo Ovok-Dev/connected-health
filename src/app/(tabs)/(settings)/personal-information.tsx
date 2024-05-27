@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
-import { useMemo, useState } from 'react';
+import { useNavigation } from 'expo-router';
+import { useEffect, useMemo, useState } from 'react';
 import { Image, Pressable, Text, TextInput, View } from 'react-native';
 import type { DateData } from 'react-native-calendars';
 import { Calendar } from 'react-native-calendars';
@@ -56,6 +57,12 @@ export default function PersonalInformation() {
   const genderLabel: string = genderTypes.find(
     (genderType) => genderType.value === gender
   )!.label;
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Personal Information' });
+  }, [navigation]);
 
   return (
     <BackgroundWhite>

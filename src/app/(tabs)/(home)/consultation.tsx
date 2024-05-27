@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { StatusBar, View } from 'react-native';
 
 import Appointment from '@/ovok-ui/appointment';
@@ -70,6 +71,12 @@ export default function Consultation() {
       );
     });
   };
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Consultation' });
+  }, [navigation]);
 
   return (
     <View className="flex-1" style={{ marginTop: StatusBar.currentHeight }}>

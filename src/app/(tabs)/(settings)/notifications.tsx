@@ -1,9 +1,17 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Text, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
 import Notification from '@/ovok-ui/notification';
 
 export default function Notifications() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Notifications' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <View className="mt-3">

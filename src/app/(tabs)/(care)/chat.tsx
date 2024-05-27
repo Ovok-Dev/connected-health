@@ -1,7 +1,16 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
+
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ChatMessage from '@/ovok-ui/chat-message';
 
 export default function Chat() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Chat' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <ChatMessage time="5:09 PM" me>

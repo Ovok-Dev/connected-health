@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -9,6 +10,12 @@ export default function AddCredicCard() {
   const [cardNumber, setCardNumber] = useState<string>('');
   const [expires, setExpires] = useState<string>('');
   const [cvv, setCvv] = useState<string>('');
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Add Credit Card' });
+  }, [navigation]);
 
   return (
     <BackgroundWhite>

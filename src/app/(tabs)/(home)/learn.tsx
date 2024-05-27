@@ -1,7 +1,16 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
+
 import BackgroundWhite from '@/ovok-ui/background-white';
 import LearningCard from '@/ovok-ui/learning-card';
 
 export default function Learn() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Learn' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <LearningCard

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Image, StatusBar, Text, View } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 
@@ -39,6 +40,12 @@ export default function VitalsCheck() {
   const [selectedTimeSpan, setSelectedTimeSpan] = useState<SelectOption>(
     timeOptions[0]
   );
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Vitals Check' });
+  }, [navigation]);
 
   return (
     <View className="flex-1" style={{ marginTop: StatusBar.currentHeight }}>

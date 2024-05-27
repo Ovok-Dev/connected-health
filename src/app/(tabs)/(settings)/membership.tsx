@@ -1,5 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Image, Text, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -7,6 +9,12 @@ import ButtonWhite from '@/ovok-ui/button-white';
 import { getIcon } from '@/utils/get-icon';
 
 export default function Membership() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Care Membership' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <View className="flex-1 overflow-hidden rounded-xl">

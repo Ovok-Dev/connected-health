@@ -1,8 +1,17 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
+
 import BackgroundWhite from '@/ovok-ui/background-white';
 import RecordEntriesContainer from '@/ovok-ui/record-entries-container';
 import RecordEntry from '@/ovok-ui/record-entry';
 
 export default function Lifestyle() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Lifestyle' });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <RecordEntriesContainer title="Drugs">
