@@ -7,6 +7,7 @@ export default function CareTabLayout() {
       <Stack
         screenOptions={{
           headerShown: true,
+          headerTitleAlign: 'center',
         }}
       >
         <Stack.Screen name="index" />
