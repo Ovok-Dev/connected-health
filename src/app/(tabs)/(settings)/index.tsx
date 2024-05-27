@@ -1,4 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Image, ImageBackground, Pressable, Text, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -6,6 +8,12 @@ import ButtonBasic from '@/ovok-ui/button-basic';
 import { getIcon } from '@/utils/get-icon';
 
 export default function Profile() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <View className="mb-6 overflow-hidden rounded-xl">

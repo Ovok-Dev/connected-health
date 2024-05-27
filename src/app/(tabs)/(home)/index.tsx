@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -65,6 +66,12 @@ export default function Home() {
       subtitle: '25 mins read',
     },
   ]);
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
 
   return (
     <BackgroundWhite>

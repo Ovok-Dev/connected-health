@@ -26,13 +26,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="(trials)"
-        options={{
-          title: 'Trials',
-          tabBarIcon: () => renderTabIcon('tab-trials'),
-        }}
-      />
-      <Tabs.Screen
         name="(care)"
         options={{
           title: 'Care',

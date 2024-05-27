@@ -1,3 +1,5 @@
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Image, Text, View } from 'react-native';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
@@ -5,6 +7,12 @@ import ButtonBasic from '@/ovok-ui/button-basic';
 import { getIcon } from '@/utils/get-icon';
 
 export default function Care() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <Text className="text-[16px] font-semibold text-[rgb(29,29,29)]">

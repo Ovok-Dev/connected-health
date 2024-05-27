@@ -1,4 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { Image } from 'react-native';
 
@@ -8,6 +10,12 @@ import RecordEntry from '@/ovok-ui/record-entry';
 import { getIcon } from '@/utils/get-icon';
 
 export default function ElectronicRecords() {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
+
   return (
     <BackgroundWhite>
       <View className="my-6 h-[98px] overflow-hidden rounded-xl">
