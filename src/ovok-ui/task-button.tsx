@@ -62,7 +62,9 @@ export default function TaskButton({ taskType, badgeNumber, href }: Props) {
         <Image source={getIcon(taskType)} width={24} height={24} />
       </View>
       <View className="mt-1">
-        <Text className="text-center text-[14px] text-[black]">{title}</Text>
+        <Text className="text-center text-[14px] text-[rgba(0,0,0,0.5)]">
+          {title}
+        </Text>
       </View>
     </Pressable>
   );

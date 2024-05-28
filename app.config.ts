@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import type { ConfigContext, ExpoConfig } from '@expo/config';
 
 import { ClientEnv, Env } from './env';
@@ -25,7 +24,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: Env.BUNDLE_ID,
+    bundleIdentifier: Env.EXPO_PUBLIC_BUNDLE_ID,
   },
   experiments: {
     typedRoutes: true,
@@ -49,6 +48,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
           './assets/fonts/Inter.ttf',
           './assets/fonts/Jost-Regular.ttf',
           './assets/fonts/Jost-Bold.ttf',
+          './assets/fonts/Jost-SemiBold.ttf',
+          './assets/fonts/Jost-Medium.ttf',
+          './assets/fonts/Jost-Light.ttf',
         ],
       },
     ],

@@ -33,7 +33,7 @@ require('dotenv').config({
 
 // TODO: Replace these values with your own
 
-const BUNDLE_ID = 'com.ovok.app'; // ios bundle id
+const EXPO_PUBLIC_BUNDLE_ID = 'com.ovok.app'; // ios bundle id
 const PACKAGE = 'com.ovok_rpm_app'; // android package name
 const NAME = 'ovok_rpm_app'; // app name
 const EXPO_ACCOUNT_OWNER = 'expo-owner'; // expo account owner
@@ -73,24 +73,24 @@ const client = z.object({
   APP_ENV: z.enum(['development', 'staging', 'production']),
   NAME: z.string(),
   SCHEME: z.string(),
-  BUNDLE_ID: z.string(),
+  EXPO_PUBLIC_BUNDLE_ID: z.string(),
   PACKAGE: z.string(),
   VERSION: z.string(),
 
   // ADD YOUR CLIENT ENV VARS HERE
-  API_URL: z.string(),
-  VAR_NUMBER: z.number(),
-  VAR_BOOL: z.boolean(),
-  CLIENT_ID: z.string(),
-  PROJECT_ID: z.string(),
-  ORGANIZATION_ID: z.string(),
+  EXPO_PUBLIC_API_URL: z.string(),
+  EXPO_PUBLIC_VAR_NUMBER: z.number(),
+  EXPO_PUBLIC_VAR_BOOL: z.boolean(),
+  EXPO_PUBLIC_CLIENT_ID: z.string(),
+  EXPO_PUBLIC_PROJECT_ID: z.string(),
+  EXPO_PUBLIC_ORGANIZATION_ID: z.string(),
 });
 
 const buildTime = z.object({
   EXPO_ACCOUNT_OWNER: z.string(),
   EAS_PROJECT_ID: z.string(),
   // ADD YOUR BUILD TIME ENV VARS HERE
-  SECRET_KEY: z.string(),
+  EXPO_PUBLIC_SECRET_KEY: z.string(),
 });
 
 /**
@@ -100,17 +100,17 @@ const _clientEnv = {
   APP_ENV,
   NAME: NAME,
   SCHEME: SCHEME,
-  BUNDLE_ID: withEnvSuffix(BUNDLE_ID),
+  EXPO_PUBLIC_BUNDLE_ID: withEnvSuffix(EXPO_PUBLIC_BUNDLE_ID),
   PACKAGE: withEnvSuffix(PACKAGE),
   VERSION: packageJSON.version,
-  CLIENT_ID: process.env.CLIENT_ID,
-  PROJECT_ID: process.env.PROJECT_ID,
-  ORGANIZATION_ID: process.env.ORGANIZATION_ID,
+  EXPO_PUBLIC_CLIENT_ID: process.env.EXPO_PUBLIC_CLIENT_ID,
+  EXPO_PUBLIC_PROJECT_ID: process.env.EXPO_PUBLIC_PROJECT_ID,
+  EXPO_PUBLIC_ORGANIZATION_ID: process.env.EXPO_PUBLIC_ORGANIZATION_ID,
 
   // ADD YOUR ENV VARS HERE TOO
-  API_URL: process.env.API_URL,
-  VAR_NUMBER: Number(process.env.VAR_NUMBER),
-  VAR_BOOL: process.env.VAR_BOOL === 'true',
+  EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
+  EXPO_PUBLIC_VAR_NUMBER: Number(process.env.EXPO_PUBLIC_VAR_NUMBER),
+  EXPO_PUBLIC_VAR_BOOL: process.env.EXPO_PUBLIC_VAR_BOOL === 'true',
 };
 
 /**
@@ -120,7 +120,7 @@ const _buildTimeEnv = {
   EXPO_ACCOUNT_OWNER,
   EAS_PROJECT_ID,
   // ADD YOUR ENV VARS HERE TOO
-  SECRET_KEY: process.env.SECRET_KEY,
+  EXPO_PUBLIC_SECRET_KEY: process.env.EXPO_PUBLIC_SECRET_KEY,
 };
 
 /**

@@ -8,7 +8,7 @@ let isRefreshing = false;
 let refreshPromise = null;
 
 export const client = axios.create({
-  baseURL: Env.API_URL,
+  baseURL: Env.EXPO_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },

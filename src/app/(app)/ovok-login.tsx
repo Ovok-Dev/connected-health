@@ -40,11 +40,11 @@ export default function OvokLogin() {
     authservice
       .login({
         ...data,
-        clientId: Env.CLIENT_ID,
+        clientId: Env.EXPO_PUBLIC_CLIENT_ID,
       })
       .then((data) => {
         signIn({ access: data.access_token, refresh: data.refresh_token });
-        router.push('/(app)/settings');
+        router.navigate('settings');
       })
       .catch((error) => {
         alert(error.message);
@@ -121,7 +121,7 @@ export default function OvokLogin() {
                 </Text>
                 <Link
                   className="text-center font-medium leading-[1.8] text-[rgb(52,54,114)] underline"
-                  href="/get-started"
+                  href="/benefits"
                 >
                   Sign up
                 </Link>

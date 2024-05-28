@@ -19,18 +19,13 @@ export default function ButtonColorful({
   disabled,
   href,
 }: Props) {
-  const handleOnPress = () => {
-    if (disabled) return;
-    if (handleSubmit && onSubmit) {
-      handleSubmit(onSubmit);
-    } else if (href) {
-      router.push(href);
-    }
-  };
-
   return (
     <Pressable
-      onPress={handleOnPress}
+      onPress={
+        handleSubmit && onSubmit
+          ? handleSubmit(onSubmit)
+          : () => href && !disabled && router.push(href)
+      }
       className="my-6 h-[60px] overflow-hidden rounded-xl"
     >
       <LinearGradient
