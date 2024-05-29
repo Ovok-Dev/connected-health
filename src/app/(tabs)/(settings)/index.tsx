@@ -3,12 +3,14 @@ import { useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import { Image, ImageBackground, Pressable, Text, View } from 'react-native';
 
+import { useAuth } from '@/core';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
 import { getIcon } from '@/utils/get-icon';
 
 export default function Profile() {
   const navigation = useNavigation();
+  const signOut = useAuth.use.signOut();
 
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
@@ -93,7 +95,10 @@ export default function Profile() {
         bold={false}
         href="/(tabs)/(settings)/preferences"
       />
-      <Pressable className="mt-2 h-[54px] items-center justify-center rounded-lg border border-[rgb(215,221,234)] bg-white">
+      <Pressable
+        className="mt-2 h-[54px] items-center justify-center rounded-lg border border-[rgb(215,221,234)] bg-white"
+        onPress={signOut}
+      >
         <View className="flex-row items-center justify-center gap-2">
           <Image source={getIcon('logout')} width={24} height={24} />
           <Text className="text-[14px] text-[rgb(248,57,32)]">Logout</Text>

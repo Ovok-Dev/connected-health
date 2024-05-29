@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { create } from 'zustand';
 
 import { createSelectors } from '../utils';
@@ -22,6 +23,7 @@ const _useAuth = create<AuthState>((set, get) => ({
   signOut: () => {
     removeToken();
     set({ status: 'signOut', token: null });
+    router.replace('/(app)/');
   },
   hydrate: () => {
     try {

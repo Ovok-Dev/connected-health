@@ -44,7 +44,7 @@ export default function OvokLogin() {
       })
       .then((data) => {
         signIn({ access: data.access_token, refresh: data.refresh_token });
-        router.navigate('settings');
+        router.navigate('/(tabs)/(home)/');
       })
       .catch((error) => {
         alert(error.message);

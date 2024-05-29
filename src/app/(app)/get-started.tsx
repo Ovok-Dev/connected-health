@@ -56,7 +56,7 @@ export default function GetStarted() {
       })
       .then((data) => {
         signIn({ access: data.access_token, refresh: data.refresh_token });
-        router.push('/(tabs)/(home)/');
+        router.navigate('/(tabs)/(home)/');
       })
       .catch((error) => {
         alert(error.message);
