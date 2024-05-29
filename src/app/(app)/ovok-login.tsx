@@ -36,8 +36,8 @@ export default function OvokLogin() {
     resolver: zodResolver(loginSchema),
   });
   const onSubmit = (data: any) => {
-    const authservice = new AuthService();
-    authservice
+    const authService = new AuthService();
+    authService
       .login({
         ...data,
         clientId: Env.EXPO_PUBLIC_CLIENT_ID,

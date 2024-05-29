@@ -1,11 +1,16 @@
+import { useContext } from 'react';
 import { Image, Text, View } from 'react-native';
 
+import { DataContext } from '@/api/common/data.context';
+import type { IDataContext } from '@/types/data.context.interface';
 import { getIcon } from '@/utils/get-icon';
 
 const iconBell = getIcon('bell');
 const iconGrace = getIcon('grace');
 
 export default function DashboardHeader() {
+  const { firstName } = useContext(DataContext) as IDataContext;
+
   return (
     <View className="flex-1 flex-row justify-between">
       <View className="flex-column justify-center">
@@ -13,7 +18,7 @@ export default function DashboardHeader() {
           Saturday, 12 Aug
         </Text>
         <Text className="text-[24px] font-semibold leading-[1.8] text-[rgb(29,29,29)]">
-          Hi, Grace
+          Hi, {firstName}
         </Text>
       </View>
       <View className="flex-row items-center justify-center">

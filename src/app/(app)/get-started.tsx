@@ -45,8 +45,8 @@ export default function GetStarted() {
   });
 
   const onSubmit = (data: any) => {
-    const authservice = new AuthService();
-    authservice
+    const authService = new AuthService();
+    authService
       .register({
         ...data,
         projectId: Env.EXPO_PUBLIC_PROJECT_ID,
