@@ -1,5 +1,5 @@
+import { Env } from '@env';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Env } from 'env';
 import { router } from 'expo-router';
 import { Controller, useForm } from 'react-hook-form';
 import { StatusBar, Text, View } from 'react-native';
