@@ -61,15 +61,13 @@ export class AuthService implements IAuthService {
       name?: {
         firstName?: string[];
         lastName?: string;
-      };
+      }[];
       birthDate?: string;
       gender?: Gender;
       communicationLanguage?: string[];
     }
   ): Promise<UpdateProfileResponse> => {
-    console.log('requestData: ', req);
     const { data } = await client.put(`/patient/${id}`, req);
-    console.log('responsedata: ', data);
     return data;
   };
 

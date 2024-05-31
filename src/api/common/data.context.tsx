@@ -29,18 +29,20 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   }) => {
     authService
       .updateProfile(id, {
-        name: {
-          firstName: [newFirstName],
-          lastName: newLastName,
-        },
+        name: [
+          {
+            firstName: [newFirstName],
+            lastName: newLastName,
+          },
+        ],
         birthDate: newBirthDate,
         gender: newGender,
       })
       .then((data) => {
-        console.log('data from updateProfile: ', data);
-        // setFirstName(data.name?[0]);
-        // setLastName(data.name?[0]);
-        // setBirthDate(data.)
+        setFirstName(data.name?.[0]?.firstName?.[0]);
+        setLastName(data.name?.[0]?.lastName);
+        setBirthDate(data.birthDate);
+        setGender(data.gender);
       })
       .catch((error) => console.log(error));
   };

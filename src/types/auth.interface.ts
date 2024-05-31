@@ -1,4 +1,5 @@
 import type { RegisterResourceTypes } from './auth.types';
+import type { Gender } from './common-ovok.types';
 
 export interface IAuthService {
   register: (body: Register) => Promise<AuthResponse>;
@@ -78,6 +79,8 @@ export interface Extension2 {
 export interface UpdateProfileResponse {
   id: string;
   name: Name[];
+  birthDate: string;
+  gender: Gender;
   telecom: Telecom[];
   communicationLanguage: string[];
 }
