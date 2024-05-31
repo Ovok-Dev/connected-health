@@ -1,14 +1,20 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from 'expo-router';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Image, ImageBackground, Pressable, Text, View } from 'react-native';
 
+import { DataContext } from '@/api/common/data.context';
 import { useAuth } from '@/core';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
+import type { IDataContext } from '@/types/data.context.interface';
 import { getIcon } from '@/utils/get-icon';
 
 export default function Profile() {
+  const { firstName, lastName, email } = useContext(
+    DataContext
+  ) as IDataContext;
+
   const navigation = useNavigation();
   const signOut = useAuth.use.signOut();
 
@@ -51,10 +57,10 @@ export default function Profile() {
                   />
                 </View>
                 <Text className="text-[24px] font-medium text-white">
-                  Grace Agyei
+                  {firstName} {lastName}
                 </Text>
                 <Text className="text-[12px] text-white opacity-75">
-                  example@domain.com
+                  {email}
                 </Text>
               </View>
             </ImageBackground>
