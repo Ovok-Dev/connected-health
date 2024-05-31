@@ -44,7 +44,12 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         setBirthDate(data.birthDate);
         setGender(data.gender);
       })
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        console.log(
+          'Error in updateProfile, updatePersonalInformation: ',
+          error
+        )
+      );
   };
 
   useEffect(() => {
@@ -61,7 +66,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         setBirthDate(data.profile?.birthDate);
         setGender(data.profile?.gender);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log('Error in getUserInfo: ', error));
   }, []);
 
   return (
