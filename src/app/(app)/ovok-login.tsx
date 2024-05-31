@@ -111,7 +111,7 @@ export default function OvokLogin() {
               )}
               name="password"
             />
-            <ButtonColorful handleSubmit={handleSubmit} onSubmit={onSubmit}>
+            <ButtonColorful onPress={handleSubmit(onSubmit)}>
               Login
             </ButtonColorful>
             <View className="flex-1 justify-end">

@@ -159,9 +159,7 @@ export default function GetStarted() {
           />
         </View>
 
-        <ButtonWhite handleSubmit={handleSubmit} onSubmit={onSubmit}>
-          Continue
-        </ButtonWhite>
+        <ButtonWhite onPress={handleSubmit(onSubmit)}>Continue</ButtonWhite>
       </View>
     </BackgroundCircles>
   );

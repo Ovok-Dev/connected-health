@@ -1,61 +1,89 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 import { useNavigation } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { Image, Pressable, Text, TextInput, View } from 'react-native';
 import type { DateData } from 'react-native-calendars';
 import { Calendar } from 'react-native-calendars';
 import { RadioGroup } from 'react-native-radio-buttons-group';
 
+import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
+import type { Gender } from '@/types/common-ovok.types';
+import type { IDataContext } from '@/types/data.context.interface';
 import { getIcon } from '@/utils/get-icon';
+import { reverseDateOrder } from '@/utils/reverse-date-order';
 
-const genderTypes: { value: string; label: string }[] = [
+const genderTypes: { value: Gender; label: string }[] = [
   {
-    value: '0',
+    value: 'male',
     label: 'Male',
   },
   {
-    value: '1',
+    value: 'female',
     label: 'Female',
   },
   {
-    value: '2',
-    label: 'Do Not Wish to Specify',
+    value: 'other',
+    label: 'Other',
+  },
+  {
+    value: 'unknown',
+    label: 'Unknown',
   },
 ];
 
 export default function PersonalInformation() {
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [dateBirth, setDateBirth] = useState<string>('01/01/1980');
-  const [gender, setGender] = useState<string>('0');
+  const {
+    firstName: initialFirstName,
+    lastName: initialLastName,
+    birthDate: initialBirthDate,
+    gender: initialGender,
+    updatePersonalInformation,
+  } = useContext(DataContext) as IDataContext;
+
+  let initialGenderIndex: string = '0';
+  genderTypes.forEach((el, index) => {
+    if (el.value === initialGender) {
+      initialGenderIndex = index.toString();
+    }
+  });
+
+  const [firstName, setFirstName] = useState<string>(initialFirstName || '');
+  const [lastName, setLastName] = useState<string>(initialLastName || '');
+  const [birthDate, setBirthDate] = useState<string>(
+    initialBirthDate || '1980-01-01'
+  );
+  const [genderId, setGenderId] = useState<string>(initialGenderIndex);
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const [genderMenuOpen, setGenderMenuOpen] = useState<boolean>(false);
 
   const handleDayPress = (dateObject: DateData) => {
-    setDateBirth(dateObject.dateString);
+    const newBirthDate: string = reverseDateOrder(dateObject);
+    setBirthDate(newBirthDate);
     setCalendarOpen(false);
   };
 
   const radioButtons = useMemo(() => {
-    return genderTypes.map(({ value, label }, index) => {
+    return genderTypes.map(({ label }, index) => {
       return {
         id: index.toString(),
-        value,
+        value: index.toString(),
         label,
       };
     });
   }, []);
 
   const handleGenderPress = (newId: string) => {
-    setGender(newId);
+    setGenderId(newId);
     setGenderMenuOpen(false);
   };
 
+  const gender: Gender = genderTypes[Number(genderId)].value;
+
   const genderLabel: string = genderTypes.find(
-    (genderType) => genderType.value === gender
+    (genderType, index) => index.toString() === genderId
   )!.label;
 
   const navigation = useNavigation();
@@ -79,7 +107,7 @@ export default function PersonalInformation() {
         <View className="flex-1">
           <Text className="text-[14px] text-[rgb(14,14,14)] ">First Name</Text>
           <TextInput
-            placeholder="Grace"
+            placeholder="First Name"
             value={firstName}
             onChangeText={(value) => setFirstName(value)}
             className="mt-2 rounded-lg bg-white px-2 py-1"
@@ -88,7 +116,7 @@ export default function PersonalInformation() {
         <View className="flex-1">
           <Text className="text-[14px] text-[rgb(14,14,14)] ">Last Name</Text>
           <TextInput
-            placeholder="Agyei"
+            placeholder="Last Name"
             value={lastName}
             onChangeText={(value) => setLastName(value)}
             className="mt-2 rounded-lg bg-white px-2 py-1"
@@ -101,7 +129,7 @@ export default function PersonalInformation() {
           className="my-3 h-[52px] flex-1 flex-row items-center justify-between rounded-lg bg-[white] px-3"
           onPress={() => setCalendarOpen((prev) => !prev)}
         >
-          <Text className="text-[14px] text-[rgb(51,51,51)]">{dateBirth}</Text>
+          <Text className="text-[14px] text-[rgb(51,51,51)]">{birthDate}</Text>
           <Image source={getIcon('arrow-down')} width={24} height={24} />
         </Pressable>
         {calendarOpen && <Calendar onDayPress={handleDayPress} />}
@@ -120,7 +148,7 @@ export default function PersonalInformation() {
         {genderMenuOpen && (
           <RadioGroup
             radioButtons={radioButtons}
-            selectedId={gender}
+            selectedId={genderId}
             onPress={handleGenderPress}
             containerStyle={{
               alignItems: 'flex-start',
@@ -130,7 +158,18 @@ export default function PersonalInformation() {
           />
         )}
       </View>
-      <ButtonColorful>Save</ButtonColorful>
+      <ButtonColorful
+        onPress={() =>
+          updatePersonalInformation({
+            newFirstName: firstName,
+            newLastName: lastName,
+            newBirthDate: birthDate,
+            newGender: gender,
+          })
+        }
+      >
+        Save
+      </ButtonColorful>
     </BackgroundWhite>
   );
 }

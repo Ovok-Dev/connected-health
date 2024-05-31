@@ -9,6 +9,7 @@ import type {
   ResetPasswordResponse,
   UpdateProfileResponse,
 } from '@/types/auth.interface';
+import type { Gender } from '@/types/common-ovok.types';
 
 import { client } from './client';
 
@@ -57,12 +58,18 @@ export class AuthService implements IAuthService {
   public updateProfile = async (
     id: string,
     req: {
-      firstName?: string[];
-      lastName?: string;
+      name?: {
+        firstName?: string[];
+        lastName?: string;
+      };
+      birthDate?: string;
+      gender?: Gender;
       communicationLanguage?: string[];
     }
   ): Promise<UpdateProfileResponse> => {
+    console.log('requestData: ', req);
     const { data } = await client.put(`/patient/${id}`, req);
+    console.log('responsedata: ', data);
     return data;
   };
 

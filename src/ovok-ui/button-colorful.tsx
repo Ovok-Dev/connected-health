@@ -2,30 +2,23 @@ import { LinearGradient } from 'expo-linear-gradient';
 import type { Href } from 'expo-router';
 import { router } from 'expo-router';
 import type { PropsWithChildren } from 'react';
-import type { FieldValues, UseFormHandleSubmit } from 'react-hook-form';
 import { Pressable, Text } from 'react-native';
 
 interface Props extends PropsWithChildren {
-  handleSubmit?: UseFormHandleSubmit<FieldValues, undefined>;
-  onSubmit?: any;
+  onPress?: any;
   disabled?: boolean;
   href?: Href<string>;
 }
 
 export default function ButtonColorful({
   children,
-  handleSubmit,
-  onSubmit,
+  onPress,
   disabled,
   href,
 }: Props) {
   return (
     <Pressable
-      onPress={
-        handleSubmit && onSubmit
-          ? handleSubmit(onSubmit)
-          : () => href && !disabled && router.push(href)
-      }
+      onPress={onPress ? onPress : () => href && !disabled && router.push(href)}
       className="my-6 h-[60px] overflow-hidden rounded-xl"
     >
       <LinearGradient
