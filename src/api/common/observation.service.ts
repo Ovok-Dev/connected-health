@@ -14,7 +14,7 @@ export class ObservationService implements IObservationService {
     return data;
   };
 
-  public getObservation = async (): Promise<ObservationResponse> => {
+  public getAllObservations = async (): Promise<ObservationResponse> => {
     const { data } = await client.get(`/observation`);
     return data;
   };

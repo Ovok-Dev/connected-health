@@ -1,15 +1,20 @@
 import { useNavigation } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Image, Pressable, Text, TextInput, View } from 'react-native';
 import type { DateData } from 'react-native-calendars';
 import { Calendar } from 'react-native-calendars';
 
+import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
+import type { IDataContext } from '@/types/data.context.interface';
+import type { ICreateMedicationFormData } from '@/types/medication-request.interface';
 import { getIcon } from '@/utils/get-icon';
 
 export default function AddMedication() {
-  const [medicineName, setMedicineName] = useState<string>('');
+  const { createMedicationRequest } = useContext(DataContext) as IDataContext;
+
+  const [medicationName, setMedicationName] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [frequency, setFrequency] = useState<string>('');
@@ -20,7 +25,13 @@ export default function AddMedication() {
     useState<boolean>(false);
 
   const saveButtonDisabled: boolean =
-    medicineName && startDate && endDate && frequency && dose ? false : true;
+    medicationName && startDate && endDate && frequency && dose ? false : true;
+
+  const createMedicationRequestFormData: ICreateMedicationFormData = {
+    medicationName,
+    doseValue: dose,
+    frequency,
+  };
 
   const handleStartDateCalendarButton = () => {
     setStartDateCalendarOpen((prev) => !prev);
@@ -53,8 +64,8 @@ export default function AddMedication() {
       <View className="mt-3">
         <Text className="text-[14px]">Medicine Name</Text>
         <TextInput
-          value={medicineName}
-          onChangeText={(value) => setMedicineName(value)}
+          value={medicationName}
+          onChangeText={(value) => setMedicationName(value)}
           autoCorrect={false}
           className="mt-2 h-[40px] rounded-lg bg-[white] px-3"
         />
@@ -110,7 +121,12 @@ export default function AddMedication() {
           />
         </View>
       </View>
-      <ButtonColorful disabled={saveButtonDisabled}>Save</ButtonColorful>
+      <ButtonColorful
+        disabled={saveButtonDisabled}
+        onPress={() => createMedicationRequest(createMedicationRequestFormData)}
+      >
+        Save
+      </ButtonColorful>
     </BackgroundWhite>
   );
 }

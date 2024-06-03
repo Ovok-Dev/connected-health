@@ -1,14 +1,31 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { router, useNavigation } from 'expo-router';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Button, StatusBar, Text, View } from 'react-native';
 
+import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonMedication from '@/ovok-ui/button-medication';
 import WeeklyCalendar from '@/ovok-ui/weekly-calendar';
+import type { IDataContext } from '@/types/data.context.interface';
 
 export default function Medication() {
+  const { medicationValues } = useContext(DataContext) as IDataContext;
   const navigation = useNavigation();
+
+  const renderMedications = () => {
+    return medicationValues.map((entry) => {
+      return (
+        <ButtonMedication
+          key={entry.medicationName}
+          imageName="pills"
+          title={entry.medicationName}
+          dosage={entry.dose}
+          schedule={entry.instruction}
+        />
+      );
+    });
+  };
 
   useEffect(() => {
     navigation.setOptions({ title: 'Medication' });
@@ -28,24 +45,7 @@ export default function Medication() {
         <Text className="my-3 text-[16px] font-semibold">
           Today's Medication
         </Text>
-        <ButtonMedication
-          title="Lisinopril"
-          schedule="Once daily"
-          dosage="10mg daily"
-          imageName="pills"
-        />
-        <ButtonMedication
-          title="Amlodipine"
-          schedule="Once daily"
-          dosage="5mg daily"
-          imageName="pills"
-        />
-        <ButtonMedication
-          title="Paracetamol"
-          schedule="Twice daily"
-          dosage="5mg daily"
-          imageName="pills"
-        />
+        {renderMedications()}
         <ButtonMedication
           title="Injection name here"
           schedule="Once daily"

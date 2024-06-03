@@ -6,15 +6,22 @@ import type {
   IDataContext,
   UpdatePersonalInformation,
 } from '@/types/data.context.interface';
+import type {
+  ICreateMedicationFormData,
+  IMedicationValues,
+} from '@/types/medication-request.interface';
 import type { Daum } from '@/types/observation.interface';
+import { getMedicationValues } from '@/utils/get-medication-values';
 
 import { AuthService } from './auth.service';
+import { MedicationRequestService } from './medication-request.service';
 import { ObservationService } from './observation.service';
 
 export const DataContext = createContext<IDataContext | null>(null);
 
 const authService = new AuthService();
 const observationService = new ObservationService();
+const medicationRequestService = new MedicationRequestService();
 
 export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [id, setId] = useState<string>('');
@@ -28,6 +35,9 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [diastolic, setDiastolic] = useState<string>('80');
   const [weight, setWeight] = useState<string>('82');
   const [temperature, setTemperature] = useState<string>('36.7');
+  const [medicationValues, setMedicationValues] = useState<IMedicationValues[]>(
+    []
+  );
 
   const updatePersonalInformation: UpdatePersonalInformation = ({
     newFirstName,
@@ -60,6 +70,22 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   };
 
+  const createMedicationRequest = (
+    createMedicationRequestFormData: ICreateMedicationFormData
+  ) => {
+    medicationRequestService
+      .createMedicationRequest(createMedicationRequestFormData, id)
+      .then((data) => {
+        setMedicationValues((prev) => [
+          ...prev,
+          ...getMedicationValues([data]),
+        ]);
+      })
+      .catch((error) =>
+        console.log('Error while creating new medicationRequest: ', error)
+      );
+  };
+
   useEffect(() => {
     authService
       .getUserInfo()
@@ -79,7 +105,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
 
   useEffect(() => {
     observationService
-      .getObservation()
+      .getAllObservations()
       .then((dataObject: { data: Daum[] }) => {
         dataObject.data.forEach((entry) => {
           const value =
@@ -108,20 +134,34 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   }, []);
 
+  useEffect(() => {
+    medicationRequestService
+      .getAllMedicationRequests()
+      .then((data) => {
+        setMedicationValues(getMedicationValues(data));
+      })
+      .catch((error) =>
+        console.log('Error while loading medication requests: ', error)
+      );
+  }, []);
+
   return (
     <DataContext.Provider
       value={{
+        id,
         firstName,
         lastName,
         email,
         birthDate,
         gender,
-        updatePersonalInformation,
         heartRate,
         systolic,
         diastolic,
         temperature,
         weight,
+        medicationValues,
+        updatePersonalInformation,
+        createMedicationRequest,
       }}
     >
       {children}
