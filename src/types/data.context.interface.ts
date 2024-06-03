@@ -12,5 +12,10 @@ export interface IDataContext {
   email: string;
   birthDate: string;
   gender?: Gender;
+  diastolic: string;
+  systolic: string;
+  heartRate: string;
+  weight: string;
+  temperature: string;
   updatePersonalInformation: UpdatePersonalInformation;
 }

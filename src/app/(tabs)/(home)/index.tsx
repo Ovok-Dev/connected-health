@@ -1,7 +1,8 @@
 import { useNavigation } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 
+import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
 import DashboardHeader from '@/ovok-ui/dashboard-header';
@@ -10,6 +11,7 @@ import SearchInput from '@/ovok-ui/search-input';
 import SwitchButtons from '@/ovok-ui/switch-buttons';
 import TodaysTasks from '@/ovok-ui/todays-tasks';
 import ValuesOverview from '@/ovok-ui/values-overview';
+import type { IDataContext } from '@/types/data.context.interface';
 
 const renderTasks = (tasks: any) => {
   if (tasks.length === 0) {
@@ -29,6 +31,10 @@ const renderTasks = (tasks: any) => {
 };
 
 export default function Home() {
+  const { heartRate, diastolic, systolic, temperature, weight } = useContext(
+    DataContext
+  ) as IDataContext;
+
   const [displayHIVMonitoring /* setDisplayHIVMonitoring */] = useState(false);
   const [selectedButton, setSelectedButton] = useState<string>('care-plans');
   // carePlans and trials should later use the CarePlan interface
@@ -78,10 +84,10 @@ export default function Home() {
       <DashboardHeader />
       <SearchInput />
       <ValuesOverview
-        heartRate="92"
-        bloodPressure="140/88"
-        temperature="36.2"
-        weight="80"
+        heartRate={heartRate}
+        bloodPressure={`${systolic}/${diastolic}`}
+        temperature={temperature}
+        weight={weight}
       />
       {displayHIVMonitoring && (
         <View className="mt-3">
