@@ -11,7 +11,7 @@ import type { IDataContext } from '@/types/data.context.interface';
 import { getIcon } from '@/utils/get-icon';
 
 export default function Profile() {
-  const { firstName, lastName, email } = useContext(
+  const { firstName, lastName, email, photoUrl } = useContext(
     DataContext
   ) as IDataContext;
 
@@ -51,9 +51,9 @@ export default function Profile() {
               <View className="h-[190px] items-center justify-center gap-2">
                 <View className="h-[72px] w-[72px] overflow-hidden rounded-full bg-white">
                   <Image
-                    source={getIcon('grace')}
+                    source={photoUrl ? { uri: photoUrl } : getIcon('grace')}
                     className="w-full flex-1"
-                    resizeMode="contain"
+                    resizeMode="cover"
                   />
                 </View>
                 <Text className="text-[24px] font-medium text-white">

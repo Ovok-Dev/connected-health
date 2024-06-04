@@ -30,6 +30,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [id, setId] = useState<string>('');
   const [systolicId, setSystolicId] = useState<string>('');
   const [diastolicId, setDiastolicId] = useState<string>('');
+  const [photoUrl, setPhotoUrl] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -137,6 +138,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         );
         setBirthDate(data.profile?.birthDate);
         setGender(data.profile?.gender);
+        setPhotoUrl(data.profile?.photo?.[0]?.url);
       })
       .catch((error) => console.log('Error in getUserInfo: ', error));
   }, []);
@@ -193,6 +195,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         email,
         birthDate,
         gender,
+        photoUrl,
         heartRate,
         systolic,
         diastolic,
