@@ -5,6 +5,7 @@ import { createContext, useEffect, useState } from 'react';
 import type { Gender } from '@/types/common-ovok.types';
 import type {
   IDataContext,
+  UpdateBloodPressure,
   UpdatePersonalInformation,
 } from '@/types/data.context.interface';
 import type {
@@ -12,6 +13,7 @@ import type {
   IMedicationValues,
 } from '@/types/medication-request.interface';
 import type { Daum } from '@/types/observation.interface';
+import { getMeasurement } from '@/utils/get-measurement';
 import { getMedicationValues } from '@/utils/get-medication-values';
 
 import { AuthService } from './auth.service';
@@ -26,6 +28,8 @@ const medicationRequestService = new MedicationRequestService();
 
 export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [id, setId] = useState<string>('');
+  const [systolicId, setSystolicId] = useState<string>('');
+  const [diastolicId, setDiastolicId] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -88,6 +92,38 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   };
 
+  const updateBloodPressure: UpdateBloodPressure = (
+    newSystolic: string,
+    newDiastolic: string
+  ) => {
+    const systolicPromise = observationService.updateObservation({
+      observationId: systolicId,
+      patientId: id,
+      observationCode: '8480-6',
+      newObservationValue: newSystolic,
+    });
+    const diastolicPromise = observationService.updateObservation({
+      observationId: diastolicId,
+      patientId: id,
+      observationCode: '8462-4',
+      newObservationValue: newDiastolic,
+    });
+    Promise.all([systolicPromise, diastolicPromise])
+      .then((dataArray) => {
+        dataArray.forEach((data) => {
+          if (data.code === '8480-6') {
+            setSystolic(getMeasurement(data));
+          } else if (data.code === '8462-4') {
+            setDiastolic(getMeasurement(data));
+          }
+        });
+        router.navigate('/(tabs)/(home)');
+      })
+      .catch((error) =>
+        console.log('Error while updating blood pressure: ', error)
+      );
+  };
+
   useEffect(() => {
     authService
       .getUserInfo()
@@ -110,17 +146,18 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       .getAllObservations()
       .then((dataObject: { data: Daum[] }) => {
         dataObject.data.forEach((entry) => {
-          const value =
-            entry.measurement?.value.split(':')[1].slice(0, -1) || '';
+          const value = getMeasurement(entry);
           switch (entry.code) {
             case '8867-4':
               setHeartRate(value);
               break;
             case '8480-6':
               setSystolic(value);
+              setSystolicId(entry.id);
               break;
             case '8462-4':
               setDiastolic(value);
+              setDiastolicId(entry.id);
               break;
             case '8310-5':
               setTemperature(value);
@@ -164,6 +201,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         medicationValues,
         updatePersonalInformation,
         createMedicationRequest,
+        updateBloodPressure,
       }}
     >
       {children}

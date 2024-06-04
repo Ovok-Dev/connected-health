@@ -1,17 +1,25 @@
 import { useNavigation } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Image, Pressable, Text, TextInput, View } from 'react-native';
 import type { DateData } from 'react-native-calendars';
 import { Calendar } from 'react-native-calendars';
 
+import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
+import type { IDataContext } from '@/types/data.context.interface';
 import { getIcon } from '@/utils/get-icon';
 
 export default function AddManually() {
+  const {
+    systolic: initialSystolic,
+    diastolic: initialDiastolic,
+    updateBloodPressure,
+  } = useContext(DataContext) as IDataContext;
+
   const [date, setDate] = useState<string>(new Date().toDateString());
-  const [systolic, setSystolic] = useState<number>(130);
-  const [diastolic, setDiastolic] = useState<number>(90);
+  const [systolic, setSystolic] = useState<string>(initialSystolic);
+  const [diastolic, setDiastolic] = useState<string>(initialDiastolic);
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
 
   const handleDayPress = (dateObject: DateData) => {
@@ -46,7 +54,7 @@ export default function AddManually() {
               placeholder={systolic.toString()}
               keyboardType="numeric"
               value={systolic.toString()}
-              onChangeText={(value) => setSystolic(Number(value))}
+              onChangeText={(value) => setSystolic(value)}
             />
           </View>
         </View>
@@ -57,12 +65,14 @@ export default function AddManually() {
               placeholder={diastolic.toString()}
               keyboardType="numeric"
               value={diastolic.toString()}
-              onChangeText={(value) => setDiastolic(Number(value))}
+              onChangeText={(value) => setDiastolic(value)}
             />
           </View>
         </View>
       </View>
-      <ButtonColorful>Save</ButtonColorful>
+      <ButtonColorful onPress={() => updateBloodPressure(systolic, diastolic)}>
+        Save
+      </ButtonColorful>
     </BackgroundWhite>
   );
 }

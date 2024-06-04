@@ -39,9 +39,9 @@ export interface Daum {
   code: string;
   codeName?: string;
   subject: Subject;
-  method: string;
+  method?: string;
   component?: Component[];
-  effectiveDateTime: string;
+  effectiveDateTime?: string;
   measurement?: Measurement;
   note?: string[];
   identifier?: Identifier[];
@@ -64,4 +64,33 @@ export interface Measurement {
 export interface Identifier {
   system: string;
   value: string;
+}
+
+export interface IObservationRequestData {
+  status: string;
+  code: string;
+  subject: {
+    type: string;
+    id: string;
+  };
+  measurement: {
+    type: string;
+    value: string;
+  };
+}
+
+export interface IObservationUpdateResponseData {
+  resourceType: string;
+  id: string;
+  status: string;
+  code: string;
+  codeName: string;
+  subject: {
+    type: string;
+    id: string;
+  };
+  measurement: {
+    type: string;
+    value: string;
+  };
 }

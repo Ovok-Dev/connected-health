@@ -15,6 +15,11 @@ export type CreateMedicationRequest = (
   createMedicationRequestFormData: ICreateMedicationFormData
 ) => void;
 
+export type UpdateBloodPressure = (
+  newSystolic: string,
+  newDiastolic: string
+) => void;
+
 export interface IDataContext {
   id: string;
   firstName: string;
@@ -30,4 +35,5 @@ export interface IDataContext {
   medicationValues: IMedicationValues[];
   updatePersonalInformation: UpdatePersonalInformation;
   createMedicationRequest: CreateMedicationRequest;
+  updateBloodPressure: UpdateBloodPressure;
 }
