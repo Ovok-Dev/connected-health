@@ -26,7 +26,7 @@ export interface IDataContext {
   lastName: string;
   email: string;
   birthDate: string;
-  gender?: Gender;
+  gender: Gender;
   photoUrl: string;
   diastolic: string;
   systolic: string;
