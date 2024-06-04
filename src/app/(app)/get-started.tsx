@@ -1,8 +1,9 @@
 import { Env } from '@env';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { StatusBar, Text, View } from 'react-native';
+import { ActivityIndicator, StatusBar, Text, View } from 'react-native';
 import { z } from 'zod';
 
 import { AuthService } from '@/api/common/auth.service';
@@ -12,6 +13,8 @@ import ButtonWhite from '@/ovok-ui/button-white';
 import { Input } from '@/ui';
 
 export default function GetStarted() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const registerSchema = z.object({
     firstName: z
       .string({
@@ -46,6 +49,7 @@ export default function GetStarted() {
 
   const onSubmit = (data: any) => {
     const authService = new AuthService();
+    setIsLoading(true);
     authService
       .register({
         ...data,
@@ -158,8 +162,10 @@ export default function GetStarted() {
             name="password"
           />
         </View>
-
-        <ButtonWhite onPress={handleSubmit(onSubmit)}>Continue</ButtonWhite>
+        <ButtonWhite onPress={handleSubmit(onSubmit)} disabled={isLoading}>
+          Continue
+        </ButtonWhite>
+        {isLoading && <ActivityIndicator size="large" color="white" />}
       </View>
     </BackgroundCircles>
   );

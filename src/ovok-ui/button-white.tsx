@@ -22,7 +22,11 @@ export default function ButtonWhite({
   return (
     <Pressable
       className={`my-9 flex-row justify-center rounded-xl ${backgroundColor} py-4`}
-      onPress={onPress ? onPress : () => href && !disabled && router.push(href)}
+      onPress={
+        onPress
+          ? !disabled && onPress
+          : () => href && !disabled && router.push(href)
+      }
     >
       <Text className="text-[18px] font-medium tracking-[0.3px] text-[#525490]">
         {children}
