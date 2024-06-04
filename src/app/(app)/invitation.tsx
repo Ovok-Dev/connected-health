@@ -51,11 +51,13 @@ export default function Invitation() {
               </Link>
             </View>
             <View>
-              <Pressable className="rounded-xl border border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.14)] px-12 py-4">
-                <Text className="text-[16px] font-medium text-[white]">
-                  Scan and Start Your Care Journey
-                </Text>
-              </Pressable>
+              <Link href="/(app)/benefits" asChild>
+                <Pressable className="rounded-xl border border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.14)] px-12 py-4">
+                  <Text className="text-[16px] font-medium text-[white]">
+                    Scan and Start Your Care Journey
+                  </Text>
+                </Pressable>
+              </Link>
             </View>
           </View>
         </View>
