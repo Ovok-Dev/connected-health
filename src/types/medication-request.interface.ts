@@ -18,7 +18,7 @@ export interface MedicationRequestResponseData {
 
 export interface IDosageInstruction {
   doseAndRate: {
-    value: string;
+    value: number;
     unit: string;
   }[];
   text: string;
@@ -43,6 +43,6 @@ export interface ICreateMedicationRequestData {
 
 export interface ICreateMedicationFormData {
   medicationName: string;
-  doseValue: string;
+  doseValue: number;
   frequency: string;
 }

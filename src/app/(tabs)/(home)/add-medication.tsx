@@ -29,7 +29,7 @@ export default function AddMedication() {
 
   const createMedicationRequestFormData: ICreateMedicationFormData = {
     medicationName,
-    doseValue: dose,
+    doseValue: Number(dose),
     frequency,
   };
 

@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import type { PropsWithChildren } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
@@ -80,6 +81,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
           ...prev,
           ...getMedicationValues([data]),
         ]);
+        router.navigate('/(tabs)/(home)/medication');
       })
       .catch((error) =>
         console.log('Error while creating new medicationRequest: ', error)

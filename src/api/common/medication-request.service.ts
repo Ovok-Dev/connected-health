@@ -41,14 +41,12 @@ export class MedicationRequestService {
     createMedicationFormData: ICreateMedicationFormData,
     id: string
   ): Promise<MedicationRequestResponseData & { medicationName: string }> => {
-    console.log('Creating medicationRequest');
     const { id: medicationId } = await medicationService.createMedication({
       text: {
         status: 'generated',
         div: createMedicationFormData.medicationName,
       },
     });
-    console.log('medicationId: ', medicationId);
     const requestData: ICreateMedicationRequestData = {
       status: 'active',
       intent: 'proposal',
@@ -69,7 +67,6 @@ export class MedicationRequestService {
         },
       ],
     };
-    console.log(requestData);
     const { data } = await client.post<MedicationRequestResponseData>(
       '/medication-request',
       requestData
