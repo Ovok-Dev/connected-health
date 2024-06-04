@@ -47,7 +47,7 @@ export default function Medication() {
         </Text>
         {renderMedications()}
         <ButtonMedication
-          title="Injection name here"
+          title="Heparin"
           schedule="Once daily"
           dosage="5mg daily"
           imageName="injection"
