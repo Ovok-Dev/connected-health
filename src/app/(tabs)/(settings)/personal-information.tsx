@@ -40,6 +40,7 @@ export default function PersonalInformation() {
     lastName: initialLastName,
     birthDate: initialBirthDate,
     gender: initialGender,
+    photoUrl,
     updatePersonalInformation,
   } = useContext(DataContext) as IDataContext;
 
@@ -97,9 +98,9 @@ export default function PersonalInformation() {
       <View className="items-center justify-center">
         <View className="my-12 h-[100px] w-[100px] overflow-hidden rounded-full">
           <Image
-            source={getIcon('grace')}
+            source={photoUrl ? { uri: photoUrl } : getIcon('grace')}
             className="w-full flex-1"
-            resizeMode="contain"
+            resizeMode="cover"
           />
         </View>
       </View>

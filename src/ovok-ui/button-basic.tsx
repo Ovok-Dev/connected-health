@@ -44,7 +44,9 @@ export default function ButtonBasic({
   const iconRight = iconNameRight && getIcon(iconNameRight);
 
   const renderRightSide = () => {
-    if (iconNameRight === 'selected') {
+    if (!iconNameRight) {
+      return;
+    } else if (iconNameRight === 'selected') {
       return (
         <View className="mr-3 h-[25px] items-center justify-center rounded-[3px] bg-[rgb(100,204,39)]">
           <Text className="px-2 py-1 text-[12px] text-white">Selected</Text>

@@ -9,7 +9,7 @@ const iconBell = getIcon('bell');
 const iconGrace = getIcon('grace');
 
 export default function DashboardHeader() {
-  const { firstName } = useContext(DataContext) as IDataContext;
+  const { firstName, photoUrl } = useContext(DataContext) as IDataContext;
 
   return (
     <View className="flex-1 flex-row justify-between">
@@ -26,7 +26,11 @@ export default function DashboardHeader() {
           <Image source={iconBell} width={44} height={44} />
         </View>
         <View className="h-[44px] w-[44px] items-center justify-center">
-          <Image source={iconGrace} width={44} height={44} />
+          <Image
+            source={photoUrl ? { uri: photoUrl } : iconGrace}
+            width={44}
+            height={44}
+          />
         </View>
       </View>
     </View>

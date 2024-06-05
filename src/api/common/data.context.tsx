@@ -30,11 +30,12 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [id, setId] = useState<string>('');
   const [systolicId, setSystolicId] = useState<string>('');
   const [diastolicId, setDiastolicId] = useState<string>('');
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [birthDate, setBirthDate] = useState<string>('');
-  const [gender, setGender] = useState<Gender | undefined>();
+  const [photoUrl, setPhotoUrl] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('Jane');
+  const [lastName, setLastName] = useState<string>('Doe');
+  const [email, setEmail] = useState<string>('patient@email.com');
+  const [birthDate, setBirthDate] = useState<string>('1980-01-01');
+  const [gender, setGender] = useState<Gender>('female');
   const [heartRate, setHeartRate] = useState<string>('72');
   const [systolic, setSystolic] = useState<string>('140');
   const [diastolic, setDiastolic] = useState<string>('80');
@@ -137,6 +138,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         );
         setBirthDate(data.profile?.birthDate);
         setGender(data.profile?.gender);
+        setPhotoUrl(data.profile?.photo?.[0]?.url);
       })
       .catch((error) => console.log('Error in getUserInfo: ', error));
   }, []);
@@ -193,6 +195,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         email,
         birthDate,
         gender,
+        photoUrl,
         heartRate,
         systolic,
         diastolic,

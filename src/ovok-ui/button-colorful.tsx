@@ -18,7 +18,11 @@ export default function ButtonColorful({
 }: Props) {
   return (
     <Pressable
-      onPress={onPress ? onPress : () => href && !disabled && router.push(href)}
+      onPress={
+        onPress
+          ? !disabled && onPress
+          : () => href && !disabled && router.push(href)
+      }
       className="my-6 h-[60px] overflow-hidden rounded-xl"
     >
       <LinearGradient

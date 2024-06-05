@@ -37,7 +37,6 @@ export default function Home() {
 
   const [displayHIVMonitoring /* setDisplayHIVMonitoring */] = useState(false);
   const [selectedButton, setSelectedButton] = useState<string>('care-plans');
-  // carePlans and trials should later use the CarePlan interface
   const [carePlans /* setCarePlans */] = useState([
     {
       type: 'medication',
@@ -56,7 +55,7 @@ export default function Home() {
     },
     {
       type: 'medication',
-      title: 'Plan name here',
+      title: 'Immonuglobulin Therapy',
       subtitle: '12/08/2023',
     },
   ]);

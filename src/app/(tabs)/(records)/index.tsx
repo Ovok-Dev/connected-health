@@ -1,15 +1,21 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from 'expo-router';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { Image } from 'react-native';
 
+import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonRecord from '@/ovok-ui/button-record';
 import RecordEntry from '@/ovok-ui/record-entry';
+import type { IDataContext } from '@/types/data.context.interface';
 import { getIcon } from '@/utils/get-icon';
 
 export default function ElectronicRecords() {
+  const { firstName, lastName, gender, photoUrl } = useContext(
+    DataContext
+  ) as IDataContext;
+
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -42,14 +48,16 @@ export default function ElectronicRecords() {
         <View className="h-[97px] flex-row items-center pl-6">
           <View className="h-[62px] w-[62px] items-center justify-center overflow-hidden rounded-full bg-black">
             <Image
-              source={getIcon('grace')}
-              resizeMode="contain"
+              source={photoUrl ? { uri: photoUrl } : getIcon('grace')}
+              resizeMode="cover"
               className="flex-1"
               style={{ width: '100%' }}
             />
           </View>
           <View className="mx-3 ml-6 flex-1 justify-center gap-2">
-            <Text className="text-[16px] font-semibold">Grace Agyei</Text>
+            <Text className="text-[16px] font-semibold">
+              {firstName} {lastName}
+            </Text>
             <Text className="text-[12px]">42 years old</Text>
           </View>
           <View className="h-[97px] w-[39px] items-center justify-center">
@@ -62,7 +70,7 @@ export default function ElectronicRecords() {
           </View>
         </View>
         <View className="px-4">
-          <RecordEntry iconName="woman" category="Gender" value="Female" />
+          <RecordEntry iconName="woman" category="Gender" value={gender} />
           <RecordEntry
             iconName="flag"
             category="Ethnicity"

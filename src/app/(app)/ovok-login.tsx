@@ -1,8 +1,15 @@
 import { Env } from '@env';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, router } from 'expo-router';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Dimensions, StatusBar, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native';
 import { z } from 'zod';
 
 import { AuthService } from '@/api/common/auth.service';
@@ -12,6 +19,8 @@ import ButtonColorful from '@/ovok-ui/button-colorful';
 import { Input } from '@/ui';
 
 export default function OvokLogin() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { height } = Dimensions.get('window');
 
   const loginSchema = z.object({
@@ -37,6 +46,7 @@ export default function OvokLogin() {
   });
   const onSubmit = (data: any) => {
     const authService = new AuthService();
+    setIsLoading(true);
     authService
       .login({
         ...data,
@@ -111,9 +121,13 @@ export default function OvokLogin() {
               )}
               name="password"
             />
-            <ButtonColorful onPress={handleSubmit(onSubmit)}>
+            <ButtonColorful
+              onPress={handleSubmit(onSubmit)}
+              disabled={isLoading}
+            >
               Login
             </ButtonColorful>
+            {isLoading && <ActivityIndicator size="large" />}
             <View className="flex-1 justify-end">
               <View className="mb-12">
                 <Text className="text-center leading-[1.8] text-[rgba(29,29,29,0.6)]">
