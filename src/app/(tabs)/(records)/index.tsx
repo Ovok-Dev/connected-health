@@ -58,7 +58,7 @@ export default function ElectronicRecords() {
             <Text className="text-[16px] font-semibold">
               {firstName} {lastName}
             </Text>
-            <Text className="text-[12px]">42 years old</Text>
+            <Text className="text-[12px]">35 years old</Text>
           </View>
           <View className="h-[97px] w-[39px] items-center justify-center">
             <Image
@@ -71,20 +71,16 @@ export default function ElectronicRecords() {
         </View>
         <View className="px-4">
           <RecordEntry iconName="woman" category="Gender" value={gender} />
-          <RecordEntry
-            iconName="flag"
-            category="Ethnicity"
-            value="Black, Ashanti"
-          />
+          <RecordEntry iconName="flag" category="Ethnicity" value="White" />
           <RecordEntry
             iconName="location"
             category="Location"
-            value="Accra, Ghana"
+            value="Quedlinburg, Germany"
           />
           <RecordEntry
             iconName="briefcase"
             category="Occupation"
-            value="Software Engineer"
+            value="Doctor"
           />
           <RecordEntry
             iconName="screen"

@@ -60,9 +60,11 @@ export default function GetStarted() {
       })
       .then((data) => {
         signIn({ access: data.access_token, refresh: data.refresh_token });
+        setIsLoading(false);
         router.navigate('/(tabs)/(home)/');
       })
       .catch((error) => {
+        setIsLoading(false);
         alert(error.message);
       });
   };

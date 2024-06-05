@@ -1,14 +1,31 @@
 import { useNavigation } from 'expo-router';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { View } from 'react-native';
 
+import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import DiagnoseEntry from '@/ovok-ui/diagnose-entry';
 import RecordEntriesContainer from '@/ovok-ui/record-entries-container';
 import RecordEntry from '@/ovok-ui/record-entry';
 import Tabs from '@/ovok-ui/tab';
+import type { IDataContext } from '@/types/data.context.interface';
 
 export default function MedicalHistory() {
+  const { medicationValues } = useContext(DataContext) as IDataContext;
+
+  const renderMedications = () => {
+    return medicationValues.map((entry) => {
+      return (
+        <RecordEntry
+          key={entry.medicationName}
+          category={entry.medicationName}
+          value={`${entry.dose} - ${entry.instruction}`}
+          hasBorderBottom={false}
+        />
+      );
+    });
+  };
+
   const tabScreenGeneral = (
     <>
       <RecordEntriesContainer title="Allergies">
@@ -48,12 +65,7 @@ export default function MedicalHistory() {
         </DiagnoseEntry>
       </RecordEntriesContainer>
       <RecordEntriesContainer title="Medication">
-        <RecordEntry category="Medicine 1" value="10mg - once daily" />
-        <RecordEntry
-          category="Medicine 2"
-          value="5mg - twice daily"
-          hasBorderBottom={false}
-        />
+        {medicationValues.length > 0 && renderMedications()}
       </RecordEntriesContainer>
     </>
   );

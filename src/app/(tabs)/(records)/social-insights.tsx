@@ -16,11 +16,7 @@ export default function SocialInsights() {
     <BackgroundWhite>
       <RecordEntriesContainer title="Family">
         <RecordEntry category="Status" value="Married" />
-        <RecordEntry
-          category="Children"
-          value="Two (Ages 7 & 10)"
-          hasBorderBottom={false}
-        />
+        <RecordEntry category="Children" value="Four" hasBorderBottom={false} />
       </RecordEntriesContainer>
       <RecordEntriesContainer title="Living">
         <RecordEntry category="Staying at" value="Urban Appartment" />
@@ -31,8 +27,12 @@ export default function SocialInsights() {
         />
       </RecordEntriesContainer>
       <RecordEntriesContainer title="Education">
-        <RecordEntry category="Degree" value="B.S. Computer Science" />
-        <RecordEntry category="Grade" value="A+" hasBorderBottom={false} />
+        <RecordEntry category="Degree" value="Dr. med." />
+        <RecordEntry
+          category="Grade"
+          value="Distinction"
+          hasBorderBottom={false}
+        />
       </RecordEntriesContainer>
       <RecordEntriesContainer title="Community">
         <RecordEntry
