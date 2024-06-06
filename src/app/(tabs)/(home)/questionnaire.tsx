@@ -37,11 +37,15 @@ export default function Questionnaire() {
       },
     },
   ]);
-  const [questionNumber /* setQuestionNumber */] = useState<number>(3);
+  const [questionNumber, setQuestionNumber] = useState<number>(1);
   const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>();
   const [extraFieldInput, setExtraFieldInput] = useState<string>('');
+  const [displayCompletionMessage, setDisplayCompletionMessage] =
+    useState<boolean>(false);
 
   const currentQuestion: Question = questions[questionNumber - 1];
+  const { width } = Dimensions.get('window');
+  const navigation = useNavigation();
 
   const radioButtons = useMemo(() => {
     return currentQuestion.answers.map((answer, index) => {
@@ -65,13 +69,30 @@ export default function Questionnaire() {
     return false;
   };
 
-  const { width } = Dimensions.get('window');
-
-  const navigation = useNavigation();
+  const handleContinue = () => {
+    if (questionNumber === questions.length) {
+      setDisplayCompletionMessage(true);
+    } else {
+      setSelectedAnswer(undefined);
+      setQuestionNumber((prev) => prev + 1);
+    }
+  };
 
   useEffect(() => {
     navigation.setOptions({ title: 'Questionnaire' });
   }, [navigation]);
+
+  if (displayCompletionMessage) {
+    return (
+      <BackgroundWhite>
+        <View className="items-center justify-center">
+          <Text className="text-[16px] font-semibold leading-normal text-[rgb(14,16,18)]">
+            Thank you for completing the survey!
+          </Text>
+        </View>
+      </BackgroundWhite>
+    );
+  }
 
   return (
     <BackgroundWhite>
@@ -118,7 +139,10 @@ export default function Questionnaire() {
           placeholderClassName="font-light text-[14px]"
         />
       )}
-      <ButtonColorful disabled={getContinueButtonDisabled()}>
+      <ButtonColorful
+        disabled={getContinueButtonDisabled()}
+        onPress={handleContinue}
+      >
         Continue
       </ButtonColorful>
     </BackgroundWhite>
