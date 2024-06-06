@@ -67,7 +67,7 @@ export class AuthService implements IAuthService {
       communicationLanguage?: string[];
     }
   ): Promise<UpdateProfileResponse> => {
-    const { data } = await client.put(`/patient/${id}`, req);
+    const { data } = await client.patch(`/patient/${id}`, req);
     return data;
   };
 

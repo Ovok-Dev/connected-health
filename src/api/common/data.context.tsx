@@ -67,6 +67,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         setLastName(data.name?.[0]?.lastName);
         setBirthDate(data.birthDate);
         setGender(data.gender);
+        router.navigate('/(tabs)/(settings)/');
       })
       .catch((error) =>
         console.log(
