@@ -343,6 +343,12 @@ export function getIcon(iconName: string) {
     case 'tab-settings':
       icon = require('../../assets/images/tab-icon-settings.png');
       break;
+    case 'minxli-logo':
+      icon = require('../../assets/images/minxli-logo.png');
+      break;
+    case 'minxli-logo-with-slogan':
+      icon = require('../../assets/images/minxli-logo-with-slogan.png');
+      break;
   }
   return icon;
 }
