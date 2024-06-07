@@ -11,13 +11,16 @@ import { client } from './client';
 export class ObservationService implements IObservationService {
   public createObservation = async (
     observation: ObservationBody
-  ): Promise<any> => {
-    const { data } = await client.post('/observation', observation);
+  ): Promise<ObservationBody> => {
+    const { data } = await client.post<ObservationBody>(
+      '/observation',
+      observation
+    );
     return data;
   };
 
   public getAllObservations = async (): Promise<ObservationResponse> => {
-    const { data } = await client.get(`/observation`);
+    const { data } = await client.get<ObservationResponse>(`/observation`);
     return data;
   };
 
@@ -39,10 +42,11 @@ export class ObservationService implements IObservationService {
         value: observationUpdateData.newObservationValue,
       },
     };
-    const { data: responseData } = await client.put(
-      `/observation/${observationUpdateData.observationId}`,
-      requestData
-    );
+    const { data: responseData } =
+      await client.put<IObservationUpdateResponseData>(
+        `/observation/${observationUpdateData.observationId}`,
+        requestData
+      );
     return responseData;
   };
 }

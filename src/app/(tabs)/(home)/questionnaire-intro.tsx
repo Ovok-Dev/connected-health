@@ -1,13 +1,23 @@
-import { useNavigation } from 'expo-router';
-import { useEffect } from 'react';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useContext, useEffect } from 'react';
 import { Image, Text } from 'react-native';
 
+import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
+import type { IDataContext } from '@/types/data.context.interface';
+import type { IQuestionnaireGetAllResponseData } from '@/types/questionnaire.interface';
 import { getIcon } from '@/utils/get-icon';
 
 export default function QuestionnaireIntro() {
+  const { questionnaires } = useContext(DataContext) as IDataContext;
+  const params = useLocalSearchParams<{ questionnaireId: string }>();
   const navigation = useNavigation();
+
+  //@ts-ignore
+  const questionnaire: IQuestionnaireGetAllResponseData =
+    questionnaires.length > 0 &&
+    questionnaires.find((entry) => entry.id === params.questionnaireId)!;
 
   useEffect(() => {
     navigation.setOptions({ title: 'Questionnaire' });
@@ -20,13 +30,16 @@ export default function QuestionnaireIntro() {
         Hypertension Experience Feedback Tool (HEFT)
       </Text>
       <Text className="my-3 text-[14px] leading-[1.8] text-[rgb(74,84,94)]">
-        Your feedback is invaluable to us. This brief questionnaire seeks to
-        gauge your satisfaction with your medication. Your honest responses will
-        aid us in providing you with better, tailored care. The Hypertension
-        Experience Feedback Tool (HEFT) will take just a few minutes of your
-        time and will help us tailor our approach to best suit your needs.
+        {questionnaire.description}
       </Text>
-      <ButtonColorful href="/(tabs)/(home)/questionnaire">Start</ButtonColorful>
+      <ButtonColorful
+        href={{
+          pathname: '/(tabs)/(home)/questionnaire',
+          params: { questionnaireId: questionnaire.id },
+        }}
+      >
+        Start
+      </ButtonColorful>
     </BackgroundWhite>
   );
 }

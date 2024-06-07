@@ -1,4 +1,4 @@
-import type { Href } from 'expo-router';
+/* eslint-disable react/react-in-jsx-scope */
 import { router } from 'expo-router';
 import { Dimensions, Image, Pressable, Text } from 'react-native';
 
@@ -7,7 +7,7 @@ import { getIcon } from '@/utils/get-icon';
 interface Props {
   title: string;
   subtitle: string;
-  href?: Href<string>;
+  href?: any;
   isNew?: boolean;
   completed?: boolean;
 }

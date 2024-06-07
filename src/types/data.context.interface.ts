@@ -3,6 +3,10 @@ import type {
   ICreateMedicationFormData,
   IMedicationValues,
 } from './medication-request.interface';
+import type {
+  IQuestionnaireGetAllResponseData,
+  IQuestionnaireResponseValues,
+} from './questionnaire.interface';
 
 export type UpdatePersonalInformation = (data: {
   newFirstName: string;
@@ -20,6 +24,10 @@ export type UpdateBloodPressure = (
   newDiastolic: string
 ) => void;
 
+export type PostQuestionnaireResponse = (
+  values: IQuestionnaireResponseValues
+) => void;
+
 export interface IDataContext {
   id: string;
   firstName: string;
@@ -34,7 +42,9 @@ export interface IDataContext {
   weight: string;
   temperature: string;
   medicationValues: IMedicationValues[];
+  questionnaires: IQuestionnaireGetAllResponseData[];
   updatePersonalInformation: UpdatePersonalInformation;
   createMedicationRequest: CreateMedicationRequest;
   updateBloodPressure: UpdateBloodPressure;
+  postQuestionnaireResponse: PostQuestionnaireResponse;
 }

@@ -5,6 +5,7 @@ import { createContext, useEffect, useState } from 'react';
 import type { Gender } from '@/types/common-ovok.types';
 import type {
   IDataContext,
+  PostQuestionnaireResponse,
   UpdateBloodPressure,
   UpdatePersonalInformation,
 } from '@/types/data.context.interface';
@@ -13,18 +14,23 @@ import type {
   IMedicationValues,
 } from '@/types/medication-request.interface';
 import type { Daum } from '@/types/observation.interface';
+import type { IQuestionnaireGetAllResponseData } from '@/types/questionnaire.interface';
 import { getMeasurement } from '@/utils/get-measurement';
 import { getMedicationValues } from '@/utils/get-medication-values';
 
 import { AuthService } from './auth.service';
 import { MedicationRequestService } from './medication-request.service';
 import { ObservationService } from './observation.service';
+import { QuestionnaireService } from './questionnaire.service';
+import { QuestionnaireResponseService } from './questionnaire-response.service';
 
 export const DataContext = createContext<IDataContext | null>(null);
 
 const authService = new AuthService();
 const observationService = new ObservationService();
 const medicationRequestService = new MedicationRequestService();
+const questionnaireService = new QuestionnaireService();
+const questionnaireResponseService = new QuestionnaireResponseService();
 
 export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [id, setId] = useState<string>('');
@@ -44,6 +50,9 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [medicationValues, setMedicationValues] = useState<IMedicationValues[]>(
     []
   );
+  const [questionnaires, setQuestionnaires] = useState<
+    IQuestionnaireGetAllResponseData[]
+  >([]);
 
   const updatePersonalInformation: UpdatePersonalInformation = ({
     newFirstName,
@@ -126,6 +135,14 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   };
 
+  const postQuestionnaireResponse: PostQuestionnaireResponse = (values) => {
+    questionnaireResponseService
+      .createQuestionnaireResponse({ ...values, patientId: id })
+      .catch((error) =>
+        console.log('Error while posting answer to questionnaire: ', error)
+      );
+  };
+
   useEffect(() => {
     authService
       .getUserInfo()
@@ -187,6 +204,15 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   }, []);
 
+  useEffect(() => {
+    questionnaireService
+      .getAllQuestionnaires()
+      .then((data) => {
+        setQuestionnaires(data.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <DataContext.Provider
       value={{
@@ -203,9 +229,11 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         temperature,
         weight,
         medicationValues,
+        questionnaires,
         updatePersonalInformation,
         createMedicationRequest,
         updateBloodPressure,
+        postQuestionnaireResponse,
       }}
     >
       {children}
