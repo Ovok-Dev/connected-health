@@ -1,4 +1,3 @@
-import type { Href } from 'expo-router';
 import { router } from 'expo-router';
 import { Image, Pressable, Text, View } from 'react-native';
 
@@ -15,7 +14,7 @@ interface Props {
   iconNameRight?: string;
   numberRight?: number;
   badgeNumber?: number;
-  href?: Href<string>;
+  href?: any;
   borderInvisible?: boolean;
   bold?: boolean;
   onPress?: () => void;

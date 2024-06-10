@@ -1,5 +1,4 @@
 /* eslint-disable react/react-in-jsx-scope */
-import type { Href } from 'expo-router';
 import { router } from 'expo-router';
 import type { PropsWithChildren } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
@@ -9,19 +8,24 @@ import { getIcon } from '@/utils/get-icon';
 interface Props extends PropsWithChildren {
   title: string;
   imageName: string;
-  href?: Href<string>;
+  learnId: string;
 }
 
 export default function LearningCard({
   children,
   title,
   imageName,
-  href,
+  learnId,
 }: Props) {
   return (
     <Pressable
       className="my-3 flex-1 flex-row rounded-lg bg-[white]"
-      onPress={() => href && router.push(href)}
+      onPress={() =>
+        router.push({
+          pathname: '/(tabs)/(home)/learning-text',
+          params: { learnId },
+        })
+      }
     >
       <Image
         source={getIcon(imageName)}

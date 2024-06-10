@@ -16,7 +16,7 @@ export default function Learn() {
       <LearningCard
         title="Common Medical Conditions"
         imageName="stethoscope-small"
-        href="/(tabs)/(home)/learning-text"
+        learnId="common-medical-conditions"
       >
         Lorem ipsum dolor sit amet consectetur. Urna aenean auctor bibendum ut
         cursus. Fusce consectetur amet in nibh ante...
@@ -24,6 +24,7 @@ export default function Learn() {
       <LearningCard
         title="First Aid and Emergency Response"
         imageName="first-aid"
+        learnId="first-aid"
       >
         Lorem ipsum dolor sit amet consectetur. Urna aenean auctor bibendum ut
         cursus.
@@ -31,6 +32,7 @@ export default function Learn() {
       <LearningCard
         title="Healthy Lifestyle Tips"
         imageName="healthy-lifestyle"
+        learnId="healthy-lifestyle"
       >
         Lorem ipsum dolor sit amet consectetur. Urna aenean auctor bibendum ut
         cursus. Fusce consectetur amet in nibh ante...
