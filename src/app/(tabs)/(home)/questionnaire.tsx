@@ -6,6 +6,7 @@ import RadioGroup from 'react-native-radio-buttons-group';
 import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
+import QuestionnaireCompletionMessage from '@/ovok-ui/questionnaire-completion-message';
 import type { IDataContext } from '@/types/data.context.interface';
 import type {
   IQuestionnaireGetAllResponseData,
@@ -107,13 +108,9 @@ export default function Questionnaire() {
 
   if (displayCompletionMessage) {
     return (
-      <BackgroundWhite>
-        <View className="items-center justify-center">
-          <Text className="text-[16px] font-semibold leading-normal text-[rgb(14,16,18)]">
-            Thank you for completing the survey!
-          </Text>
-        </View>
-      </BackgroundWhite>
+      <QuestionnaireCompletionMessage>
+        Thank you for completing the survey!
+      </QuestionnaireCompletionMessage>
     );
   }
 

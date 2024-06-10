@@ -43,13 +43,10 @@ export default function Questionnaires() {
     <BackgroundWhite>
       {renderQuestionnaireButtons()}
       <ButtonQuestionnaires
-        title="Treatment Satisfaction Questionnaire for Medication (TSQM)"
-        subtitle="5 Questions"
-      />
-      <ButtonQuestionnaires
         title="The Morisky Medication Adherence Scale (MMAS)"
         subtitle="8 Gauge"
         completed
+        href={'/(tabs)/(home)/questionnaire-completed'}
       />
     </BackgroundWhite>
   );

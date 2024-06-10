@@ -8,7 +8,6 @@ export class QuestionnaireService {
       const { data } = await client.get<IQuestionnaireGetAllResponse>(
         '/questionnaire'
       );
-      console.log('data in questionnaire.service: ', data);
       return data;
     };
 }
