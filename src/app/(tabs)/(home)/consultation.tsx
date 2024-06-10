@@ -8,6 +8,8 @@ import SwitchButtons from '@/ovok-ui/switch-buttons';
 import WeeklyCalendar from '@/ovok-ui/weekly-calendar';
 
 export default function Consultation() {
+  // const { appointments } = useContext(DataContext) as IDataContext;
+
   const [selectedButton, setSelectedButton] = useState<string>('upcoming');
   const [upcomingAppointments /*setUpcomingAppointments*/] = useState([
     {

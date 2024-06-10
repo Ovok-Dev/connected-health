@@ -1,3 +1,4 @@
+import type { IGetAllAppointmentsResponseData } from './appointment.interface';
 import type { Gender } from './common-ovok.types';
 import type {
   ICreateMedicationFormData,
@@ -40,6 +41,7 @@ export interface IDataContext {
   temperature: string;
   medicationValues: IMedicationValues[];
   questionnaires: IQuestionnaireGetAllResponseData[];
+  appointments: IGetAllAppointmentsResponseData[];
   updatePersonalInformation: UpdatePersonalInformation;
   createMedicationRequest: CreateMedicationRequest;
   updateVitals: UpdateVitals;

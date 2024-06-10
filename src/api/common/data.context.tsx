@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import type { PropsWithChildren } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
+import type { IGetAllAppointmentsResponseData } from '@/types/appointment.interface';
 import type { Gender } from '@/types/common-ovok.types';
 import type {
   IDataContext,
@@ -18,6 +19,7 @@ import type { IQuestionnaireGetAllResponseData } from '@/types/questionnaire.int
 import { getMeasurement } from '@/utils/get-measurement';
 import { getMedicationValues } from '@/utils/get-medication-values';
 
+import { AppointmentService } from './appointment.service';
 import { AuthService } from './auth.service';
 import { MedicationRequestService } from './medication-request.service';
 import { ObservationService } from './observation.service';
@@ -31,6 +33,7 @@ const observationService = new ObservationService();
 const medicationRequestService = new MedicationRequestService();
 const questionnaireService = new QuestionnaireService();
 const questionnaireResponseService = new QuestionnaireResponseService();
+const appointmentService = new AppointmentService();
 
 export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [id, setId] = useState<string>('');
@@ -55,6 +58,9 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   );
   const [questionnaires, setQuestionnaires] = useState<
     IQuestionnaireGetAllResponseData[]
+  >([]);
+  const [appointments, setAppointments] = useState<
+    IGetAllAppointmentsResponseData[]
   >([]);
 
   const updatePersonalInformation: UpdatePersonalInformation = ({
@@ -247,7 +253,20 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       .then((data) => {
         setQuestionnaires(data.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        console.log('Error while loading questionnaires: ', error)
+      );
+  }, []);
+
+  useEffect(() => {
+    appointmentService
+      .getAllAppointments()
+      .then((data) => {
+        setAppointments(data);
+      })
+      .catch((error) =>
+        console.log('Error while loading appointments: ', error)
+      );
   }, []);
 
   return (
@@ -267,6 +286,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         weight,
         medicationValues,
         questionnaires,
+        appointments,
         updatePersonalInformation,
         createMedicationRequest,
         updateVitals,
