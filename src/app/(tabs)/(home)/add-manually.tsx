@@ -14,12 +14,18 @@ export default function AddManually() {
   const {
     systolic: initialSystolic,
     diastolic: initialDiastolic,
-    updateBloodPressure,
+    heartRate: initialHeartRate,
+    weight: initialWeight,
+    temperature: initialTemperature,
+    updateVitals,
   } = useContext(DataContext) as IDataContext;
 
   const [date, setDate] = useState<string>(new Date().toDateString());
   const [systolic, setSystolic] = useState<string>(initialSystolic);
   const [diastolic, setDiastolic] = useState<string>(initialDiastolic);
+  const [heartRate, setHeartRate] = useState<string>(initialHeartRate);
+  const [weight, setWeight] = useState<string>(initialWeight);
+  const [temperature, setTemperature] = useState<string>(initialTemperature);
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
 
   const handleDayPress = (dateObject: DateData) => {
@@ -51,9 +57,9 @@ export default function AddManually() {
           <Text className="text-[14px] text-[rgb(51,51,51)]">Systolic</Text>
           <View className="my-3 h-[52px] flex-1 justify-center rounded-lg bg-[white] px-3">
             <TextInput
-              placeholder={systolic.toString()}
+              placeholder={systolic}
               keyboardType="numeric"
-              value={systolic.toString()}
+              value={systolic}
               onChangeText={(value) => setSystolic(value)}
             />
           </View>
@@ -62,15 +68,64 @@ export default function AddManually() {
           <Text className="text-[14px] text-[rgb(51,51,51)]">Diastolic</Text>
           <View className="my-3 h-[52px] flex-1 justify-center rounded-lg bg-[white] px-3">
             <TextInput
-              placeholder={diastolic.toString()}
+              placeholder={diastolic}
               keyboardType="numeric"
-              value={diastolic.toString()}
+              value={diastolic}
               onChangeText={(value) => setDiastolic(value)}
             />
           </View>
         </View>
       </View>
-      <ButtonColorful onPress={() => updateBloodPressure(systolic, diastolic)}>
+      <View className="mt-3 flex-1 flex-row gap-4">
+        <View className="flex-column flex-1">
+          <Text className="text-[14px] text-[rgb(51,51,51)]">Heart Rate</Text>
+          <View className="my-3 h-[52px] flex-1 justify-center rounded-lg bg-[white] px-3">
+            <TextInput
+              placeholder={heartRate}
+              keyboardType="numeric"
+              value={heartRate}
+              onChangeText={(value) => setHeartRate(value)}
+            />
+          </View>
+        </View>
+        <View className="flex-column flex-1">
+          <Text className="text-[14px] text-[rgb(51,51,51)]">Weight (kg)</Text>
+          <View className="my-3 h-[52px] flex-1 justify-center rounded-lg bg-[white] px-3">
+            <TextInput
+              placeholder={weight}
+              keyboardType="numeric"
+              value={weight}
+              onChangeText={(value) => setWeight(value)}
+            />
+          </View>
+        </View>
+      </View>
+      <View className="mt-3 flex-1 flex-row gap-4">
+        <View className="flex-column flex-1">
+          <Text className="text-[14px] text-[rgb(51,51,51)]">
+            Temperature (° C)
+          </Text>
+          <View className="my-3 h-[52px] flex-1 justify-center rounded-lg bg-[white] px-3">
+            <TextInput
+              placeholder={temperature}
+              keyboardType="numeric"
+              value={temperature}
+              onChangeText={(value) => setTemperature(value)}
+            />
+          </View>
+        </View>
+      </View>
+      <ButtonColorful
+        onPress={() =>
+          updateVitals({
+            newDiastolic: diastolic,
+            newSystolic: systolic,
+            newHeartRate: heartRate,
+            newWeight: weight,
+            newTemperature: temperature,
+          })
+        }
+      >
         Save
       </ButtonColorful>
     </BackgroundWhite>

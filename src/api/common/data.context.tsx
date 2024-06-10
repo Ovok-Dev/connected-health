@@ -6,8 +6,8 @@ import type { Gender } from '@/types/common-ovok.types';
 import type {
   IDataContext,
   PostQuestionnaireResponse,
-  UpdateBloodPressure,
   UpdatePersonalInformation,
+  UpdateVitals,
 } from '@/types/data.context.interface';
 import type {
   ICreateMedicationFormData,
@@ -36,6 +36,9 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [id, setId] = useState<string>('');
   const [systolicId, setSystolicId] = useState<string>('');
   const [diastolicId, setDiastolicId] = useState<string>('');
+  const [heartRateId, setHeartRateId] = useState<string>('');
+  const [weightId, setWeightId] = useState<string>('');
+  const [temperatureId, setTemperatureId] = useState<string>('');
   const [photoUrl, setPhotoUrl] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('Jane');
   const [lastName, setLastName] = useState<string>('Doe');
@@ -103,10 +106,13 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   };
 
-  const updateBloodPressure: UpdateBloodPressure = (
-    newSystolic: string,
-    newDiastolic: string
-  ) => {
+  const updateVitals: UpdateVitals = ({
+    newSystolic,
+    newDiastolic,
+    newHeartRate,
+    newWeight,
+    newTemperature,
+  }) => {
     const systolicPromise = observationService.updateObservation({
       observationId: systolicId,
       patientId: id,
@@ -119,20 +125,48 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       observationCode: '8462-4',
       newObservationValue: newDiastolic,
     });
-    Promise.all([systolicPromise, diastolicPromise])
+    const heartRatePromise = observationService.updateObservation({
+      observationId: heartRateId,
+      patientId: id,
+      observationCode: '8867-4',
+      newObservationValue: newHeartRate,
+    });
+    const weightPromise = observationService.updateObservation({
+      observationId: weightId,
+      patientId: id,
+      observationCode: '29463-7',
+      newObservationValue: newWeight,
+    });
+    const temperaturePromise = observationService.updateObservation({
+      observationId: temperatureId,
+      patientId: id,
+      observationCode: '8310-5',
+      newObservationValue: newTemperature,
+    });
+    Promise.all([
+      systolicPromise,
+      diastolicPromise,
+      heartRatePromise,
+      weightPromise,
+      temperaturePromise,
+    ])
       .then((dataArray) => {
         dataArray.forEach((data) => {
           if (data.code === '8480-6') {
             setSystolic(getMeasurement(data));
           } else if (data.code === '8462-4') {
             setDiastolic(getMeasurement(data));
+          } else if (data.code === '8867-4') {
+            setHeartRate(getMeasurement(data));
+          } else if (data.code === '29463-7') {
+            setWeight(getMeasurement(data));
+          } else if (data.code === '8310-5') {
+            setTemperature(getMeasurement(data));
           }
         });
         router.navigate('/(tabs)/(home)');
       })
-      .catch((error) =>
-        console.log('Error while updating blood pressure: ', error)
-      );
+      .catch((error) => console.log('Error while updating vitals: ', error));
   };
 
   const postQuestionnaireResponse: PostQuestionnaireResponse = (values) => {
@@ -170,6 +204,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
           switch (entry.code) {
             case '8867-4':
               setHeartRate(value);
+              setHeartRateId(entry.id);
               break;
             case '8480-6':
               setSystolic(value);
@@ -181,9 +216,11 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
               break;
             case '8310-5':
               setTemperature(value);
+              setTemperatureId(entry.id);
               break;
             case '29463-7':
               setWeight(value);
+              setWeightId(entry.id);
               break;
           }
         });
@@ -232,7 +269,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         questionnaires,
         updatePersonalInformation,
         createMedicationRequest,
-        updateBloodPressure,
+        updateVitals,
         postQuestionnaireResponse,
       }}
     >

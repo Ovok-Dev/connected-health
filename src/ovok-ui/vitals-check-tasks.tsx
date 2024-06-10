@@ -33,6 +33,7 @@ export default function VitalsCheckTasks() {
     return vitalsCheckTaskValues.map((entry) => {
       return (
         <VitalsCheckTask
+          key={entry.title}
           subtitle={entry.subtitle}
           title={entry.title}
           initialIsDone={entry.initialIsDone}

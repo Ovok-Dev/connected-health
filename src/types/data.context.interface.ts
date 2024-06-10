@@ -19,10 +19,7 @@ export type CreateMedicationRequest = (
   createMedicationRequestFormData: ICreateMedicationFormData
 ) => void;
 
-export type UpdateBloodPressure = (
-  newSystolic: string,
-  newDiastolic: string
-) => void;
+export type UpdateVitals = (newVitals: INewVitals) => void;
 
 export type PostQuestionnaireResponse = (
   values: IQuestionnaireResponseValues
@@ -45,6 +42,14 @@ export interface IDataContext {
   questionnaires: IQuestionnaireGetAllResponseData[];
   updatePersonalInformation: UpdatePersonalInformation;
   createMedicationRequest: CreateMedicationRequest;
-  updateBloodPressure: UpdateBloodPressure;
+  updateVitals: UpdateVitals;
   postQuestionnaireResponse: PostQuestionnaireResponse;
+}
+
+export interface INewVitals {
+  newSystolic: string;
+  newDiastolic: string;
+  newHeartRate: string;
+  newWeight: string;
+  newTemperature: string;
 }
