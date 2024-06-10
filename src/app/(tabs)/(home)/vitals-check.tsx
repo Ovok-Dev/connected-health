@@ -98,6 +98,7 @@ export default function VitalsCheck() {
           title="Collect Vitals From Phone"
           iconNameLeft="phone"
           iconNameRight="arrow-right"
+          href="/(tabs)/(home)/no-collecting-vitals-for-phone"
         />
         <ButtonBasic
           title="Add From Connected Device"
