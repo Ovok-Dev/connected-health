@@ -173,6 +173,10 @@ export default function Care() {
         iconNameRight="arrow-right"
         bold={false}
         borderInvisible
+        href={{
+          pathname: '/(tabs)/(home)/default',
+          params: { title: 'AI Care' },
+        }}
       />
       <ButtonBasic
         title="Appointments"

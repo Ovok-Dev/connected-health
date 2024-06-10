@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from 'expo-router';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Image, ImageBackground, Pressable, Text, View } from 'react-native';
 
 import { DataContext } from '@/api/common/data.context';
@@ -14,6 +14,8 @@ export default function Profile() {
   const { firstName, lastName, email, photoUrl } = useContext(
     DataContext
   ) as IDataContext;
+
+  const [studyOffersOn, setStudyOffersOn] = useState<boolean>(true);
 
   const navigation = useNavigation();
   const signOut = useAuth.use.signOut();
@@ -91,8 +93,9 @@ export default function Profile() {
       <ButtonBasic
         title="Study Offers"
         iconNameLeft="study-offers"
-        iconNameRight="switch"
+        iconNameRight={studyOffersOn ? 'switch' : 'switch-off'}
         bold={false}
+        onPress={() => setStudyOffersOn((prev) => !prev)}
       />
       <ButtonBasic
         title="Preferences"
