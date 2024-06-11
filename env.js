@@ -79,6 +79,7 @@ const client = z.object({
 
   // ADD YOUR CLIENT ENV VARS HERE
   EXPO_PUBLIC_API_URL: z.string(),
+  EXPO_PUBLIC_BASIC_AUTH_TOKEN: z.string(),
   EXPO_PUBLIC_VAR_NUMBER: z.number(),
   EXPO_PUBLIC_VAR_BOOL: z.boolean(),
   EXPO_PUBLIC_CLIENT_ID: z.string(),
@@ -109,6 +110,7 @@ const _clientEnv = {
 
   // ADD YOUR ENV VARS HERE TOO
   EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
+  EXPO_PUBLIC_BASIC_AUTH_TOKEN: process.env.EXPO_PUBLIC_BASIC_AUTH_TOKEN,
   EXPO_PUBLIC_VAR_NUMBER: Number(process.env.EXPO_PUBLIC_VAR_NUMBER),
   EXPO_PUBLIC_VAR_BOOL: process.env.EXPO_PUBLIC_VAR_BOOL === 'true',
 };
