@@ -1,5 +1,4 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import type { Href } from 'expo-router';
 import { router } from 'expo-router';
 import type { PropsWithChildren } from 'react';
 import { Pressable, Text } from 'react-native';
@@ -7,7 +6,7 @@ import { Pressable, Text } from 'react-native';
 interface Props extends PropsWithChildren {
   onPress?: any;
   disabled?: boolean;
-  href?: Href<string>;
+  href?: any;
 }
 
 export default function ButtonColorful({

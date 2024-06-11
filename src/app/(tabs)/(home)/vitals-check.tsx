@@ -8,6 +8,7 @@ import ButtonBasic from '@/ovok-ui/button-basic';
 import Charts from '@/ovok-ui/charts';
 import type { SelectOption } from '@/ovok-ui/render-select';
 import { renderSelectButton, renderSelectItem } from '@/ovok-ui/render-select';
+import VitalsCheckTasks from '@/ovok-ui/vitals-check-tasks';
 import WeeklyCalendar from '@/ovok-ui/weekly-calendar';
 import { getIcon } from '@/utils/get-icon';
 
@@ -51,22 +52,7 @@ export default function VitalsCheck() {
     <View className="flex-1" style={{ marginTop: StatusBar.currentHeight }}>
       <WeeklyCalendar />
       <BackgroundWhite coversFullPage={false}>
-        <ButtonBasic
-          title="Take one Lisinopril"
-          subtitle="10mg"
-          taskType="medication"
-          iconNameRight="done"
-        />
-        <ButtonBasic
-          title="Walk for 20 minutes"
-          taskType="exercise"
-          iconNameRight="not-done"
-        />
-        <ButtonBasic
-          title="Check BP"
-          taskType="measurement"
-          iconNameRight="not-done"
-        />
+        <VitalsCheckTasks />
         <View className="mt-3 flex-1">
           <Text className="text-[16px] font-semibold leading-[1.8] text-[rgb(27,27,27)]">
             Vital Trends
@@ -112,6 +98,7 @@ export default function VitalsCheck() {
           title="Collect Vitals From Phone"
           iconNameLeft="phone"
           iconNameRight="arrow-right"
+          href="/(tabs)/(home)/no-collecting-vitals-for-phone"
         />
         <ButtonBasic
           title="Add From Connected Device"

@@ -1,77 +1,118 @@
-import { useNavigation } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { Dimensions, Text, TextInput, View } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 
+import { DataContext } from '@/api/common/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
-
-interface Question {
-  question: string;
-  answers: string[];
-  extraField?: {
-    placeholder: string;
-    required: boolean;
-  };
-}
+import QuestionnaireCompletionMessage from '@/ovok-ui/questionnaire-completion-message';
+import type { IDataContext } from '@/types/data.context.interface';
+import type {
+  IQuestionnaireGetAllResponseData,
+  IQuestionnaireItem,
+} from '@/types/questionnaire.interface';
 
 export default function Questionnaire() {
-  const [questions /*setQuestion*/] = useState<Question[]>([
-    {
-      question:
-        'Have you experienced any side-effects since starting your medication?',
-      answers: ['Yes', 'No', "I don't know."],
-    },
-    {
-      question: 'Have your symptoms improved since starting your medication?',
-      answers: ['Yes', 'No', "I don't know."],
-    },
-    {
-      question:
-        'Some patients report that they find it difficult to take the medicine in a regular way. Have you ever deviated from the schedule?',
-      answers: ['Yes', 'No', "I don't know."],
-      extraField: {
-        placeholder:
-          'If you have ever missed the intake, how often have you not taken the medicine?',
-        required: true,
-      },
-    },
-  ]);
-  const [questionNumber /* setQuestionNumber */] = useState<number>(3);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>();
-  const [extraFieldInput, setExtraFieldInput] = useState<string>('');
+  const { questionnaires, postQuestionnaireResponse } = useContext(
+    DataContext
+  ) as IDataContext;
+  const params = useLocalSearchParams<{ questionnaireId: string }>();
+  const questionnaire: IQuestionnaireGetAllResponseData = questionnaires.find(
+    (entry) => entry.id === params.questionnaireId
+  )!;
+  const questions: IQuestionnaireItem[] = questionnaire.item;
 
-  const currentQuestion: Question = questions[questionNumber - 1];
+  const [questionNumber, setQuestionNumber] = useState<number>(1);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>();
+  const [textInput, setTextInput] = useState<string>('');
+  const [displayCompletionMessage, setDisplayCompletionMessage] =
+    useState<boolean>(false);
+
+  const currentQuestion: IQuestionnaireItem = questions[questionNumber - 1];
+  const { width } = Dimensions.get('window');
+  const navigation = useNavigation();
 
   const radioButtons = useMemo(() => {
-    return currentQuestion.answers.map((answer, index) => {
+    return currentQuestion.answerOption?.map((answer, index) => {
       return {
         id: index.toString(),
-        label: answer,
+        label: answer.valueString,
         value: (index + 1).toString(),
       };
     });
-  }, [currentQuestion.answers]);
+  }, [currentQuestion.answerOption]);
+
+  const renderChoiceQuestion = () => {
+    return (
+      <View className="mt-3">
+        <RadioGroup
+          radioButtons={radioButtons}
+          selectedId={selectedAnswer}
+          onPress={(selectedId) => setSelectedAnswer(selectedId)}
+          containerStyle={{
+            alignItems: 'flex-start',
+            marginTop: 12,
+            marginLeft: 8,
+          }}
+        />
+      </View>
+    );
+  };
+
+  const renderOpenChoiceQuestion = () => {
+    return (
+      <TextInput
+        placeholder={currentQuestion.text}
+        value={textInput}
+        onChangeText={(value) => setTextInput(value)}
+        className="mt-3 h-40 w-full justify-start rounded-lg bg-[white] p-3"
+        placeholderClassName="font-light text-[14px]"
+      />
+    );
+  };
 
   const getContinueButtonDisabled = (): boolean => {
-    if (!selectedAnswer) {
+    if (!selectedAnswer && currentQuestion.type === 'choice') {
       return true;
     }
-    if (currentQuestion.extraField && currentQuestion.extraField.required) {
-      if (!extraFieldInput) {
-        return true;
-      }
+    if (!textInput && currentQuestion.type === 'open-choice') {
+      return true;
     }
     return false;
   };
 
-  const { width } = Dimensions.get('window');
-
-  const navigation = useNavigation();
+  const handleContinue = () => {
+    postQuestionnaireResponse({
+      questionnaireId: questionnaire.id,
+      questionId: currentQuestion.linkId,
+      answerText:
+        currentQuestion.type === 'choice'
+          ? (selectedAnswer &&
+              currentQuestion.answerOption[Number(selectedAnswer)]
+                .valueString) ||
+            ''
+          : textInput,
+    });
+    if (questionNumber === questions.length) {
+      setDisplayCompletionMessage(true);
+    } else {
+      setSelectedAnswer(undefined);
+      setQuestionNumber((prev) => prev + 1);
+    }
+  };
 
   useEffect(() => {
     navigation.setOptions({ title: 'Questionnaire' });
   }, [navigation]);
+
+  if (displayCompletionMessage) {
+    return (
+      <QuestionnaireCompletionMessage>
+        Thank you for completing the survey!
+      </QuestionnaireCompletionMessage>
+    );
+  }
 
   return (
     <BackgroundWhite>
@@ -94,31 +135,16 @@ export default function Questionnaire() {
           {questionNumber}.
         </Text>
         <Text className="flex-1 text-[16px] font-semibold leading-normal text-[rgb(14,16,18)]">
-          {currentQuestion.question}
+          {currentQuestion.text}
         </Text>
       </View>
-      <View className="mt-3">
-        <RadioGroup
-          radioButtons={radioButtons}
-          selectedId={selectedAnswer}
-          onPress={(selectedId) => setSelectedAnswer(selectedId)}
-          containerStyle={{
-            alignItems: 'flex-start',
-            marginTop: 12,
-            marginLeft: 8,
-          }}
-        />
-      </View>
-      {currentQuestion.extraField && (
-        <TextInput
-          placeholder={currentQuestion.extraField.placeholder}
-          value={extraFieldInput}
-          onChangeText={(value) => setExtraFieldInput(value)}
-          className="mt-3 h-40 w-full justify-start rounded-lg bg-[white] p-3"
-          placeholderClassName="font-light text-[14px]"
-        />
-      )}
-      <ButtonColorful disabled={getContinueButtonDisabled()}>
+      {currentQuestion.type === 'choice'
+        ? renderChoiceQuestion()
+        : renderOpenChoiceQuestion()}
+      <ButtonColorful
+        disabled={getContinueButtonDisabled()}
+        onPress={handleContinue}
+      >
         Continue
       </ButtonColorful>
     </BackgroundWhite>

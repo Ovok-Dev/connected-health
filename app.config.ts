@@ -14,8 +14,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   icon: './assets/icon.png',
   userInterfaceStyle: 'automatic',
   splash: {
-    image: './assets/splash.png',
-    resizeMode: 'cover',
+    image: './assets/images/minxli-logo-with-slogan.png',
+    resizeMode: 'contain',
     backgroundColor: '#2E3C4B',
   },
   updates: {

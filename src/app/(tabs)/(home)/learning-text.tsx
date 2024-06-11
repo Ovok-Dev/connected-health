@@ -1,4 +1,4 @@
-import { useNavigation } from 'expo-router';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import { Image } from 'react-native';
 
@@ -9,6 +9,16 @@ import { getIcon } from '@/utils/get-icon';
 
 export default function LearningText() {
   const navigation = useNavigation();
+  const { learnId } = useLocalSearchParams();
+
+  let title: string = '';
+  if (learnId === 'common-medical-conditions') {
+    title = 'Common Medical Conditions';
+  } else if (learnId === 'first-aid') {
+    title = 'First Aid and Emergency Response';
+  } else if (learnId === 'healthy-lifestyle') {
+    title = 'Healthy Lifestyle Tips';
+  }
 
   useEffect(() => {
     navigation.setOptions({ title: 'Learn' });
@@ -17,7 +27,7 @@ export default function LearningText() {
   return (
     <BackgroundWhite>
       <Image source={getIcon('stethoscope')} className="h-auto w-full" />
-      <Heading>Common Medical Conditions</Heading>
+      <Heading>{title}</Heading>
       <Paragraph>
         Lorem ipsum dolor sit amet consectetur. Amet viverra quis velit urna
         eget amet vehicula eu integer. Fusce aliquam fermentum integer

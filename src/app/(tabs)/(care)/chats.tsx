@@ -25,6 +25,7 @@ export default function Chats() {
         iconName="leah-cole"
         personName="Dr. Leah Cole"
         messageBeginning="Lorem ipsum dolor sit amet consectetur met viverra quis velit..."
+        href="/(tabs)/(care)/chat"
       />
     </BackgroundWhite>
   );

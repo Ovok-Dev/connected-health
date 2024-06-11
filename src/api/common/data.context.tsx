@@ -2,34 +2,46 @@ import { router } from 'expo-router';
 import type { PropsWithChildren } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
+import type { IGetAllAppointmentsResponseData } from '@/types/appointment.interface';
 import type { Gender } from '@/types/common-ovok.types';
 import type {
   IDataContext,
-  UpdateBloodPressure,
+  PostQuestionnaireResponse,
   UpdatePersonalInformation,
+  UpdateVitals,
 } from '@/types/data.context.interface';
 import type {
   ICreateMedicationFormData,
   IMedicationValues,
 } from '@/types/medication-request.interface';
 import type { Daum } from '@/types/observation.interface';
+import type { IQuestionnaireGetAllResponseData } from '@/types/questionnaire.interface';
 import { getMeasurement } from '@/utils/get-measurement';
 import { getMedicationValues } from '@/utils/get-medication-values';
 
+import { AppointmentService } from './appointment.service';
 import { AuthService } from './auth.service';
 import { MedicationRequestService } from './medication-request.service';
 import { ObservationService } from './observation.service';
+import { QuestionnaireService } from './questionnaire.service';
+import { QuestionnaireResponseService } from './questionnaire-response.service';
 
 export const DataContext = createContext<IDataContext | null>(null);
 
 const authService = new AuthService();
 const observationService = new ObservationService();
 const medicationRequestService = new MedicationRequestService();
+const questionnaireService = new QuestionnaireService();
+const questionnaireResponseService = new QuestionnaireResponseService();
+const appointmentService = new AppointmentService();
 
 export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [id, setId] = useState<string>('');
   const [systolicId, setSystolicId] = useState<string>('');
   const [diastolicId, setDiastolicId] = useState<string>('');
+  const [heartRateId, setHeartRateId] = useState<string>('');
+  const [weightId, setWeightId] = useState<string>('');
+  const [temperatureId, setTemperatureId] = useState<string>('');
   const [photoUrl, setPhotoUrl] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('Jane');
   const [lastName, setLastName] = useState<string>('Doe');
@@ -44,6 +56,12 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [medicationValues, setMedicationValues] = useState<IMedicationValues[]>(
     []
   );
+  const [questionnaires, setQuestionnaires] = useState<
+    IQuestionnaireGetAllResponseData[]
+  >([]);
+  const [appointments, setAppointments] = useState<
+    IGetAllAppointmentsResponseData[]
+  >([]);
 
   const updatePersonalInformation: UpdatePersonalInformation = ({
     newFirstName,
@@ -67,6 +85,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         setLastName(data.name?.[0]?.lastName);
         setBirthDate(data.birthDate);
         setGender(data.gender);
+        router.navigate('/(tabs)/(settings)/');
       })
       .catch((error) =>
         console.log(
@@ -93,10 +112,13 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   };
 
-  const updateBloodPressure: UpdateBloodPressure = (
-    newSystolic: string,
-    newDiastolic: string
-  ) => {
+  const updateVitals: UpdateVitals = ({
+    newSystolic,
+    newDiastolic,
+    newHeartRate,
+    newWeight,
+    newTemperature,
+  }) => {
     const systolicPromise = observationService.updateObservation({
       observationId: systolicId,
       patientId: id,
@@ -109,19 +131,55 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       observationCode: '8462-4',
       newObservationValue: newDiastolic,
     });
-    Promise.all([systolicPromise, diastolicPromise])
+    const heartRatePromise = observationService.updateObservation({
+      observationId: heartRateId,
+      patientId: id,
+      observationCode: '8867-4',
+      newObservationValue: newHeartRate,
+    });
+    const weightPromise = observationService.updateObservation({
+      observationId: weightId,
+      patientId: id,
+      observationCode: '29463-7',
+      newObservationValue: newWeight,
+    });
+    const temperaturePromise = observationService.updateObservation({
+      observationId: temperatureId,
+      patientId: id,
+      observationCode: '8310-5',
+      newObservationValue: newTemperature,
+    });
+    Promise.all([
+      systolicPromise,
+      diastolicPromise,
+      heartRatePromise,
+      weightPromise,
+      temperaturePromise,
+    ])
       .then((dataArray) => {
         dataArray.forEach((data) => {
           if (data.code === '8480-6') {
             setSystolic(getMeasurement(data));
           } else if (data.code === '8462-4') {
             setDiastolic(getMeasurement(data));
+          } else if (data.code === '8867-4') {
+            setHeartRate(getMeasurement(data));
+          } else if (data.code === '29463-7') {
+            setWeight(getMeasurement(data));
+          } else if (data.code === '8310-5') {
+            setTemperature(getMeasurement(data));
           }
         });
         router.navigate('/(tabs)/(home)');
       })
+      .catch((error) => console.log('Error while updating vitals: ', error));
+  };
+
+  const postQuestionnaireResponse: PostQuestionnaireResponse = (values) => {
+    questionnaireResponseService
+      .createQuestionnaireResponse({ ...values, patientId: id })
       .catch((error) =>
-        console.log('Error while updating blood pressure: ', error)
+        console.log('Error while posting answer to questionnaire: ', error)
       );
   };
 
@@ -152,6 +210,7 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
           switch (entry.code) {
             case '8867-4':
               setHeartRate(value);
+              setHeartRateId(entry.id);
               break;
             case '8480-6':
               setSystolic(value);
@@ -163,9 +222,11 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
               break;
             case '8310-5':
               setTemperature(value);
+              setTemperatureId(entry.id);
               break;
             case '29463-7':
               setWeight(value);
+              setWeightId(entry.id);
               break;
           }
         });
@@ -186,6 +247,28 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   }, []);
 
+  useEffect(() => {
+    questionnaireService
+      .getAllQuestionnaires()
+      .then((data) => {
+        setQuestionnaires(data.data);
+      })
+      .catch((error) =>
+        console.log('Error while loading questionnaires: ', error)
+      );
+  }, []);
+
+  useEffect(() => {
+    appointmentService
+      .getAllAppointments()
+      .then((data) => {
+        setAppointments(data);
+      })
+      .catch((error) =>
+        console.log('Error while loading appointments: ', error)
+      );
+  }, []);
+
   return (
     <DataContext.Provider
       value={{
@@ -202,9 +285,12 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         temperature,
         weight,
         medicationValues,
+        questionnaires,
+        appointments,
         updatePersonalInformation,
         createMedicationRequest,
-        updateBloodPressure,
+        updateVitals,
+        postQuestionnaireResponse,
       }}
     >
       {children}

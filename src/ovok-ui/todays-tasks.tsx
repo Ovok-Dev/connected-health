@@ -14,19 +14,43 @@ export default function TodaysTasks() {
     'left' | 'right'
   >('left');
 
+  const medicationTask = (
+    <TaskButton
+      taskType="medication"
+      badgeNumber={1}
+      href="/(tabs)/(home)/medication"
+    />
+  );
+  const questionnaireTask = (
+    <TaskButton
+      taskType="questionnaire"
+      badgeNumber={0}
+      href="/(tabs)/(home)/questionnaires"
+    />
+  );
+  const consultationTask = (
+    <TaskButton
+      taskType="consultation"
+      badgeNumber={2}
+      href="/(tabs)/(home)/consultation"
+    />
+  );
+  const vitalsCheckTask = (
+    <TaskButton
+      taskType="vitals"
+      badgeNumber={0}
+      href="/(tabs)/(home)/vitals-check"
+    />
+  );
+  const learnTask = (
+    <TaskButton taskType="learn" badgeNumber={1} href="/(tabs)/(home)/learn" />
+  );
+
   const renderRightActions = () => {
     return (
       <View className="w-full flex-row gap-12">
-        <TaskButton
-          taskType="vitals"
-          badgeNumber={2}
-          href="/(tabs)/(home)/vitals-check"
-        />
-        <TaskButton
-          taskType="learn"
-          badgeNumber={0}
-          href="/(tabs)/(home)/learn"
-        />
+        {vitalsCheckTask}
+        {learnTask}
       </View>
     );
   };
@@ -52,23 +76,10 @@ export default function TodaysTasks() {
           onSwipeableOpen={() => setTasksSideDisplayed('right')}
           onSwipeableClose={() => setTasksSideDisplayed('left')}
         >
-          <View className="flex-1 flex-row justify-between">
-            <TaskButton
-              taskType="medication"
-              badgeNumber={1}
-              href="/(tabs)/(home)/medication"
-            />
-            <TaskButton
-              taskType="questionnaire"
-              badgeNumber={0}
-              href="/(tabs)/(home)/questionnaires"
-            />
-            <TaskButton taskType="caretask" badgeNumber={2} />
-            <TaskButton
-              taskType="consultation"
-              badgeNumber={1}
-              href="/(tabs)/(home)/consultation"
-            />
+          <View className="flex-1 flex-row gap-12">
+            {medicationTask}
+            {questionnaireTask}
+            {consultationTask}
           </View>
         </Swipeable>
       </View>

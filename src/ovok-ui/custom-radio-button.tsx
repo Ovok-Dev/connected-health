@@ -6,9 +6,10 @@ import { Image, Pressable, Text, View } from 'react-native';
 import { getIcon } from '@/utils/get-icon';
 
 interface Props extends PropsWithChildren {
-  selected?: boolean;
-  fontSize?: number;
-  textRight?: string;
+  selected: boolean;
+  fontSize: number;
+  textRight: string;
+  onPress: () => void;
 }
 
 export default function CustomRadioButton({
@@ -16,9 +17,13 @@ export default function CustomRadioButton({
   selected = false,
   fontSize,
   textRight,
+  onPress,
 }: Props) {
   return (
-    <Pressable className="my-2 flex-row items-center rounded-lg border border-['rgb(215,221,234)'] bg-[white]">
+    <Pressable
+      className="my-2 flex-row items-center rounded-lg border border-['rgb(215,221,234)'] bg-[white]"
+      onPress={onPress}
+    >
       <View className="mx-2 h-[50px] w-[44px] items-center justify-center rounded-md">
         <Image
           source={

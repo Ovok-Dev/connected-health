@@ -1,8 +1,13 @@
+import type { IGetAllAppointmentsResponseData } from './appointment.interface';
 import type { Gender } from './common-ovok.types';
 import type {
   ICreateMedicationFormData,
   IMedicationValues,
 } from './medication-request.interface';
+import type {
+  IQuestionnaireGetAllResponseData,
+  IQuestionnaireResponseValues,
+} from './questionnaire.interface';
 
 export type UpdatePersonalInformation = (data: {
   newFirstName: string;
@@ -15,9 +20,10 @@ export type CreateMedicationRequest = (
   createMedicationRequestFormData: ICreateMedicationFormData
 ) => void;
 
-export type UpdateBloodPressure = (
-  newSystolic: string,
-  newDiastolic: string
+export type UpdateVitals = (newVitals: INewVitals) => void;
+
+export type PostQuestionnaireResponse = (
+  values: IQuestionnaireResponseValues
 ) => void;
 
 export interface IDataContext {
@@ -34,7 +40,18 @@ export interface IDataContext {
   weight: string;
   temperature: string;
   medicationValues: IMedicationValues[];
+  questionnaires: IQuestionnaireGetAllResponseData[];
+  appointments: IGetAllAppointmentsResponseData[];
   updatePersonalInformation: UpdatePersonalInformation;
   createMedicationRequest: CreateMedicationRequest;
-  updateBloodPressure: UpdateBloodPressure;
+  updateVitals: UpdateVitals;
+  postQuestionnaireResponse: PostQuestionnaireResponse;
+}
+
+export interface INewVitals {
+  newSystolic: string;
+  newDiastolic: string;
+  newHeartRate: string;
+  newWeight: string;
+  newTemperature: string;
 }

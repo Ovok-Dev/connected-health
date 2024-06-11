@@ -1,4 +1,3 @@
-import type { Href } from 'expo-router';
 import { router } from 'expo-router';
 import { Image, Pressable, Text, View } from 'react-native';
 
@@ -15,9 +14,10 @@ interface Props {
   iconNameRight?: string;
   numberRight?: number;
   badgeNumber?: number;
-  href?: Href<string>;
+  href?: any;
   borderInvisible?: boolean;
   bold?: boolean;
+  onPress?: () => void;
 }
 
 export default function ButtonBasic({
@@ -31,6 +31,7 @@ export default function ButtonBasic({
   href,
   borderInvisible = false,
   bold = true,
+  onPress,
 }: Props) {
   let iconLeft: any;
   if (iconNameLeft) {
@@ -108,7 +109,7 @@ export default function ButtonBasic({
         height: subtitle ? 62 : 60,
         borderColor: borderInvisible ? 'rgb(246,246,246)' : 'rgb(215,221,234)',
       }}
-      onPress={() => href && router.push(href)}
+      onPress={onPress ? onPress : () => href && router.push(href)}
     >
       <View
         className={

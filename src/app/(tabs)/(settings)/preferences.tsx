@@ -1,11 +1,13 @@
 import { useNavigation } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
 
 export default function Preferences() {
   const navigation = useNavigation();
+
+  const [darkModeOn, setDarkModeOn] = useState<boolean>(false);
 
   useEffect(() => {
     navigation.setOptions({ title: 'Preferences' });
@@ -16,8 +18,9 @@ export default function Preferences() {
       <ButtonBasic
         title="Dark Mode"
         iconNameLeft="moon"
-        iconNameRight="switch-off"
+        iconNameRight={darkModeOn ? 'switch' : 'switch-off'}
         bold={false}
+        onPress={() => setDarkModeOn((prev) => !prev)}
       />
       <ButtonBasic
         title="Font Size"
