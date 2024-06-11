@@ -4,6 +4,7 @@ export interface IGetAllAppointmentsResponse {
 }
 
 export interface IGetAllAppointmentsResponseData {
+  id: string;
   status: string;
   participant: Participant[];
   description: string;
