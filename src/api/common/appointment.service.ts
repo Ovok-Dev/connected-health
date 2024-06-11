@@ -9,9 +9,9 @@ export class AppointmentService {
   public getAllAppointments = async (): Promise<
     IGetAllAppointmentsResponseData[]
   > => {
-    const { data }: IGetAllAppointmentsResponse = await client.get<
-      IGetAllAppointmentsResponseData[]
-    >('/appointment');
-    return data;
+    const { data } = await client.get<IGetAllAppointmentsResponse>(
+      '/appointment'
+    );
+    return data.data;
   };
 }
