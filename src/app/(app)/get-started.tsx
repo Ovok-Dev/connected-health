@@ -1,6 +1,7 @@
 import { Env } from '@env';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ActivityIndicator, StatusBar, Text, View } from 'react-native';
@@ -168,6 +169,15 @@ export default function GetStarted() {
           Continue
         </ButtonWhite>
         {isLoading && <ActivityIndicator size="large" color="white" />}
+        <View className="items-center">
+          <Text className="text-white">Already have an account?</Text>
+          <Link
+            href="/(app)/ovok-login"
+            className="mt-1 font-medium text-white underline"
+          >
+            Login
+          </Link>
+        </View>
       </View>
     </BackgroundCircles>
   );
