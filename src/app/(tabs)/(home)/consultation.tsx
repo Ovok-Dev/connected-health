@@ -1,6 +1,6 @@
-import { router, useNavigation } from 'expo-router';
+import { useNavigation } from 'expo-router';
 import { useContext, useEffect, useState } from 'react';
-import { Button, StatusBar, View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 
 import { DataContext } from '@/api/common/data.context';
 import Appointment from '@/ovok-ui/appointment';
@@ -72,10 +72,6 @@ export default function Consultation() {
           textSecondButton="Past Appointments"
         />
         <View className="mt-6">{renderAppointments()}</View>
-        <Button
-          title="Go to video"
-          onPress={() => router.navigate('/(tabs)/(home)/video-call')}
-        />
       </BackgroundWhite>
     </View>
   );

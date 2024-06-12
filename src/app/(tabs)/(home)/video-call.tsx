@@ -1,18 +1,19 @@
+import { useState } from 'react';
 import { WebView } from 'react-native-webview';
 
 import { VideoCallService } from '@/api/common/video-call.service';
 
-const videoCallService = new VideoCallService();
-let videoCallData: any;
-let videoLink: string;
-videoCallService.createVideoCall().then((data) => {
-  videoCallData = data;
-  videoLink = videoCallData.participants?.[0]?.callUrl;
-  console.log('videoCallData: ', videoCallData);
-  console.log('videoLink: ', videoLink);
-});
-
 export default function VideoCall() {
+  const [videoLink, setVideoLink] = useState<string>('');
+
+  const videoCallService = new VideoCallService();
+  videoCallService
+    .createVideoCall()
+    .then((data) => {
+      setVideoLink(data.participants?.[0]?.callUrl);
+    })
+    .catch((error) => console.log(error));
+
   return (
     videoLink && (
       <WebView

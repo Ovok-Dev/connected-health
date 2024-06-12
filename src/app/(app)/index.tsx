@@ -4,7 +4,7 @@ import { Dimensions, Image, Pressable, Text, View } from 'react-native';
 
 export default function Start() {
   const { height } = Dimensions.get('window');
-  const imageHeight = height - 200;
+  const imageHeight = height - 220;
 
   return (
     <Link href="/(app)/invitation" asChild className=" w-full flex-1">
@@ -21,7 +21,7 @@ export default function Start() {
             />
           </View>
           <View className="mx-3 flex-1 items-center justify-start">
-            <View className="m-6">
+            <View className="m-6 mt-9">
               <Text className="text-center font-jost text-[32px] font-bold leading-normal text-white">
                 Welcome to Minxli
               </Text>

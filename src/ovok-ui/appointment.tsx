@@ -1,4 +1,5 @@
-import { Image, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { Button, Image, Text, View } from 'react-native';
 
 import { getIcon } from '@/utils/get-icon';
 
@@ -25,12 +26,18 @@ export default function Appointment({
         <Text className="text-[14px] font-medium">{practitioner}</Text>
         <Text className="text-[12px]">{specialization}</Text>
       </View>
-      <Image
-        source={getIcon('three-dots-vertical')}
-        width={20}
-        height={20}
-        className="m-2"
-      />
+      <View className="mb-2 mr-2 items-end justify-between">
+        <Image
+          source={getIcon('three-dots-vertical')}
+          width={20}
+          height={20}
+          className="m-2"
+        />
+        <Button
+          title="Go to video"
+          onPress={() => router.navigate('/(tabs)/(home)/video-call')}
+        />
+      </View>
     </View>
   );
 }
