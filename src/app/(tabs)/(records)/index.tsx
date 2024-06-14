@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { Image } from 'react-native';
 
-import { DataContext } from '@/api/common/data.context';
+import { DataContext } from '@/context/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonRecord from '@/ovok-ui/button-record';
 import RecordEntry from '@/ovok-ui/record-entry';

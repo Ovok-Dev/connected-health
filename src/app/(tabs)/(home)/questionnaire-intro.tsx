@@ -2,7 +2,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useContext, useEffect } from 'react';
 import { Image, Text } from 'react-native';
 
-import { DataContext } from '@/api/common/data.context';
+import { DataContext } from '@/context/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
 import type { IDataContext } from '@/types/data.context.interface';

@@ -3,7 +3,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { Dimensions, Text, TextInput, View } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 
-import { DataContext } from '@/api/common/data.context';
+import { DataContext } from '@/context/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
 import QuestionnaireCompletionMessage from '@/ovok-ui/questionnaire-completion-message';

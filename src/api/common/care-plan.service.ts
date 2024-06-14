@@ -2,6 +2,10 @@ import type {
   CarePlanDTO,
   ICarePlanService,
 } from '@/types/care-plan.interface';
+import type {
+  IGetAllCarePlansResponse,
+  IGetAllCarePlansResponseData,
+} from '@/types/careplan.interface';
 
 import { client } from './client';
 
@@ -11,12 +15,14 @@ export class CarePlanService implements ICarePlanService {
     return data;
   };
 
-  public getMostRecentUserCarePlan = async (params: { userId: string }) => {
+  public getMostRecentUserCarePlan = async (params: {
+    userId: string;
+  }): Promise<IGetAllCarePlansResponseData[]> => {
     const { userId } = params;
-    const { data } = await client.get(
+    const { data } = await client.get<IGetAllCarePlansResponse>(
       `/care-plan?subject=Patient/${userId}&_sort=-date&_count=1`
     );
-    return data;
+    return data.data;
   };
 
   public getUserCarePlans = async () => {

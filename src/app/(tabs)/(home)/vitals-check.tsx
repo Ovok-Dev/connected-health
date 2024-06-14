@@ -41,6 +41,9 @@ export default function VitalsCheck() {
   const [selectedTimeSpan, setSelectedTimeSpan] = useState<SelectOption>(
     timeOptions[0]
   );
+  const [selectedDate, setSelectedDate] = useState<string>(
+    new Date().toDateString()
+  );
 
   const navigation = useNavigation();
 
@@ -50,7 +53,10 @@ export default function VitalsCheck() {
 
   return (
     <View className="flex-1" style={{ marginTop: StatusBar.currentHeight }}>
-      <WeeklyCalendar />
+      <WeeklyCalendar
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
       <BackgroundWhite coversFullPage={false}>
         <VitalsCheckTasks />
         <View className="mt-3 flex-1">

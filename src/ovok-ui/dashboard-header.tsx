@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Image, Text, View } from 'react-native';
 
-import { DataContext } from '@/api/common/data.context';
+import { DataContext } from '@/context/data.context';
 import type { IDataContext } from '@/types/data.context.interface';
 import { getIcon } from '@/utils/get-icon';
 

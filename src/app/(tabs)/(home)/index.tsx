@@ -2,7 +2,7 @@ import { useNavigation } from 'expo-router';
 import { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 
-import { DataContext } from '@/api/common/data.context';
+import { DataContext } from '@/context/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonBasic from '@/ovok-ui/button-basic';
 import DashboardHeader from '@/ovok-ui/dashboard-header';

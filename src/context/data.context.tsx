@@ -2,7 +2,9 @@ import { router } from 'expo-router';
 import type { PropsWithChildren } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
+import { CarePlanService } from '@/api/common/care-plan.service';
 import type { IGetAllAppointmentsResponseData } from '@/types/appointment.interface';
+import type { IGetAllCarePlansResponseData } from '@/types/careplan.interface';
 import type { Gender } from '@/types/common-ovok.types';
 import type {
   IDataContext,
@@ -19,12 +21,12 @@ import type { IQuestionnaireGetAllResponseData } from '@/types/questionnaire.int
 import { getMeasurement } from '@/utils/get-measurement';
 import { getMedicationValues } from '@/utils/get-medication-values';
 
-import { AppointmentService } from './appointment.service';
-import { AuthService } from './auth.service';
-import { MedicationRequestService } from './medication-request.service';
-import { ObservationService } from './observation.service';
-import { QuestionnaireService } from './questionnaire.service';
-import { QuestionnaireResponseService } from './questionnaire-response.service';
+import { AppointmentService } from '../api/common/appointment.service';
+import { AuthService } from '../api/common/auth.service';
+import { MedicationRequestService } from '../api/common/medication-request.service';
+import { ObservationService } from '../api/common/observation.service';
+import { QuestionnaireService } from '../api/common/questionnaire.service';
+import { QuestionnaireResponseService } from '../api/common/questionnaire-response.service';
 
 export const DataContext = createContext<IDataContext | null>(null);
 
@@ -34,6 +36,7 @@ const medicationRequestService = new MedicationRequestService();
 const questionnaireService = new QuestionnaireService();
 const questionnaireResponseService = new QuestionnaireResponseService();
 const appointmentService = new AppointmentService();
+const carePlanService = new CarePlanService();
 
 export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [id, setId] = useState<string>('');
@@ -62,6 +65,9 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [appointments, setAppointments] = useState<
     IGetAllAppointmentsResponseData[]
   >([]);
+  const [carePlans, setCarePlans] = useState<IGetAllCarePlansResponseData[]>(
+    []
+  );
 
   const updatePersonalInformation: UpdatePersonalInformation = ({
     newFirstName,
@@ -237,17 +243,6 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    medicationRequestService
-      .getAllMedicationRequests()
-      .then((data) => {
-        setMedicationValues(getMedicationValues(data));
-      })
-      .catch((error) =>
-        console.log('Error while loading medication requests: ', error)
-      );
-  }, []);
-
-  useEffect(() => {
     questionnaireService
       .getAllQuestionnaires()
       .then((data) => {
@@ -269,6 +264,17 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   }, []);
 
+  useEffect(() => {
+    carePlanService
+      .getMostRecentUserCarePlan({ userId: id })
+      .then((data) => {
+        setCarePlans(data);
+      })
+      .catch((error) =>
+        console.log('Error while loading most recent care plan: ', error)
+      );
+  }, [id]);
+
   return (
     <DataContext.Provider
       value={{
@@ -284,9 +290,11 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         diastolic,
         temperature,
         weight,
-        medicationValues,
         questionnaires,
         appointments,
+        carePlans,
+        medicationValues,
+        setMedicationValues,
         updatePersonalInformation,
         createMedicationRequest,
         updateVitals,

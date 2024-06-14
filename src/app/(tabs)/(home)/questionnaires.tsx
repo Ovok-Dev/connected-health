@@ -2,7 +2,7 @@
 import { useNavigation } from 'expo-router';
 import { useContext, useEffect } from 'react';
 
-import { DataContext } from '@/api/common/data.context';
+import { DataContext } from '@/context/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonQuestionnaires from '@/ovok-ui/button-questionnaires';
 import type { IDataContext } from '@/types/data.context.interface';

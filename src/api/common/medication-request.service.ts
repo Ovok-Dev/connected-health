@@ -37,6 +37,20 @@ export class MedicationRequestService {
     return data;
   };
 
+  public getMedicationRequest = async (
+    medicationRequestId: string
+  ): Promise<MedicationRequestResponseData & { medicationName: string }> => {
+    const { data } = await client.get<MedicationRequestResponseData>(
+      `/medication-request/${medicationRequestId}`
+    );
+    const { text } = await medicationService.getMedication(
+      data.medicationCodeableConcept
+    );
+    const medicationName: string = text.div;
+
+    return { ...data, medicationName };
+  };
+
   public createMedicationRequest = async (
     createMedicationFormData: ICreateMedicationFormData,
     id: string

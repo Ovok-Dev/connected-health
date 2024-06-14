@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Image } from 'react-native';
 
-import { DataProviderWrapper } from '@/api/common/data.context';
+import { DataProviderWrapper } from '@/context/data.context';
 import { getIcon } from '@/utils/get-icon';
 
 const renderTabIcon = (iconName: string) => {

@@ -4,7 +4,7 @@ import { Image, Pressable, Text, TextInput, View } from 'react-native';
 import type { DateData } from 'react-native-calendars';
 import { Calendar } from 'react-native-calendars';
 
-import { DataContext } from '@/api/common/data.context';
+import { DataContext } from '@/context/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
 import type { IDataContext } from '@/types/data.context.interface';

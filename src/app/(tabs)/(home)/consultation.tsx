@@ -2,7 +2,7 @@ import { useNavigation } from 'expo-router';
 import { useContext, useEffect, useState } from 'react';
 import { StatusBar, View } from 'react-native';
 
-import { DataContext } from '@/api/common/data.context';
+import { DataContext } from '@/context/data.context';
 import Appointment from '@/ovok-ui/appointment';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import SwitchButtons from '@/ovok-ui/switch-buttons';
@@ -14,6 +14,9 @@ export default function Consultation() {
   const { appointments } = useContext(DataContext) as IDataContext;
 
   const [selectedButton, setSelectedButton] = useState<string>('upcoming');
+  const [selectedDate, setSelectedDate] = useState<string>(
+    new Date().toDateString()
+  );
 
   const renderAppointments = () => {
     const upcomingAppointments: IGetAllAppointmentsResponseData[] = [];
@@ -61,7 +64,10 @@ export default function Consultation() {
 
   return (
     <View className="flex-1" style={{ marginTop: StatusBar.currentHeight }}>
-      <WeeklyCalendar />
+      <WeeklyCalendar
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
       <BackgroundWhite coversFullPage={false}>
         <SwitchButtons
           selectedButton={selectedButton}

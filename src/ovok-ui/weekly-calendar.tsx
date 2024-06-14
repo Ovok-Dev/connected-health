@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { CalendarProvider, WeekCalendar } from 'react-native-calendars';
 
-export default function WeeklyCalendar() {
-  const [date /* setDate*/] = useState(new Date().toDateString());
+interface Props {
+  selectedDate: string;
+  setSelectedDate: Dispatch<SetStateAction<string>>;
+}
 
+export default function WeeklyCalendar({
+  selectedDate,
+  setSelectedDate,
+}: Props) {
   return (
-    <CalendarProvider date={date} style={{ maxHeight: 90 }}>
-      <WeekCalendar firstDay={1} />
+    <CalendarProvider date={selectedDate} style={{ maxHeight: 90 }}>
+      <WeekCalendar
+        firstDay={1}
+        onDayPress={(date) => setSelectedDate(date.dateString)}
+      />
     </CalendarProvider>
   );
 }

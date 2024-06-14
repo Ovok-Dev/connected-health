@@ -2,7 +2,7 @@ import { useNavigation } from 'expo-router';
 import { useContext, useEffect } from 'react';
 import { View } from 'react-native';
 
-import { DataContext } from '@/api/common/data.context';
+import { DataContext } from '@/context/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import DiagnoseEntry from '@/ovok-ui/diagnose-entry';
 import RecordEntriesContainer from '@/ovok-ui/record-entries-container';

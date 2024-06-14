@@ -1,4 +1,7 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import type { IGetAllAppointmentsResponseData } from './appointment.interface';
+import type { IGetAllCarePlansResponseData } from './careplan.interface';
 import type { Gender } from './common-ovok.types';
 import type {
   ICreateMedicationFormData,
@@ -39,9 +42,11 @@ export interface IDataContext {
   heartRate: string;
   weight: string;
   temperature: string;
-  medicationValues: IMedicationValues[];
   questionnaires: IQuestionnaireGetAllResponseData[];
   appointments: IGetAllAppointmentsResponseData[];
+  carePlans: IGetAllCarePlansResponseData[];
+  medicationValues: IMedicationValues[];
+  setMedicationValues: Dispatch<SetStateAction<IMedicationValues[]>>;
   updatePersonalInformation: UpdatePersonalInformation;
   createMedicationRequest: CreateMedicationRequest;
   updateVitals: UpdateVitals;
