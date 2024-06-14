@@ -175,7 +175,7 @@ export default function Care() {
         borderInvisible
         href={{
           pathname: '/(tabs)/(home)/default',
-          params: { title: 'AI Care' },
+          params: { title: 'AI Care', pageTitle: 'AI Care' },
         }}
       />
       <ButtonBasic

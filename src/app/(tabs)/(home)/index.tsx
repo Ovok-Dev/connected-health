@@ -27,7 +27,7 @@ const renderTasks = (tasks: any) => {
         iconNameRight="three-dots"
         href={{
           pathname: '/(tabs)/(home)/default',
-          params: { title: task.title },
+          params: { title: task.title, pageTitle: task.title },
         }}
       />
     );
