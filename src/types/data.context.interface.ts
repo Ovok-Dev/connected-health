@@ -4,8 +4,8 @@ import type { IGetAllAppointmentsResponseData } from './appointment.interface';
 import type { IGetAllCarePlansResponseData } from './careplan.interface';
 import type { Gender } from './common-ovok.types';
 import type {
-  ICreateMedicationFormData,
   IMedicationValues,
+  IUpdateMedicationFormData,
 } from './medication-request.interface';
 import type {
   IQuestionnaireGetAllResponseData,
@@ -19,8 +19,8 @@ export type UpdatePersonalInformation = (data: {
   newGender: Gender;
 }) => void;
 
-export type CreateMedicationRequest = (
-  createMedicationRequestFormData: ICreateMedicationFormData
+export type UpdateMedication = (
+  updateMedicationFormData: IUpdateMedicationFormData
 ) => void;
 
 export type UpdateVitals = (newVitals: INewVitals) => void;
@@ -45,10 +45,13 @@ export interface IDataContext {
   questionnaires: IQuestionnaireGetAllResponseData[];
   appointments: IGetAllAppointmentsResponseData[];
   carePlans: IGetAllCarePlansResponseData[];
+  setSelectedCarePlan: Dispatch<
+    SetStateAction<IGetAllCarePlansResponseData | null>
+  >;
   medicationValues: IMedicationValues[];
   setMedicationValues: Dispatch<SetStateAction<IMedicationValues[]>>;
   updatePersonalInformation: UpdatePersonalInformation;
-  createMedicationRequest: CreateMedicationRequest;
+  updateMedication: UpdateMedication;
   updateVitals: UpdateVitals;
   postQuestionnaireResponse: PostQuestionnaireResponse;
 }

@@ -13,8 +13,8 @@ import type {
   UpdateVitals,
 } from '@/types/data.context.interface';
 import type {
-  ICreateMedicationFormData,
   IMedicationValues,
+  IUpdateMedicationFormData,
 } from '@/types/medication-request.interface';
 import type { Daum } from '@/types/observation.interface';
 import type { IQuestionnaireGetAllResponseData } from '@/types/questionnaire.interface';
@@ -23,7 +23,6 @@ import { getMedicationValues } from '@/utils/get-medication-values';
 
 import { AppointmentService } from '../api/common/appointment.service';
 import { AuthService } from '../api/common/auth.service';
-import { MedicationRequestService } from '../api/common/medication-request.service';
 import { ObservationService } from '../api/common/observation.service';
 import { QuestionnaireService } from '../api/common/questionnaire.service';
 import { QuestionnaireResponseService } from '../api/common/questionnaire-response.service';
@@ -32,7 +31,6 @@ export const DataContext = createContext<IDataContext | null>(null);
 
 const authService = new AuthService();
 const observationService = new ObservationService();
-const medicationRequestService = new MedicationRequestService();
 const questionnaireService = new QuestionnaireService();
 const questionnaireResponseService = new QuestionnaireResponseService();
 const appointmentService = new AppointmentService();
@@ -68,6 +66,8 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
   const [carePlans, setCarePlans] = useState<IGetAllCarePlansResponseData[]>(
     []
   );
+  const [selectedCarePlan, setSelectedCarePlan] =
+    useState<IGetAllCarePlansResponseData | null>(null);
 
   const updatePersonalInformation: UpdatePersonalInformation = ({
     newFirstName,
@@ -101,20 +101,31 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
       );
   };
 
-  const createMedicationRequest = (
-    createMedicationRequestFormData: ICreateMedicationFormData
+  const updateMedication = (
+    updateMedicationFormData: IUpdateMedicationFormData
   ) => {
-    medicationRequestService
-      .createMedicationRequest(createMedicationRequestFormData, id)
+    if (!selectedCarePlan) {
+      alert(
+        'No care plan selected. Go back and select a date with a valid care plan.'
+      );
+      return;
+    }
+    carePlanService
+      .updateMedicationOfCarePlan(
+        id,
+        selectedCarePlan,
+        updateMedicationFormData
+      )
       .then((data) => {
+        setSelectedCarePlan(data.updatedCarePlan);
         setMedicationValues((prev) => [
           ...prev,
-          ...getMedicationValues([data]),
+          ...getMedicationValues([data.newMedicationRequest]),
         ]);
         router.navigate('/(tabs)/(home)/medication');
       })
       .catch((error) =>
-        console.log('Error while creating new medicationRequest: ', error)
+        console.log('Error while updating medication: ', error)
       );
   };
 
@@ -293,10 +304,11 @@ export function DataProviderWrapper({ children }: PropsWithChildren) {
         questionnaires,
         appointments,
         carePlans,
+        setSelectedCarePlan,
         medicationValues,
         setMedicationValues,
         updatePersonalInformation,
-        createMedicationRequest,
+        updateMedication,
         updateVitals,
         postQuestionnaireResponse,
       }}

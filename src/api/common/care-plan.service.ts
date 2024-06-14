@@ -6,8 +6,13 @@ import type {
   IGetAllCarePlansResponse,
   IGetAllCarePlansResponseData,
 } from '@/types/careplan.interface';
+import type {
+  IUpdateMedicationFormData,
+  MedicationRequestResponseData,
+} from '@/types/medication-request.interface';
 
 import { client } from './client';
+import { MedicationRequestService } from './medication-request.service';
 
 export class CarePlanService implements ICarePlanService {
   public createCarePlan = async (carePlan: CarePlanDTO): Promise<any> => {
@@ -37,5 +42,46 @@ export class CarePlanService implements ICarePlanService {
   ): Promise<any> => {
     const { data } = await client.put(`/care-plan/${carePlanId}`, plan);
     return data;
+  };
+
+  public updateMedicationOfCarePlan = async (
+    patientId: string,
+    carePlan: IGetAllCarePlansResponseData,
+    updateMedicationFormData: IUpdateMedicationFormData
+  ): Promise<{
+    updatedCarePlan: IGetAllCarePlansResponseData;
+    newMedicationRequest: MedicationRequestResponseData & {
+      medicationName: string;
+    };
+  }> => {
+    const medicationRequestService = new MedicationRequestService();
+    const medicationRequestResponseData: MedicationRequestResponseData & {
+      medicationName: string;
+    } = await medicationRequestService.createMedicationRequest(
+      updateMedicationFormData,
+      patientId
+    );
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    const { id, ...updateCarePlanRequestData } = {
+      ...carePlan,
+      activity: [
+        ...carePlan.activity,
+        {
+          reference: {
+            type: 'MedicationRequest',
+            id: medicationRequestResponseData.id,
+          },
+        },
+      ],
+    };
+    const { data: carePlanData } =
+      await client.put<IGetAllCarePlansResponseData>(
+        `/care-plan/${carePlan.id}`,
+        updateCarePlanRequestData
+      );
+    return {
+      updatedCarePlan: carePlanData,
+      newMedicationRequest: medicationRequestResponseData,
+    };
   };
 }

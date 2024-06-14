@@ -8,11 +8,11 @@ import { DataContext } from '@/context/data.context';
 import BackgroundWhite from '@/ovok-ui/background-white';
 import ButtonColorful from '@/ovok-ui/button-colorful';
 import type { IDataContext } from '@/types/data.context.interface';
-import type { ICreateMedicationFormData } from '@/types/medication-request.interface';
+import type { IUpdateMedicationFormData } from '@/types/medication-request.interface';
 import { getIcon } from '@/utils/get-icon';
 
 export default function AddMedication() {
-  const { createMedicationRequest } = useContext(DataContext) as IDataContext;
+  const { updateMedication } = useContext(DataContext) as IDataContext;
 
   const [medicationName, setMedicationName] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
@@ -27,7 +27,7 @@ export default function AddMedication() {
   const saveButtonDisabled: boolean =
     medicationName && startDate && endDate && frequency && dose ? false : true;
 
-  const createMedicationRequestFormData: ICreateMedicationFormData = {
+  const updateMedicationFormData: IUpdateMedicationFormData = {
     medicationName,
     doseValue: Number(dose),
     frequency,
@@ -123,7 +123,7 @@ export default function AddMedication() {
       </View>
       <ButtonColorful
         disabled={saveButtonDisabled}
-        onPress={() => createMedicationRequest(createMedicationRequestFormData)}
+        onPress={() => updateMedication(updateMedicationFormData)}
       >
         Save
       </ButtonColorful>

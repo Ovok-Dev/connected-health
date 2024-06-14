@@ -4,6 +4,7 @@ export interface IGetAllCarePlansResponse {
 }
 
 export interface IGetAllCarePlansResponseData {
+  id: string;
   status: string;
   subject: {
     type: string;

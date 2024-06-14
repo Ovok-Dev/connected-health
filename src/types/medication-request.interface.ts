@@ -41,7 +41,7 @@ export interface ICreateMedicationRequestData {
   dosageInstruction: IDosageInstruction[];
 }
 
-export interface ICreateMedicationFormData {
+export interface IUpdateMedicationFormData {
   medicationName: string;
   doseValue: number;
   frequency: string;

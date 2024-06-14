@@ -1,6 +1,6 @@
 import type {
-  ICreateMedicationFormData,
   ICreateMedicationRequestData,
+  IUpdateMedicationFormData,
   MedicationRequestResponse,
   MedicationRequestResponseData,
 } from '@/types/medication-request.interface';
@@ -52,8 +52,8 @@ export class MedicationRequestService {
   };
 
   public createMedicationRequest = async (
-    createMedicationFormData: ICreateMedicationFormData,
-    id: string
+    createMedicationFormData: IUpdateMedicationFormData,
+    patientId: string
   ): Promise<MedicationRequestResponseData & { medicationName: string }> => {
     const { id: medicationId } = await medicationService.createMedication({
       text: {
@@ -67,7 +67,7 @@ export class MedicationRequestService {
       medicationCodeableConcept: medicationId,
       subject: {
         type: 'Patient',
-        id,
+        id: patientId,
       },
       dosageInstruction: [
         {

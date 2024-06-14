@@ -19,9 +19,12 @@ import { getMedicationValues } from '@/utils/get-medication-values';
 const medicationRequestService = new MedicationRequestService();
 
 export default function Medication() {
-  const { carePlans, medicationValues, setMedicationValues } = useContext(
-    DataContext
-  ) as IDataContext;
+  const {
+    carePlans,
+    setSelectedCarePlan,
+    medicationValues,
+    setMedicationValues,
+  } = useContext(DataContext) as IDataContext;
 
   const [selectedDate, setSelectedDate] = useState<string>(
     new Date().toDateString()
@@ -60,9 +63,11 @@ export default function Medication() {
       }
     );
     if (!carePlan) {
+      setSelectedCarePlan(null);
       setMedicationValues([]);
       return;
     }
+    setSelectedCarePlan(carePlan);
     Promise.all(
       carePlan.activity.map(async (activity) => {
         if (activity.reference.type === 'MedicationRequest') {
@@ -84,7 +89,7 @@ export default function Medication() {
       .catch((error) =>
         console.log('Error while rendering medication plan: ', error)
       );
-  }, [carePlans, selectedDate, setMedicationValues]);
+  }, [carePlans, selectedDate, setMedicationValues, setSelectedCarePlan]);
 
   return (
     <View className="flex-1" style={{ marginTop: StatusBar.currentHeight }}>
