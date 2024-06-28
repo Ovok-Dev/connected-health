@@ -1,0 +1,201 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# require_relative "../fastlane/Fastfile"
+
+fastlane_require "dotenv"
+
+$keychain_name = ENV['MATCH_KEYCHAIN_NAME']
+$keychain_password = ENV['MATCH_KEYCHAIN_PASSWORD']
+$is_ci = ENV['CI']
+$branch=ENV['BRANCH_NAME']
+
+before_all do
+  # if $branch == "develop"
+  #   Dotenv.overload "../../.env_development"
+  # elsif $branch == "staging"
+  #   Dotenv.overload "../../.env_staging"
+  if !$is_ci
+    Dotenv.overload ".env.secrets"
+  end
+end
+
+after_all do |lane, options|
+  remove_keychain
+end
+
+error do |lane, exception, options|
+  remove_keychain
+end
+
+def get_version_code()
+  return ENV["BUILD_NUMBER"].to_s
+end
+
+def get_version_name()
+    buildNumber = ENV["BUILD_NUMBER"].to_f
+    subversion = buildNumber % 1000
+    version = (buildNumber/1000).ceil
+    if subversion == 0 
+        version = version + 1
+    end 
+    return "1.%d.%.3d" % [version, subversion]
+end
+
+default_platform(:ios)
+
+platform :ios do
+  #   keychainPassword = "123456789"
+    url = 'git@github.com:Ovok-Dev/connected-health-cert.git'
+    name = ENV["WORKSPACE_AND_SCHEME_NAME"]
+    identifier = ENV["BUNDLE_IDENTIFIER"]
+    certificateGitBranch = ENV["CERTIFICATES_GIT_BRANCH"]
+
+    desc "Remove Keychain from CI"
+    private_lane :remove_keychain do |options|
+        if $is_ci
+            if File.exist?(File.expand_path("~/Library/Keychains/#{$keychain_name}-db"))
+                UI.important "Deleting keychain #{$keychain_name}"
+                delete_keychain(name: $keychain_name)
+            elsif
+                UI.important "No keychain file found to delete"
+            end
+        end
+    end
+
+    desc "Setup Keychain for match on CI"
+    lane :setup_keychain do
+        create_keychain(
+            name: $keychain_name,
+            password: $keychain_password,
+            default_keychain: true,
+            unlock: true,
+            timeout: 0,
+            lock_when_sleeps: false
+        )
+    end 
+  
+    lane :build_debug do
+        cocoapods(podfile: "./Podfile")
+        build_app(
+            build_path: "./",
+            derived_data_path: "./",
+            clean: true,
+            scheme: name,
+            configuration: "Debug",
+            workspace: name + ".xcworkspace",
+            export_method: "ad-hoc",
+            skip_package_ipa: true,
+            xcargs: "CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY='' CODE_SIGNING_ALLOWED=NO"
+        )
+    end
+  
+    lane :build_release do
+        setup_keychain()
+        # ext_identifier = identifier+".OneSignalNotificationServiceExtension"
+
+        match(
+            type: "appstore",
+            readonly: true,
+            team_id: ENV['ITC_TEAM_ID'],
+            app_identifier: identifier,
+            git_url: url,
+            git_branch: certificateGitBranch,
+            clone_branch_directly: true,
+            keychain_name: $keychain_name,
+            keychain_password: $keychain_password
+        )
+        increment_version_number(
+            version_number: get_version_name,
+            xcodeproj: name + ".xcodeproj"
+        )
+        increment_build_number(
+            build_number: get_version_code,
+            xcodeproj: name + ".xcodeproj"
+        )
+        cocoapods(podfile: "./Podfile")
+        build_app(
+            skip_profile_detection: true,
+            build_path: "./",
+            derived_data_path: "./",
+            clean: true,
+            scheme: name,
+            export_method: "app-store",
+            workspace: name + ".xcworkspace",
+            output_name: name,
+            include_bitcode: false
+        )
+    end
+  
+    lane :deploy_to_testflight do
+      api_key = app_store_connect_api_key(
+        key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+        issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+        key_content: ENV["APP_STORE_CONNECT_API_KEY_CONTENT"],
+        duration: 1200, # optional (maximum 1200)
+        in_house: false, # optional but may be required if using match/sigh
+        verbose: true # optional, print out the request headers
+      )
+    
+      pilot(api_key: api_key, skip_waiting_for_build_processing: true)
+    end
+
+    lane :deploy_to_testflight_external do
+      api_key = app_store_connect_api_key(
+        key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+        issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+        key_content: ENV["APP_STORE_CONNECT_API_KEY_CONTENT"],
+        duration: 1200, # optional (maximum 1200)
+        in_house: false, # optional but may be required if using match/sigh
+        verbose: true # optional, print out the request headers
+      )
+    
+      pilot(
+        api_key: api_key,
+        distribute_external: true,
+        skip_waiting_for_build_processing: false,
+        groups: ["Beta Testers"],
+        notify_external_testers: true,
+        )
+    end
+
+    lane :deploy_to_testflight_production do
+      api_key = app_store_connect_api_key(
+        key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+        issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+        key_content: ENV["APP_STORE_CONNECT_API_KEY_CONTENT"],
+        duration: 1200, # optional (maximum 1200)
+        in_house: false, # optional but may be required if using match/sigh
+        verbose: true # optional, print out the request headers
+      )
+    
+      release_notes_de = File.read("release_notes/de.txt")
+      release_notes_en = File.read("release_notes/en.txt")
+      deliver(
+        app_identifier: identifier,
+        build_number: get_version_name,
+        ipa: name,
+        submit_for_review: true,
+        automatic_release: true,
+        force: true, # Skip HTMl report verification
+        skip_metadata: true,
+        skip_screenshots: true,
+        release_notes: {
+          'default' => release_notes_de
+          'en-US' => release_notes_en,
+        },
+      )
+    end
+end

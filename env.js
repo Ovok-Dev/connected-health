@@ -33,12 +33,16 @@ require('dotenv').config({
 
 // TODO: Replace these values with your own
 
-const EXPO_PUBLIC_BUNDLE_ID = 'com.ovok.app'; // ios bundle id
-const PACKAGE = 'com.ovok_rpm_app'; // android package name
-const NAME = 'ovok_rpm_app'; // app name
-const EXPO_ACCOUNT_OWNER = 'expo-owner'; // expo account owner
-const EAS_PROJECT_ID = 'c3e1075b-6fe7-4686-aa49-35b46a229044'; // eas project id
-const SCHEME = 'ovok_rpm_app'; // app scheme
+const EXPO_PUBLIC_BUNDLE_ID = process.env.EXPO_PUBLIC_BUNDLE_ID
+  ? process.env.EXPO_PUBLIC_BUNDLE_ID
+  : 'com.ovok.app'; // ios bundle id
+const PACKAGE = process.env.EXPO_PUBLIC_BUNDLE_ID
+  ? process.env.EXPO_PUBLIC_BUNDLE_ID
+  : 'com.ovok.app'; // android package name
+const NAME = 'Connected Health'; // app name
+const EXPO_ACCOUNT_OWNER = process.env.EXPO_ACCOUNT_OWNER; // expo account owner
+const EAS_PROJECT_ID = process.env.EAS_PROJECT_ID; // eas project id
+const SCHEME = process.env.WORKSPACE_AND_SCHEME_NAME; // app scheme
 
 /**
  * We declare a function withEnvSuffix that will add a suffix to the variable name based on the APP_ENV
@@ -101,8 +105,8 @@ const _clientEnv = {
   APP_ENV,
   NAME: NAME,
   SCHEME: SCHEME,
-  EXPO_PUBLIC_BUNDLE_ID: withEnvSuffix(EXPO_PUBLIC_BUNDLE_ID),
-  PACKAGE: withEnvSuffix(PACKAGE),
+  EXPO_PUBLIC_BUNDLE_ID: EXPO_PUBLIC_BUNDLE_ID,
+  PACKAGE: PACKAGE,
   VERSION: packageJSON.version,
   EXPO_PUBLIC_CLIENT_ID: process.env.EXPO_PUBLIC_CLIENT_ID,
   EXPO_PUBLIC_PROJECT_ID: process.env.EXPO_PUBLIC_PROJECT_ID,

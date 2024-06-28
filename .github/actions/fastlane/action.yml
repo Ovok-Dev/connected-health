@@ -1,0 +1,188 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Application Deployment
+
+on:
+  push:
+    branches:
+      - develop
+      - staging
+      - master
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20.x'
+
+jobs:
+  version-build:
+    name: Set up Version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      build_version: ${{ steps.set_version.outputs.versionCode }}
+      api_base_url: ${{ steps.set_env_vars.outputs.apiBaseUrl }}
+      app_env: ${{ steps.set_env_vars.outputs.appEnv }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Set up env vars based on branch
+        id: set_env_vars
+        run: |
+          echo ${{ github.ref_name }}
+          if [ ${{ github.ref_name }} == "master" ]; then
+          echo "apiBaseUrl=$API_BASE_URL_PROD" >> $GITHUB_OUTPUT
+          echo "appEnv=production" >> $GITHUB_OUTPUT
+          elif [ ${{ github.ref_name }} == "staging" ]; then
+          echo "apiBaseUrl=$API_BASE_URL_STAGING" >> $GITHUB_OUTPUT
+          echo "appEnv=staging" >> $GITHUB_OUTPUT
+          else
+          echo "apiBaseUrl=$API_BASE_URL_DEV" >> $GITHUB_OUTPUT
+          echo "appEnv=development" >> $GITHUB_OUTPUT
+          fi
+        env:
+          API_BASE_URL_PROD: ${{ vars.API_BASE_URL_PROD }}
+          API_BASE_URL_DEV: ${{ vars.API_BASE_URL_DEV }}
+          API_BASE_URL_STAGING: ${{ vars.API_BASE_URL_STAGING }}
+
+      - name: pnpm install
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: Set up app version
+        id: set_version
+        run: |
+          echo "versionCode=$((${{ github.run_number }} +  ${{ vars.BUILD_NUMBER_ADD }}))" >> $GITHUB_OUTPUT
+
+  android-build:
+    name: Build Android Application
+    needs: version-build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17.x'
+
+      - name: Setup SSH Keys and known_hosts for intalling dependencies
+        run: |
+          SSH_PATH="$HOME/.ssh"
+          mkdir -p "$SSH_PATH"
+          touch "$SSH_PATH/known_hosts"
+          echo "$PRIVATE_KEY" > "$SSH_PATH/id_ed25519"
+          chmod 700 "$SSH_PATH"
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          chmod 600 "$SSH_PATH/known_hosts"
+          chmod 600 "$SSH_PATH/id_ed25519"
+          touch "$SSH_PATH/config"
+          echo -e "Host github.com\n\tAddKeysToAgent yes\n\tIdentityFile $SSH_PATH/id_ed25519" >> "$SSH_PATH/config"
+          eval $(ssh-agent -s)
+          ssh-add "$SSH_PATH/id_ed25519"
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: pnpm install
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: Configure Keystore
+        run: |
+          cd ./android
+          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
+        env:
+          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+
+        # Install fastlane
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      - name: 📱 Build Android Application
+        run: |
+          cd ./android
+          bundle install
+          bundle exec fastlane build_release_aab
+          bundle exec fastlane build_release_apk
+        env:
+          BUILD_NUMBER: ${{needs.version-build.outputs.build_version}}
+          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+          EXPO_PUBLIC_API_URL: ${{ needs.version-build.outputs.api_base_url }}
+          EXPO_PUBLIC_CLIENT_ID: ${{ secrets.EXPO_PUBLIC_CLIENT_ID }}
+          EXPO_PUBLIC_PROJECT_ID: ${{ secrets.EXPO_PUBLIC_PROJECT_ID }}
+          EXPO_PUBLIC_ORGANIZATION_ID: ${{ secrets.EXPO_PUBLIC_ORGANIZATION_ID }}
+          EXPO_PUBLIC_BASIC_AUTH_TOKEN: ${{ secrets.EXPO_PUBLIC_BASIC_AUTH_TOKEN }}
+          APP_ENV: ${{ needs.version-build.outputs.app_env }}
+
+      - name: Get release file AAB path
+        id: releaseAab
+        run: echo "aabfile=$(find ${{ github.workspace }}/build/app/outputs/bundle/release/app-release.aab)" >> $GITHUB_OUTPUT
+
+      - name: Get release file APK path
+        id: releaseApk
+        run: echo "apkfile=$(find ${{ github.workspace }}/build/app/outputs/apk/release/app-release.apk)" >> $GITHUB_OUTPUT
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: ovok-aab
+          path: |
+            ${{ steps.releaseAab.outputs.aabfile }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ovok-apk
+          path: |
+            ${{ steps.releaseApk.outputs.apkfile }}
+
+  gdrive-upload:
+    name: Uplaod APK to Google Drive
+    needs: [version-build, android-build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download a single artifact
+        uses: actions/download-artifact@v4.1.2
+        with:
+          name: ovok-apk
+      - name: Date and Version
+        run: |
+          echo "$GDRIVE_SA_CONTENT" | base64 --decode > sem-gdrive-sa.json
+        env:
+          GDRIVE_SA_CONTENT: ${{ secrets.GDRIVE_SA_CONTENT }}
+      - name: Upload to Google Drive
+        run: |
+          buildDate=`date +%F`
+          echo $buildDate
+          dateBuildVer="$buildDate-Build-${{ needs.version-build.outputs.build_version}}"
+          echo $dateBuildVer
+          mv ${{ github.workspace }}/app-release.apk ${{ github.workspace }}/$dateBuildVer.apk
+
+          curl https://rclone.org/install.sh | sudo bash
+          rclone -vv copy ${{ github.workspace }}/$dateBuildVer.apk driveSem:Builds/ovok --config="${{ github.workspace }}/.github/workflows/configs/rclone.conf" --drive-impersonate sem@actimi.com
+        env:
+          RCLONE_DRIVE_SERVICE_ACCOUNT_FILE: sem-gdrive-sa.json

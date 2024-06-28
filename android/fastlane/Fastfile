@@ -1,0 +1,101 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# require_relative "../fastlane/Fastfile"
+
+fastlane_require "dotenv"
+
+is_ci = ENV['CI']
+
+before_all do
+  if !is_ci
+    Dotenv.overload ".env.secrets"
+  end
+end
+
+#ENV: REQUIRES BUILD_NUMBER
+def get_version_code()
+  return ENV["BUILD_NUMBER"].to_s
+end
+
+def get_version_name()
+    buildNumber = ENV["BUILD_NUMBER"].to_f
+    subversion = buildNumber % 1000
+    version = (buildNumber/1000).ceil
+    if subversion == 0 
+        version = version + 1
+    end 
+    return "1.%d.%.3d" % [version, subversion]
+end
+
+
+default_platform(:android)
+
+platform :android do
+  desc "Build a release .aab file (necessary for sending to google play store)" 
+  lane :build_release_aab do
+    gradle(
+      task: "bundle",
+      build_type: "Release",
+      project_dir: "./",
+      properties: {
+        "versionCode" => get_version_code,
+        "versionName" => get_version_name,
+      }
+    )
+  end
+
+  desc "Build a release .apk file" 
+  lane :build_release_apk do
+      gradle(
+          task: ":app:assemble",
+          build_type: "Release",
+          project_dir: "./",
+          properties: {
+              "versionCode" => get_version_code,
+              "versionName" => get_version_name,
+          }
+      )
+  end
+
+  desc "Submit a new Internal Build to Play Store internal track"
+  lane :internal do
+    upload_to_play_store(
+        track: "internal",
+        aab: "../build/app/outputs/bundle/release/app-release.aab",
+        skip_upload_images: true,
+        skip_upload_screenshots: true)
+  end
+
+  desc "Build .apk for debugging"
+  lane :build_debug_apk do
+      gradle(
+          task: "assemble",
+          build_type: "Debug",
+          project_dir: "./"
+      )
+  end
+    
+  desc "Build .aab for debugging"
+  lane :build_debug_aab do
+      gradle(
+          task: "bundle",
+          build_type: "Debug",
+          project_dir: "./"
+      )
+  end
+end
+
+
